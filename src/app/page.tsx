@@ -3,6 +3,7 @@ import Navbar from "@/components/navbar";
 import ClientLogos from "@/components/clientslogo";
 import SmoothScroll from "@/components/scroll";
 import FormModal from "@/components/formbutton";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -23,7 +24,7 @@ export default function Home() {
 
       <section id="quem-somos" className="flex flex-col items-center justify-center py-6">
         <h2 className="text-white font-bold text-4xl">Quem Somos</h2>
-        <img className="w-auto h-auto" src="/Equipe.png" alt="Imagem da Equipe" />
+        <Image className="w-auto h-auto" src="/Equipe.png" alt="Imagem da Equipe" width={500} height={300} />
         <div className="space-y-3 flex flex-col items-center justify-center text-base">
           <p className="text-[#9A9A9A] w-[580px] text-center">
             A Conste atua em soluções digitais, dedicada a impulsionar a captação de clientes para empresas por meio de estratégias de marketing digital.
@@ -37,18 +38,18 @@ export default function Home() {
       <section className="flex flex-col items-center justify-center gap-y-11 py-16">
         <h2 className="md:w-[700px] text-center text-white font-bold text-4xl">Alguns números da implementação das nossas <span className="text-[#FF8500]"> estratégias </span></h2>
         <div className="flex flex-col md:flex-row items-center justify-center gap-x-11">
-          <div className="bg-[linear-gradient(180deg,#310276_0%,#0E0E0E_45.19%)] p-6 rounded-[12px] flex flex-col items-center justify-center text-white text-center w-64 h-64 px-10 py-7">
-            <img className="mb-3" src="/icon1.svg" width={40} height={40} alt="icone de experiência" />
+            <div className="bg-[linear-gradient(180deg,#310276_0%,#0E0E0E_45.19%)] p-6 rounded-[12px] flex flex-col items-center justify-center text-white text-center w-64 h-64 px-10 py-7">
+            <Image className="mb-3" src="/icon1.svg" width={40} height={40} alt="icone de experiência" />
             <h3 className="text-4xl font-bold">+5 Anos</h3>
             <p className="text-[#BABABA]">de Experiência</p>
-          </div>
+            </div>
           <div className="bg-[linear-gradient(180deg,#310276_0%,#0E0E0E_45.19%)] p-6 rounded-[12px] flex flex-col items-center justify-center text-white text-center w-64 h-64 px-10 py-7">
-            <img className="mb-3" src="/icon2.svg" width={40} height={40} alt="icone de experiência" />
+            <Image className="mb-3" src="/icon2.svg" width={40} height={40} alt="icone de experiência" />
             <h3 className="text-4xl font-bold">+110</h3>
             <p className="text-[#BABABA]">Clientes Atendidos</p>
           </div>
           <div className="bg-[linear-gradient(180deg,#310276_0%,#0E0E0E_45.19%)] p-6 rounded-[12px] flex flex-col items-center justify-center text-white text-center w-64 h-64 px-10 py-7">
-            <img className="mb-3" src="/icon3.svg" width={40} height={40} alt="icone de experiência" />
+            <Image className="mb-3" src="/icon3.svg" width={40} height={40} alt="icone de experiência" />
             <h3 className="text-4xl font-bold">+1.5M</h3>
             <p className="text-[#BABABA]">em Vendas</p>
           </div>
@@ -73,25 +74,25 @@ export default function Home() {
         </div>
         <div className="flex flex-col md:flex-row items-center justify-center gap-x-11">
           <div className="flex flex-col justify-center items-center p-2 gap-3 w-[330px] h-[200px] border border-[#6C63FF] rounded-[4px]">
-            <img className="mb-3" src="/icon4.svg" width={40} height={40} alt="icone de parceria" />
+            <Image className="mb-3" src="/icon4.svg" width={40} height={40} alt="icone de parceria" />
             <p className="text-center text-lg">Atração de novos clientes somente através de indicações.</p>
           </div>
           <div className="flex flex-col justify-center items-center p-2 gap-3 w-[330px] h-[200px] border border-[#6C63FF] rounded-[4px]">
-            <img className="mb-3" src="/icon5.svg" width={40} height={40} alt="icone de clientes" />
+            <Image className="mb-3" src="/icon5.svg" width={40} height={40} alt="icone de clientes" />
             <p className="text-center text-lg">Dificuldade na hora de atrair novos clientes e fechar negócios.</p>
           </div>
           <div className="flex flex-col justify-center items-center p-2 gap-3 w-[330px] h-[200px] border border-[#6C63FF] rounded-[4px]">
-            <img className="mb-3" src="/icon6.svg" width={40} height={40} alt="icone globo digital" />
+            <Image className="mb-3" src="/icon6.svg" width={40} height={40} alt="icone globo digital" />
             <p className="text-center text-lg">Ausência de presença digital, gerando menos oportunidades.</p>
           </div>
         </div>
         <div className="flex flex-col md:flex-row items-center justify-center gap-x-11">
           <div className="flex flex-col justify-center items-center p-2 gap-3 w-[330px] h-[200px] border border-[#6C63FF] rounded-[4px]">
-            <img className="mb-3" src="/icon7.svg" width={40} height={40} alt="icone de megafone" />
+            <Image className="mb-3" src="/icon7.svg" width={40} height={40} alt="icone de megafone" />
             <p className="text-center text-lg">Falta de um plano de marketing e percas de oportunidades.</p>
           </div>
           <div className="flex flex-col justify-center items-center p-2 gap-3 w-[330px] h-[200px] border border-[#6C63FF] rounded-[4px]">
-            <img className="mb-3" src="/icon8.svg" width={40} height={40} alt="icone de gráfico" />
+            <Image className="mb-3" src="/icon8.svg" width={40} height={40} alt="icone de gráfico" />
             <p className="text-center text-lg">Concorrência com práticas de preços baixos, gerando menos valor para os clientes</p>
           </div>
         </div>
