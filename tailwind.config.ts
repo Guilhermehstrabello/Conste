@@ -9,6 +9,9 @@ export default {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        'hero_bg': "url('/hero_bg.png')",
+      },
       fontFamily: {
         montserrat: ["Montserrat", "sans-serif"],
       },

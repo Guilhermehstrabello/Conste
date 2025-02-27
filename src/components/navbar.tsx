@@ -19,8 +19,8 @@ const Navbar = () => {
         }}
       >
         {/* Logo */}
-        <Link href="/" className="text-2xl font-bold">
-          Conste
+        <Link href="https://www.constemarketing.com.br" className="text-2xl font-bold">
+          <img src="Logo Conste.png" alt="" />
         </Link>
 
         {/* Hamburger Icon */}
@@ -56,9 +56,8 @@ const Navbar = () => {
 
         {/* Links */}
         <div
-          className={`${
-            isOpen ? "block" : "hidden"
-          } absolute md:relative md:block left-0 w-full md:w-auto xl:mx-10 bg-black z-50`}
+          className={`${isOpen ? "block" : "hidden"
+            } absolute md:relative md:block left-0 w-full md:w-auto xl:mx-10 bg-black z-50`}
         >
           <ul className="flex flex-col md:flex-row items-center md:space-x-16 text-white">
             <li className="hover:text-gray-400">
