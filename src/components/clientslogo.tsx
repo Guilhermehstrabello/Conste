@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const logosTop = [
   "/Agrotuba.png",
   "/Arita.png",
@@ -23,19 +25,23 @@ export default function ScrollingLogos() {
       <div className="relative flex overflow-hidden">
         <div className="flex animate-scrollRight space-x-8">
           {logosTop.map((logo, index) => (
-            <img
+            <Image
               key={index}
               src={logo}
               alt={`Logo ${index}`}
+              width={48}
+              height={48}
               className="h-12 w-auto"
             />
           ))}
           {/* Repetindo para criar o loop infinito */}
           {logosTop.map((logo, index) => (
-            <img
+            <Image
               key={`copy-${index}`}
               src={logo}
               alt={`Logo ${index}`}
+              width={48}
+              height={48}
               className="h-12 w-auto"
             />
           ))}
@@ -46,19 +52,23 @@ export default function ScrollingLogos() {
       <div className="relative flex overflow-hidden mt-4">
         <div className="flex animate-scrollLeft space-x-8">
           {logosBottom.map((logo, index) => (
-            <img
+            <Image
               key={index}
               src={logo}
               alt={`Logo ${index}`}
+              width={48}
+              height={48}
               className="h-12 w-auto"
             />
           ))}
           {/* Repetindo para criar o loop infinito */}
           {logosBottom.map((logo, index) => (
-            <img
+            <Image
               key={`copy-${index}`}
               src={logo}
               alt={`Logo ${index}`}
+              width={48}
+              height={48}
               className="h-12 w-auto"
             />
           ))}

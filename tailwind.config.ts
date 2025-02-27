@@ -12,9 +12,6 @@ export default {
       backgroundImage: {
         'hero_bg': "url('/hero_bg.png')",
       },
-      fontFamily: {
-        montserrat: ["Montserrat", "sans-serif"],
-      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
