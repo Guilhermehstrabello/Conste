@@ -4,6 +4,7 @@ import ClientLogos from "@/components/clientslogo";
 import SmoothScroll from "@/components/scroll";
 import FormModal from "@/components/formbutton";
 import Image from "next/image";
+import GlassCard from "@/components/glasscard";
 
 export default function Home() {
   return (
@@ -22,9 +23,9 @@ export default function Home() {
         <iframe src="https://lottie.host/embed/29c0b424-f966-42a9-8d57-a09a9f3b4fdf/gfVQpr5NXz.lottie"></iframe>
       </section>
 
-      <section id="quem-somos" className="flex flex-col items-center justify-center py-6">
+      <section id="quem-somos" className="flex flex-col items-center justify-center">
         <h2 className="text-white font-bold text-4xl">Quem Somos</h2>
-        <Image className="w-auto h-auto" src="/Equipe.png" alt="Imagem da Equipe" width={500} height={300} />
+        <Image src="/Equipe.png" alt="Imagem da Equipe" width={674} height={370} />
         <div className="space-y-3 flex flex-col items-center justify-center text-base">
           <p className="text-[#9A9A9A] w-[580px] text-center">
             A Conste atua em soluções digitais, dedicada a impulsionar a captação de clientes para empresas por meio de estratégias de marketing digital.
@@ -35,14 +36,14 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="flex flex-col items-center justify-center gap-y-11 py-16">
+      <section className="flex flex-col items-center justify-center my-20 gap-y-20 py-16">
         <h2 className="md:w-[700px] text-center text-white font-bold text-4xl">Alguns números da implementação das nossas <span className="text-[#FF8500]"> estratégias </span></h2>
         <div className="flex flex-col md:flex-row items-center justify-center gap-x-11">
-            <div className="bg-[linear-gradient(180deg,#310276_0%,#0E0E0E_45.19%)] p-6 rounded-[12px] flex flex-col items-center justify-center text-white text-center w-64 h-64 px-10 py-7">
+          <div className="bg-[linear-gradient(180deg,#310276_0%,#0E0E0E_45.19%)] p-6 rounded-[12px] flex flex-col items-center justify-center text-white text-center w-64 h-64 px-10 py-7">
             <Image className="mb-3" src="/icon1.svg" width={40} height={40} alt="icone de experiência" />
             <h3 className="text-4xl font-bold">+5 Anos</h3>
             <p className="text-[#BABABA]">de Experiência</p>
-            </div>
+          </div>
           <div className="bg-[linear-gradient(180deg,#310276_0%,#0E0E0E_45.19%)] p-6 rounded-[12px] flex flex-col items-center justify-center text-white text-center w-64 h-64 px-10 py-7">
             <Image className="mb-3" src="/icon2.svg" width={40} height={40} alt="icone de experiência" />
             <h3 className="text-4xl font-bold">+110</h3>
@@ -57,11 +58,42 @@ export default function Home() {
         <FormModal buttonText="Quero Elevar meus resultados" />
       </section>
 
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-11 p-10">
+      <section className="flex flex-col items-center justify-center gap-y-3">
+        <div className="flex flex-col items-center justify-center">
+          <h2 className="text-4xl text-white font-bold py-16">Nossos Setores</h2>
+        </div>
+        <div className="flex flex-col items-center justify-center gap-y-11">
+          <GlassCard
+            title="Performance"
+            description="Tudo que envolve criação e gerenciamento de anúncios nas mídias sociais, performance do seu time de vendas, sites e etc."
+            image="/Logo Conste.png"
+          />
+          <GlassCard
+            title="Social Media"
+            description="Criação de estratégias personalizadas para as suas redes sociais, com base na sua área de atuação."
+            image="/design.png"
+          />
+          <GlassCard
+            title="Design"
+            description="Criação dos designs dos posts, capas de vídeos, sites, landing pages e etc. "
+            image="/marketing.png"
+          />
+          <GlassCard
+            title="Desenvolvimento"
+            description="Realizamos Desenvolvimento de sites, páginas de captura, páginas de vendas, ecommerce. E claro, tudo otimizado para os celulares.."
+            image="/webdev.png"
+          />
+          <GlassCard
+            title="Audiovisual"
+            description="Captamos e editamos os vídeos para suas redes sociais. Capturamos tanto com câmera profissional, quanto com drone."
+            image="/consultoria.png"
+          />
+        </div>
+
+        <div className="flex flex-col items-center justify-center">
+          <FormModal buttonText="Quero Elevar meus resultados" />
+        </div>
       </section>
-      <div className="flex flex-col items-center justify-center">
-        <FormModal buttonText="Quero Elevar meus resultados" />
-      </div>
 
       <ClientLogos />
 
@@ -100,6 +132,132 @@ export default function Home() {
           <FormModal buttonText="Quero Elevar meus resultados" />
         </div>
       </section>
+
+      <section className="py-12 px-10 flex flex-col gap-12">
+        <div className="gap-y-3 flex flex-col">
+          <p className="text-[#FF8500]">Parcerias que evoluem:</p>
+          <h2 className="font-bold text-white text-4xl md:w-[800px] w-fit">
+            Confira os  <span className="text-[#FF8500]"> cases</span> que mostram nosso compromisso com o seu crescimento.
+          </h2>
+        </div>
+        <div className="flex md:flex-row flex-col items-center justify-between gap-x-10">
+          <div className="flex flex-col justify-center items-center p-6 gap-6 w-[340px] h-full border border-[#310276] rounded-[10px]">
+            {/* Imagem */}
+            <div
+              className="w-[260px] h-[54px] bg-[url('/image.png')] bg-cover bg-center"
+            ></div>
+
+            {/* Case Stats Container */}
+            <div className="flex flex-col justify-center items-center gap-4 w-[260px] h-full">
+
+              {/* Stat Container 1 */}
+              <div className="flex flex-col justify-center items-center px- w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-md">
+                <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">+12.000</p>
+                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-xl">Visualizações</p>
+              </div>
+
+              {/* Stat Container 2 */}
+              <div className="flex flex-col justify-center items-center px-4 w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-md">
+                <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">+140 Leads</p>
+                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-xl">qualificados</p>
+              </div>
+
+              {/* Stat Container 3 */}
+              <div className="flex flex-col justify-center items-center px-4 w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-md">
+                <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">+R$ 750.000</p>
+                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-xl">Em oportunidade de vendas</p>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col justify-center items-center p-6 gap-6 w-[340px] h-full border border-[#310276] rounded-[10px]">
+            {/* Imagem */}
+            <div
+              className="w-[260px] h-[54px] bg-[url('/image.png')] bg-cover bg-center"
+            ></div>
+
+            {/* Case Stats Container */}
+            <div className="flex flex-col justify-center items-center gap-4 w-[260px] h-full">
+
+              {/* Stat Container 1 */}
+              <div className="flex flex-col justify-center items-center px- w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-md">
+                <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">+12.000</p>
+                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-xl">Visualizações</p>
+              </div>
+
+              {/* Stat Container 2 */}
+              <div className="flex flex-col justify-center items-center px-4 w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-md">
+                <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">+140 Leads</p>
+                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-xl">qualificados</p>
+              </div>
+
+              {/* Stat Container 3 */}
+              <div className="flex flex-col justify-center items-center px-4 w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-md">
+                <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">+R$ 750.000</p>
+                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-xl">Em oportunidade de vendas</p>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col justify-center items-center p-6 gap-6 w-[340px] h-full border border-[#310276] rounded-[10px]">
+            {/* Imagem */}
+            <div
+              className="w-[260px] h-[54px] bg-[url('/image.png')] bg-cover bg-center"
+            ></div>
+
+            {/* Case Stats Container */}
+            <div className="flex flex-col justify-center items-center gap-4 w-[260px] h-full">
+
+              {/* Stat Container 1 */}
+              <div className="flex flex-col justify-center items-center px- w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-md">
+                <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">+12.000</p>
+                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-xl">Visualizações</p>
+              </div>
+
+              {/* Stat Container 2 */}
+              <div className="flex flex-col justify-center items-center px-4 w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-md">
+                <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">+140 Leads</p>
+                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-xl">qualificados</p>
+              </div>
+
+              {/* Stat Container 3 */}
+              <div className="flex flex-col justify-center items-center px-4 w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-md">
+                <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">+R$ 750.000</p>
+                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-xl">Em oportunidade de vendas</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-12 px-10 flex flex-col gap-12">
+        <div className="gap-y-3 flex flex-col">
+          <p className="text-[#FF8500]">Nossos clientes</p>
+          <h2 className="font-bold text-white text-4xl md:w-[800px] w-fit">
+            O que falam sobre nós?
+          </h2>
+        </div>
+        <div className="flex md:flex-row flex-col items-center justify-between gap-x-10">
+          <div className="flex flex-col justify-center items-center p-6 gap-6 w-[340px] h-full bg-[#31027699] rounded-[10px]">
+            <div className="flex flex-col justify-center items-center gap-4 w-[260px] h-full">
+              <p>adfasdfa</p>
+            </div>
+          </div>
+          <div className="flex flex-col justify-center items-center p-6 gap-6 w-[340px] h-full bg-[#31027699] rounded-[10px]">
+            <div className="flex flex-col justify-center items-center gap-4 w-[260px] h-full">
+              <p>adfasdfa</p>
+            </div>
+          </div>
+          <div className="flex flex-col justify-center items-center p-6 gap-6 w-[340px] h-full bg-[#31027699] rounded-[10px]">
+            <div className="flex flex-col justify-center items-center gap-4 w-[260px] h-full">
+              <p>adfasdfa</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="lg:h-[104px] lg:w-[1020px] flex lg:flex-row flex-col w-full h-full items-center justify-between mx-auto bg-[#2900677c] gap-y-2 p-6 rounded-[4px]">
+        <h3 className="text-white text-xl text-center">Faça sua empresa crescer com <span className="font-bold">constância.</span></h3>
+        <FormModal buttonText="Elevar minha empresa agora" />
+      </div>
     </>
   );
 }

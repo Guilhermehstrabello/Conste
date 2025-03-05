@@ -13,7 +13,7 @@ const Navbar = () => {
       <div
         className="flex justify-around items-center h-20 mx-auto"
         style={{
-          maxWidth: "1360px", // Limita a largura máxima
+          maxWidth: "1320px", // Limita a largura máxima
           marginLeft: "auto", // Centraliza horizontalmente
           marginRight: "auto",
         }}
@@ -80,7 +80,7 @@ const Navbar = () => {
 
         {/* Botão */}
         <div className="hidden md:block">
-          <Link href="#contato" className="px-5 py-3 text-white bg-[#310276] hover:bg-[#40009E] duration-200 rounded-[6px] flex items-center">
+          <Link href="#contato" className="px-5 py-3 text-sm text-white bg-[#310276] hover:bg-[#40009E] duration-200 rounded-[6px] flex items-center">
             Contratar a Conste{" "}
             <svg
               xmlns="http://www.w3.org/2000/svg"

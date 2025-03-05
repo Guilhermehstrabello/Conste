@@ -59,20 +59,6 @@ export default {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
-      animation: {
-        scrollRight: "scrollRight 20s linear infinite",
-        scrollLeft: "scrollLeft 20s linear infinite",
-      },
-      keyframes: {
-        scrollRight: {
-          "0%": { transform: "translateX(0)" },
-          "100%": { transform: "translateX(-100%)" },
-        },
-        scrollLeft: {
-          "0%": { transform: "translateX(0)" },
-          "100%": { transform: "translateX(100%)" },
-        },
-      },
     },
   },
   plugins: [require("tailwindcss-animate")],

@@ -21,7 +21,7 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
       {/* Botão para abrir o formulário, com o texto passando como prop */}
       <button
         onClick={handleOpenModal}
-        className="z-10 px-6 py-3 my-12 text-white bg-[#310276] hover:bg-[#40009E] rounded-[6px]">
+        className="z-10 px-6 py-3 my-12 text-white bg-[#310276] hover:bg-[#40009E] duration-200 rounded-[6px]">
         {buttonText}
       </button>
 
