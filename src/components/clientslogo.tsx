@@ -18,7 +18,7 @@ export default function ScrollingLogos() {
   return (
     <div className="overflow-hidden bg-background py-12">
       <div className="relative flex overflow-hidden">
-        <div className="flex animate-scrollLeft space-x-8 min-w-fit">
+        <div className="flex animate-scrollLeft space-x-2 w-fit">
           {logos.concat(logos).map((logo, index) => (
             <Image
               key={index}

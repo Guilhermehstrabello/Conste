@@ -5,13 +5,13 @@ import SmoothScroll from "@/components/scroll";
 import FormModal from "@/components/formbutton";
 import Image from "next/image";
 import GlassCard from "@/components/glasscard";
+import { TimelineDemo } from "./_components/Timeline";
 
 export default function Home() {
   return (
     <>
       <SmoothScroll />
       <Navbar />
-
       <section className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-hero_bg bg-cover bg-center gap-y-4 px-4 text-center">
         <p className="text-[#e7e7e7] bg-[#300276d0] p-2 rounded-[8px]">Bem-vindo à Conste👋</p>
 
@@ -32,11 +32,11 @@ export default function Home() {
       </section>
 
 
-      <section id="quem-somos" className="flex flex-col items-center justify-center">
+      <section id="quem-somos" className="flex flex-col items-center justify-center p-0">
         <h2 className="text-white font-bold text-4xl">Quem Somos</h2>
-        <Image src="/Equipe.png" alt="Imagem da Equipe" width={674} height={370} />
+        <Image src="/Equipe.png" alt="Imagem da Equipe" width={920} height={370} />
         <div className="space-y-3 flex flex-col items-center justify-center text-base">
-          <p className="text-[#9A9A9A] md:w-[480px] w-[280px] text-center">
+          <p className="text-[#9A9A9A] md:w-[600px] w-[280px] text-center">
             A Conste atua em soluções digitais, dedicada a impulsionar a captação de clientes para empresas por meio de estratégias de marketing digital.
           </p>
           <p className="text-[#9A9A9A] md:w-[480px] w-[280px] text-center">
@@ -79,22 +79,22 @@ export default function Home() {
           <GlassCard
             title="Social Media"
             description="Criação de estratégias personalizadas para as suas redes sociais, com base na sua área de atuação."
-            image="/design.png"
+            image="/Logo Conste.png"
           />
           <GlassCard
             title="Design"
             description="Criação dos designs dos posts, capas de vídeos, sites, landing pages e etc. "
-            image="/marketing.png"
+            image="/Logo Conste.png"
           />
           <GlassCard
             title="Desenvolvimento"
             description="Realizamos Desenvolvimento de sites, páginas de captura, páginas de vendas, ecommerce. E claro, tudo otimizado para os celulares.."
-            image="/webdev.png"
+            image="/Logo Conste.png"
           />
           <GlassCard
             title="Audiovisual"
             description="Captamos e editamos os vídeos para suas redes sociais. Capturamos tanto com câmera profissional, quanto com drone."
-            image="/consultoria.png"
+            image="/Logo Conste.png"
           />
         </div>
 
@@ -116,25 +116,25 @@ export default function Home() {
           </h2>
         </div>
         <div className="flex flex-col md:flex-row items-center justify-center gap-x-10 gap-y-10">
-          <div className="flex flex-col justify-center items-center p-2 gap-3 w-[330px] h-[200px] border border-[#6C63FF] rounded-[4px]">
+          <div className="flex flex-col justify-center items-center p-2 gap-3 w-[330px] h-[200px] border border-[#6C63FF] hover:bg-[#6b63ff18] duration-200 rounded-[4px]">
             <Image className="mb-3" src="/icon4.svg" width={40} height={40} alt="icone de parceria" />
             <p className="text-center text-lg">Atração de novos clientes somente através de indicações.</p>
           </div>
-          <div className="flex flex-col justify-center items-center p-2 gap-3 w-[330px] h-[200px] border border-[#6C63FF] rounded-[4px]">
+          <div className="flex flex-col justify-center items-center p-2 gap-3 w-[330px] h-[200px] border border-[#6C63FF] hover:bg-[#6b63ff18] duration-200 rounded-[4px]">
             <Image className="mb-3" src="/icon5.svg" width={40} height={40} alt="icone de clientes" />
             <p className="text-center text-lg">Dificuldade na hora de atrair novos clientes e fechar negócios.</p>
           </div>
-          <div className="flex flex-col justify-center items-center p-2 gap-3 w-[330px] h-[200px] border border-[#6C63FF] rounded-[4px]">
+          <div className="flex flex-col justify-center items-center p-2 gap-3 w-[330px] h-[200px] border border-[#6C63FF] hover:bg-[#6b63ff18] duration-200 rounded-[4px]">
             <Image className="mb-3" src="/icon6.svg" width={40} height={40} alt="icone globo digital" />
             <p className="text-center text-lg">Ausência de presença digital, gerando menos oportunidades.</p>
           </div>
         </div>
         <div className="flex flex-col md:flex-row items-center justify-center gap-x-10 gap-y-10">
-          <div className="flex flex-col justify-center items-center p-2 gap-3 w-[330px] h-[200px] border border-[#6C63FF] rounded-[4px]">
+          <div className="flex flex-col justify-center items-center p-2 gap-3 w-[330px] h-[200px] border border-[#6C63FF] hover:bg-[#6b63ff18] duration-200 rounded-[4px]">
             <Image className="mb-3" src="/icon7.svg" width={40} height={40} alt="icone de megafone" />
             <p className="text-center text-lg">Falta de um plano de marketing e percas de oportunidades.</p>
           </div>
-          <div className="flex flex-col justify-center items-center p-2 gap-3 w-[330px] h-[200px] border border-[#6C63FF] rounded-[4px]">
+          <div className="flex flex-col justify-center items-center p-2 gap-3 w-[330px] h-[200px] border border-[#6C63FF] hover:bg-[#6b63ff18] duration-20033333333333333333333333333333333333333 rounded-[4px]">
             <Image className="mb-3" src="/icon8.svg" width={40} height={40} alt="icone de gráfico" />
             <p className="text-center text-lg">Concorrência com práticas de preços baixos, gerando menos valor para os clientes</p>
           </div>
@@ -154,121 +154,188 @@ export default function Home() {
         <div className="flex md:flex-row flex-col items-center justify-between gap-x-10">
           <div className="flex flex-col justify-center items-center p-6 gap-6 w-[340px] h-full border border-[#310276] rounded-[10px]">
             {/* Imagem */}
-            <div
-              className="w-[260px] h-[54px] bg-[url('/image.png')] bg-cover bg-center"
-            ></div>
+            <Image src="/Polimetal.png" width={268} height={88} alt="JE Polimetal Logo" />
 
             {/* Case Stats Container */}
             <div className="flex flex-col justify-center items-center gap-4 w-[260px] h-full">
 
               {/* Stat Container 1 */}
-              <div className="flex flex-col justify-center items-center px- w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-md">
+              <div className="flex flex-col justify-center items-center p-4 w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-[4px]">
                 <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">+12.000</p>
-                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-xl">Visualizações</p>
+                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-base">Visualizações</p>
               </div>
 
               {/* Stat Container 2 */}
-              <div className="flex flex-col justify-center items-center px-4 w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-md">
+              <div className="flex flex-col justify-center items-center p-4 w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-[4px]">
                 <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">+140 Leads</p>
-                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-xl">qualificados</p>
+                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-base">qualificados</p>
               </div>
 
               {/* Stat Container 3 */}
-              <div className="flex flex-col justify-center items-center px-4 w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-md">
+              <div className="flex flex-col justify-center items-center p-4 w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-[4px]">
                 <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">+R$ 750.000</p>
-                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-xl">Em oportunidade de vendas</p>
+                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-base">Em oportunidade de vendas</p>
               </div>
             </div>
           </div>
           <div className="flex flex-col justify-center items-center p-6 gap-6 w-[340px] h-full border border-[#310276] rounded-[10px]">
-            {/* Imagem */}
-            <div
-              className="w-[260px] h-[54px] bg-[url('/image.png')] bg-cover bg-center"
-            ></div>
+            <Image src="/IndaiaChurrascaria.png" width={106} height={88} alt="Indaia Churrascaria Logo" />
 
             {/* Case Stats Container */}
             <div className="flex flex-col justify-center items-center gap-4 w-[260px] h-full">
 
               {/* Stat Container 1 */}
-              <div className="flex flex-col justify-center items-center px- w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-md">
-                <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">+12.000</p>
-                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-xl">Visualizações</p>
+              <div className="flex flex-col justify-center items-center p-4 w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-[4px]">
+                <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">+50.000</p>
+                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-base">Visualizações</p>
               </div>
 
               {/* Stat Container 2 */}
-              <div className="flex flex-col justify-center items-center px-4 w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-md">
-                <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">+140 Leads</p>
-                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-xl">qualificados</p>
+              <div className="flex flex-col justify-center items-center p-4 w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-[4px]">
+                <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">-R$ 2,00</p>
+                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-base">Por contato</p>
               </div>
 
               {/* Stat Container 3 */}
-              <div className="flex flex-col justify-center items-center px-4 w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-md">
-                <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">+R$ 750.000</p>
-                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-xl">Em oportunidade de vendas</p>
+              <div className="flex flex-col justify-center items-center p-4 w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-[4px]">
+                <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">+80%</p>
+                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-base">No faturamento</p>
               </div>
             </div>
           </div>
           <div className="flex flex-col justify-center items-center p-6 gap-6 w-[340px] h-full border border-[#310276] rounded-[10px]">
-            {/* Imagem */}
-            <div
-              className="w-[260px] h-[54px] bg-[url('/image.png')] bg-cover bg-center"
-            ></div>
+            <Image src="/LeluhKids.png" width={106} height={88} alt="Leluh Kids Logo" />
 
             {/* Case Stats Container */}
             <div className="flex flex-col justify-center items-center gap-4 w-[260px] h-full">
 
               {/* Stat Container 1 */}
-              <div className="flex flex-col justify-center items-center px- w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-md">
-                <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">+12.000</p>
-                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-xl">Visualizações</p>
+              <div className="flex flex-col justify-center items-center p-4 w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-[4px]">
+                <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">+R$50.000</p>
+                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-base">De vendas em 3 meses</p>
               </div>
 
               {/* Stat Container 2 */}
-              <div className="flex flex-col justify-center items-center px-4 w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-md">
-                <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">+140 Leads</p>
-                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-xl">qualificados</p>
+              <div className="flex flex-col justify-center items-center p-4 w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-[4px]">
+                <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">1° nas buscas</p>
+                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-base">No Google</p>
               </div>
 
               {/* Stat Container 3 */}
-              <div className="flex flex-col justify-center items-center px-4 w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-md">
-                <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">+R$ 750.000</p>
-                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-xl">Em oportunidade de vendas</p>
+              <div className="flex flex-col justify-center items-center p-4 w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-[4px]">
+                <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">Retorno 13x</p>
+                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-base">Sobre o investimento</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-12 px-10 flex flex-col gap-12" id="depoimentos">
+      <section className="py-12 px-5 flex flex-col gap-12" id="depoimentos">
         <div className="gap-y-3 flex flex-col">
           <p className="text-[#FF8500]">Depoimentos</p>
           <h2 className="font-bold text-white text-4xl md:w-[800px] w-fit">
             O que falam sobre nós?
           </h2>
         </div>
-        <div className="flex md:flex-row flex-col items-center justify-between gap-x-10">
-          <div className="flex flex-col justify-center items-center p-6 gap-6 w-[340px] h-full bg-[#31027699] rounded-[10px]">
-            <div className="flex flex-col justify-center items-center gap-4 w-[260px] h-full">
-              <p>adfasdfa</p>
+        <div className="flex md:flex-row flex-col items-center justify-between gap-10">
+          <div className="flex flex-col items-start p-4 md:p-8 gap-5 md:w-[380px] w-fit h-[190px] bg-[rgba(49,2,118,0.4)] rounded-lg">
+          <div className="flex items-center gap-5 w-[320px] h-[42px]">
+              <div className="w-[42px] h-[42px] bg-cover bg-center rounded-full" style={{ backgroundImage: "url('/user.jpg')" }}></div>
+              <p className="text-white text-[16px] leading-[19px] font-bold">
+                John Doe
+              </p>
             </div>
+            <p className="w-[320px] h-[95px] text-[16px] leading-[19px] font-medium text-[#BABABA]">
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante."
+            </p>
           </div>
-          <div className="flex flex-col justify-center items-center p-6 gap-6 w-[340px] h-full bg-[#31027699] rounded-[10px]">
-            <div className="flex flex-col justify-center items-center gap-4 w-[260px] h-full">
-              <p>adfasdfa</p>
+
+          <div className="flex flex-col items-start p-4 md:p-8 gap-5 md:w-[380px] w-fit h-[190px] bg-[rgba(49,2,118,0.4)] rounded-lg">
+          <div className="flex items-center gap-5 w-[320px] h-[42px]">
+              <div className="w-[42px] h-[42px] bg-cover bg-center rounded-full" style={{ backgroundImage: "url('/user.jpg')" }}></div>
+              <p className="text-white text-[16px] leading-[19px] font-bold">
+                John Doe
+              </p>
             </div>
+            <p className="w-[320px] h-[95px] text-[16px] leading-[19px] font-medium text-[#BABABA]">
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante."
+            </p>
           </div>
-          <div className="flex flex-col justify-center items-center p-6 gap-6 w-[340px] h-full bg-[#31027699] rounded-[10px]">
-            <div className="flex flex-col justify-center items-center gap-4 w-[260px] h-full">
-              <p>adfasdfa</p>
+
+          <div className="flex flex-col items-start p-4 md:p-8 gap-5 md:w-[380px] w-fit h-[190px] bg-[rgba(49,2,118,0.4)] rounded-lg">
+          <div className="flex items-center gap-5 w-[320px] h-[42px]">
+              <div className="w-[42px] h-[42px] bg-cover bg-center rounded-full" style={{ backgroundImage: "url('/user.jpg')" }}></div>
+              <p className="text-white text-[16px] leading-[19px] font-bold">
+                John Doe
+              </p>
             </div>
+            <p className="w-[320px] h-[95px] text-[16px] leading-[19px] font-medium text-[#BABABA]">
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante."
+            </p>
           </div>
         </div>
       </section>
 
-      <div className="lg:h-[104px] lg:w-[1020px] flex lg:flex-row flex-col w-full h-full items-center justify-between mx-auto bg-[#2900677c] gap-y-2 p-6 rounded-[4px]">
+      <TimelineDemo />
+
+      <div className="lg:h-[104px] lg:w-[1020px] flex lg:flex-row flex-col w-full h-full items-center justify-between mx-auto bg-[#2900677c] gap-y-2 p-5 rounded-[4px]">
         <h3 className="text-white text-xl text-center">Faça sua empresa crescer com <span className="font-bold">constância.</span></h3>
         <FormModal buttonText="Elevar minha empresa agora" />
       </div>
+
+      <footer className="flex flex-col items-start w-full max-w-[1440px] h-[406px] py-10 gap-4 mx-auto">
+        {/* Footer Container */}
+        <div className="flex flex-col items-start gap-[46px] w-full max-w-[1016px]">
+          {/* Top Section */}
+          <div className="flex flex-col md:flex-row justify-between items-center gap-[46px] w-full">
+            {/* Logo e Redes Sociais */}
+            <div className="flex flex-col items-center gap-3 w-[120px]">
+              <img src="Logo Conste.png" alt="Logo Conste" className="w-[120px] h-[32px]" />
+              <div className="flex gap-3">
+                {/* Instagram */}
+                <div className="flex justify-center items-center relative">
+                  <a href="https://www.instagram.com/constemarketing/" target="_blank" rel="noopener noreferrer">
+                    <Image src="/Instagram.svg" alt="Instagram" width={92} height={92} className="hover:scale-125 duration-200" />
+                  </a>
+                </div>
+
+                {/* Facebook */}
+                <div className="flex justify-center items-center relative">
+                  <a href="https://www.facebook.com/profile.php?id=61555449532582" target="_blank" rel="noopener noreferrer">
+                    <Image src="/Facebook.svg" alt="Facebook" width={92} height={92} className="hover:scale-125 duration-200" />
+                  </a>
+                </div>
+
+                {/* Linkedin */}
+                <div className="flex justify-center items-center relative">
+                  <a href="https://www.linkedin.com/company/conste-marketing?trk=public_profile_topcard-current-company" target="_blank" rel="noopener noreferrer">
+                    <Image src="/Linkedin.svg" alt="Linkedin" width={92} height={92} className="hover:scale-125 duration-200" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Contato */}
+            <div className="flex flex-col md:items-end items-center gap-4 w-[354px] text-white md:text-right text-center">
+              <p className="text-base leading-8">R. Haiti, 327 - Sala 1 - Parque Boa Esperança, Indaiatuba - SP, 13339-240</p>
+              <p className="text-base leading-8">(19) 98927-6583</p>
+              <p className="text-base leading-8">contato@constemarketing.com.br</p>
+            </div>
+          </div>
+
+          {/* Divider */}
+          <div className="w-full border-t border-white"></div>
+
+          {/* Direitos Autorais */}
+          <div className="flex justify-center items-center text-center w-full">
+            <p className="text-base leading-[19px] text-white">
+              © 2025 Conste Marketing - Todos os direitos reservados
+            </p>
+          </div>
+        </div>
+      </footer>
+
     </>
   );
 }
