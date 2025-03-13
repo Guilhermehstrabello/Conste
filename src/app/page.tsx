@@ -231,7 +231,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-12 px-5 flex flex-col gap-12" id="depoimentos">
+      <section className="py-12 px-10 flex flex-col gap-12" id="depoimentos">
         <div className="gap-y-3 flex flex-col">
           <p className="text-[#FF8500]">Depoimentos</p>
           <h2 className="font-bold text-white text-4xl md:w-[800px] w-fit">
@@ -239,41 +239,39 @@ export default function Home() {
           </h2>
         </div>
         <div className="flex md:flex-row flex-col items-center justify-between gap-10">
-          <div className="flex flex-col items-start p-4 md:p-8 gap-5 md:w-[380px] w-fit h-[190px] bg-[rgba(49,2,118,0.4)] rounded-lg">
-          <div className="flex items-center gap-5 w-[320px] h-[42px]">
-              <div className="w-[42px] h-[42px] bg-cover bg-center rounded-full" style={{ backgroundImage: "url('/user.jpg')" }}></div>
-              <p className="text-white text-[16px] leading-[19px] font-bold">
-                John Doe
+          <div className="flex flex-col items-start p-4 md:p-8 gap-5 md:w-[380px] w-fit h-fit bg-[rgba(49,2,118,0.4)] rounded-[8px]">
+            <div className="flex items-center gap-5 w-[320px] h-fit">
+              <p className="text-white text-[16px] font-bold">
+                Jefferson Frizarin
               </p>
             </div>
-            <p className="w-[320px] h-[95px] text-[16px] leading-[19px] font-medium text-[#BABABA]">
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante."
+            <p className="w-[320px] h-fit text-[16px] font-medium text-[#BABABA]">
+              Ótimos profissionais ,dedicados no atendimento ao cliente , entregam um excelente trabalho!
             </p>
           </div>
 
-          <div className="flex flex-col items-start p-4 md:p-8 gap-5 md:w-[380px] w-fit h-[190px] bg-[rgba(49,2,118,0.4)] rounded-lg">
-          <div className="flex items-center gap-5 w-[320px] h-[42px]">
-              <div className="w-[42px] h-[42px] bg-cover bg-center rounded-full" style={{ backgroundImage: "url('/user.jpg')" }}></div>
-              <p className="text-white text-[16px] leading-[19px] font-bold">
-                John Doe
+          <div className="flex flex-col items-start p-4 md:p-8 gap-5 md:w-[380px] w-fit h-fit bg-[rgba(49,2,118,0.4)] rounded-[8px]">
+            <div className="flex items-center gap-5 w-[320px] h-fit">
+              <p className="text-white text-[16px] font-bold">
+                Lilia Aparecida Xavier de Lili
               </p>
             </div>
-            <p className="w-[320px] h-[95px] text-[16px] leading-[19px] font-medium text-[#BABABA]">
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante."
+            <p className="w-[320px] h-fit text-[16px] font-medium text-[#BABABA]">
+              A equipe da conste superou nossas expectativas em marketing. As campanhas foram criativas e trouxeram ótimos resultados. Super indico 👏🏻👏🏻!!!
             </p>
           </div>
 
-          <div className="flex flex-col items-start p-4 md:p-8 gap-5 md:w-[380px] w-fit h-[190px] bg-[rgba(49,2,118,0.4)] rounded-lg">
-          <div className="flex items-center gap-5 w-[320px] h-[42px]">
-              <div className="w-[42px] h-[42px] bg-cover bg-center rounded-full" style={{ backgroundImage: "url('/user.jpg')" }}></div>
-              <p className="text-white text-[16px] leading-[19px] font-bold">
-                John Doe
+          <div className="flex flex-col items-start p-4 md:p-8 gap-5 md:w-[380px] w-fit h-fit bg-[rgba(49,2,118,0.4)] rounded-[8px]">
+            <div className="flex items-center gap-5 w-[320px] h-fit">
+              <p className="text-white text-[16px] font-bold">
+                Domus Residencial
               </p>
             </div>
-            <p className="w-[320px] h-[95px] text-[16px] leading-[19px] font-medium text-[#BABABA]">
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante."
+            <p className="w-[320px] h-fit text-[16px] font-medium text-[#BABABA]">
+              Muito bom o trabalho. Muitos clientes que não chegavam até mim estão me consultando agora!
             </p>
           </div>
+
         </div>
       </section>
 
@@ -284,7 +282,7 @@ export default function Home() {
         <FormModal buttonText="Elevar minha empresa agora" />
       </div>
 
-      <footer className="flex flex-col items-start w-full max-w-[1440px] h-[406px] py-10 gap-4 mx-auto">
+      <footer className="flex flex-col items-center w-full max-w-[1440px] h-[406px] py-10 gap-4 mx-auto">
         {/* Footer Container */}
         <div className="flex flex-col items-start gap-[46px] w-full max-w-[1016px]">
           {/* Top Section */}
@@ -329,7 +327,7 @@ export default function Home() {
 
           {/* Direitos Autorais */}
           <div className="flex justify-center items-center text-center w-full">
-            <p className="text-base leading-[19px] text-white">
+            <p className="text-base text-white">
               © 2025 Conste Marketing - Todos os direitos reservados
             </p>
           </div>

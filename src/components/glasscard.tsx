@@ -12,8 +12,8 @@ export default function GlassCard({ title, description, image }: GlassCardProps)
 
     return (
         <div
-            className="relative flex items-center justify-between w-full 2xl:w-[1360px] xl:max-w-[1200px] p-6 md:p-12 lg:p-20 border border-[#310276] rounded-md mx-auto 
-                bg-[#3002763a] backdrop-blur-lg transition-all overflow-hidden text-[#A99F9E] hover:text-white duration-500"
+            className="relative flex items-center justify-between w-full 2xl:w-[1360px] xl:max-w-[1200px] p-6 md:p-12 lg:p-20 border hover:border-[#310276] border-transparent bg-[#6b63ff18] rounded-md mx-auto 
+                hover:bg-[#3002763a] backdrop-blur-lg transition-all overflow-hidden text-[#A99F9E] hover:text-white duration-500"
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
         >
