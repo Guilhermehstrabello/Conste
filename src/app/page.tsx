@@ -54,12 +54,12 @@ export default function Home() {
           </div>
           <div className="bg-[linear-gradient(180deg,#310276_0%,#0E0E0E_45.19%)] p-6 rounded-[12px] flex flex-col items-center justify-center text-white text-center w-64 h-64 px-10 py-7">
             <Image className="mb-3" src="/icon2.svg" width={40} height={40} alt="icone de experiência" />
-            <h3 className="text-4xl font-bold">+110</h3>
+            <h3 className="text-4xl font-bold">+115</h3>
             <p className="text-[#BABABA]">Clientes Atendidos</p>
           </div>
           <div className="bg-[linear-gradient(180deg,#310276_0%,#0E0E0E_45.19%)] p-6 rounded-[12px] flex flex-col items-center justify-center text-white text-center w-64 h-64 px-10 py-7">
             <Image className="mb-3" src="/icon3.svg" width={40} height={40} alt="icone de experiência" />
-            <h3 className="text-4xl font-bold">+1.5M</h3>
+            <h3 className="text-4xl font-bold">+5.6M</h3>
             <p className="text-[#BABABA]">em Vendas</p>
           </div>
         </div>
@@ -179,27 +179,27 @@ export default function Home() {
             </div>
           </div>
           <div className="flex flex-col justify-center items-center p-6 gap-6 w-[340px] h-full border border-[#310276] rounded-[10px]">
-            <Image src="/IndaiaChurrascaria.png" width={106} height={88} alt="Indaia Churrascaria Logo" />
+            <Image src="/Agrotuba.png" width={106} height={88} alt="Agrotuba Logo" />
 
             {/* Case Stats Container */}
             <div className="flex flex-col justify-center items-center gap-4 w-[260px] h-full">
 
               {/* Stat Container 1 */}
               <div className="flex flex-col justify-center items-center p-4 w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-[4px]">
-                <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">+50.000</p>
-                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-base">Visualizações</p>
+                <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">+20%</p>
+                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-base">De faturamento</p>
               </div>
 
               {/* Stat Container 2 */}
               <div className="flex flex-col justify-center items-center p-4 w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-[4px]">
-                <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">-R$ 2,00</p>
-                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-base">Por contato</p>
+                <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">+200%</p>
+                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-base">Crescimento nas midias</p>
               </div>
 
               {/* Stat Container 3 */}
               <div className="flex flex-col justify-center items-center p-4 w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-[4px]">
-                <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">+80%</p>
-                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-base">No faturamento</p>
+                <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">Retorno 12x</p>
+                <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-base">Sobre o investimento</p>
               </div>
             </div>
           </div>
@@ -275,7 +275,77 @@ export default function Home() {
         </div>
       </section>
 
-      <TimelineDemo />
+      <section className="flex flex-col items-center justify-center w-full py-20 px-6 gap-20" id="nossos-processos">
+        <div className="relative max-w-[1440px] w-full h-auto">
+          {/* Background Blur */}
+          <div className="absolute w-[80%] max-w-[1208px] h-[70%] max-h-[1010px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 
+        bg-gradient-to-b from-[rgba(49,2,118,0.5)] to-[rgba(255,133,0,0.5)] blur-[80px] -z-10">
+          </div>
+
+          {/* Título */}
+          <div className="w-full flex flex-col items-center text-center gap-4 mb-40">
+            <p className="text-[#FF8500] font-neue-montreal text-lg md:text-xl">Nossos processos</p>
+            <h1 className="text-white font-montserrat font-bold text-3xl md:text-4xl lg:text-5xl">Como nós alavancamos o seu negócio!</h1>
+          </div>
+
+          {/* Etapas */}
+          <div className="flex flex-col gap-20 w-full max-w-[1018px] mx-auto mb-28">
+            {/* Etapa 1 */}
+            <div className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-6 md:gap-10">
+              <div className="w-[120px] h-[120px] md:w-[164px] md:h-[164px] bg-[rgba(49,2,118,0.3)] flex justify-center items-center rounded-full">
+                <span className="text-white font-montserrat font-medium text-5xl md:text-[120px]">1</span>
+              </div>
+              <div className="text-center md:text-left w-full md:w-[433px]">
+                <h3 className="text-white font-montserrat font-bold text-xl md:text-2xl lg:text-3xl">Alinhamento de expectativas</h3>
+                <p className="text-[#BABABA] font-montserrat font-medium text-base md:text-lg mt-2">
+                  Entendemos seu negócio, público e objetivos. É aqui que começa a mágica.
+                </p>
+              </div>
+            </div>
+
+            {/* Etapa 2 */}
+            <div className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-6 md:gap-10">
+              <div className="w-[120px] h-[120px] md:w-[164px] md:h-[164px] bg-[rgba(49,2,118,0.3)] flex justify-center items-center rounded-full">
+                <span className="text-white font-montserrat font-medium text-5xl md:text-[120px]">2</span>
+              </div>
+              <div className="text-center md:text-left w-full md:w-[433px]">
+                <h3 className="text-white font-montserrat font-bold text-xl md:text-2xl lg:text-3xl">Pesquisa e planejamento</h3>
+                <p className="text-[#BABABA] font-montserrat font-medium text-base md:text-lg mt-2">
+                  Analisamos o mercado, seus concorrentes e as melhores estratégias para você.
+                </p>
+              </div>
+            </div>
+
+            {/* Etapa 3 */}
+            <div className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-6 md:gap-10">
+              <div className="w-[120px] h-[120px] md:w-[164px] md:h-[164px] bg-[rgba(49,2,118,0.3)] flex justify-center items-center rounded-full">
+                <span className="text-white font-montserrat font-medium text-5xl md:text-[120px]">3</span>
+              </div>
+              <div className="text-center md:text-left w-full md:w-[433px]">
+                <h3 className="text-white font-montserrat font-bold text-xl md:text-2xl lg:text-3xl">Implementação e lançamento</h3>
+                <p className="text-[#BABABA] font-montserrat font-medium text-base md:text-lg mt-2">
+                  Colocamos tudo em prática e garantimos que cada detalhe esteja perfeito.
+                </p>
+              </div>
+            </div>
+
+            {/* Etapa 4 */}
+            <div className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-6 md:gap-10">
+              <div className="w-[120px] h-[120px] md:w-[164px] md:h-[164px] bg-[rgba(49,2,118,0.3)] flex justify-center items-center rounded-full">
+                <span className="text-white font-montserrat font-medium text-5xl md:text-[120px]">4</span>
+              </div>
+              <div className="text-center md:text-left w-full md:w-[433px]">
+                <h3 className="text-white font-montserrat font-bold text-xl md:text-2xl lg:text-3xl">Análise e evolução contínua</h3>
+                <p className="text-[#BABABA] font-montserrat font-medium text-base md:text-lg mt-2">
+                  Monitoramos os resultados e ajustamos o que for necessário para crescer juntos.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
 
       <div className="lg:h-[104px] lg:w-[1020px] flex lg:flex-row flex-col w-full h-full items-center justify-between mx-auto bg-[#2900677c] gap-y-2 p-5 rounded-[4px]">
         <h3 className="text-white text-xl text-center">Faça sua empresa crescer com <span className="font-bold">constância.</span></h3>
@@ -316,9 +386,15 @@ export default function Home() {
 
             {/* Contato */}
             <div className="flex flex-col md:items-end items-center gap-4 w-[354px] text-white md:text-right text-center">
-              <p className="text-base leading-8">R. Haiti, 327 - Sala 1 - Parque Boa Esperança, Indaiatuba - SP, 13339-240</p>
-              <p className="text-base leading-8">(19) 98927-6583</p>
-              <p className="text-base leading-8">contato@constemarketing.com.br</p>
+              <a href="https://www.google.com/maps/place/R.+Haiti,+327+-+Parque+Boa+Esperanca,+Indaiatuba+-+SP,+13339-240/@-23.0898331,-47.2057778,17z/data=!3m1!4b1!4m6!3m5!1s0x94c8b4b2ecc15135:0xf10a3d72490bc85f!8m2!3d-23.0898331!4d-47.2032029!16s%2Fg%2F11trfjx7nn?entry=ttu&g_ep=EgoyMDI1MDMxMC4wIKXMDSoJLDEwMjExNDUzSAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">
+                <p className="text-base leading-8 hover:scale-110 hover:text-[#FF8500] duration-200">R. Haiti, 327 - Sala 1 - Parque Boa Esperança, Indaiatuba - SP, 13339-240</p>
+              </a>
+              <a href="tel:+55 (19) 98927-6583">
+                <p className="text-base leading-8 hover:scale-110 hover:text-[#FF8500] duration-200">(19) 98927-6583</p>
+              </a>
+              <a href="mailto:contato@constemarketing.com.br">
+                <p className="text-base leading-8 hover:scale-110 hover:text-[#FF8500] duration-200">contato@constemarketing.com.br</p>
+              </a>
             </div>
           </div>
 

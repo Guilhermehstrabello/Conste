@@ -15,13 +15,13 @@ const SmoothScroll = () => {
 
       gsap.to(scrollContainer.current, {
         y: () => -height,
-        ease: "power2.out", // Deixa o movimento mais suave
-        duration: 3, // Controla a velocidade geral do scroll
+        ease: "power2.inOut", // Deixa o movimento mais suave
+        duration: 7, // Controla a velocidade geral do scroll
         scrollTrigger: {
           trigger: scrollContainer.current,
           start: "top top",
           end: "bottom bottom",
-          scrub: 2.5, // Quanto maior, mais lento e suave
+          scrub: 5, // Quanto maior, mais lento e suave
         },
       });
     });
