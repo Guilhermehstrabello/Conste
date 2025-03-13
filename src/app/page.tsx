@@ -150,8 +150,8 @@ export default function Home() {
             Confira os  <span className="text-[#FF8500]"> cases</span> que mostram nosso compromisso com o seu crescimento.
           </h2>
         </div>
-        <div className="flex md:flex-row flex-col items-center justify-evenly gap-x-10 gap-y-10">
-          <div className="flex flex-col justify-center items-center max-w-[1200px] p-6 gap-6 w-[340px] h-full border border-[#310276] rounded-[10px]">
+        <div className="flex md:flex-row flex-col items-center justify-center gap-x-10 gap-y-10">
+          <div className="flex flex-col justify-center items-center max-w-[1200px] p-4 gap-6 w-[370px] h-full border border-[#310276] rounded-[10px]">
             {/* Imagem */}
             <Image src="/Polimetal.png" width={268} height={88} alt="JE Polimetal Logo" />
 
@@ -159,25 +159,25 @@ export default function Home() {
             <div className="flex flex-col justify-center items-center gap-4 w-[260px] h-full">
 
               {/* Stat Container 1 */}
-              <div className="flex flex-col justify-center items-center p-4 w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-[4px]">
+              <div className="flex flex-col justify-center items-center p-4 w-[230px] h-full bg-[rgba(49,2,118,0.4)] rounded-[4px]">
                 <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">+12.000</p>
                 <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-base">Visualizações</p>
               </div>
 
               {/* Stat Container 2 */}
-              <div className="flex flex-col justify-center items-center p-4 w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-[4px]">
+              <div className="flex flex-col justify-center items-center p-4 w-[230px] h-full bg-[rgba(49,2,118,0.4)] rounded-[4px]">
                 <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">+140 Leads</p>
                 <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-base">qualificados</p>
               </div>
 
               {/* Stat Container 3 */}
-              <div className="flex flex-col justify-center items-center p-4 w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-[4px]">
+              <div className="flex flex-col justify-center items-center p-4 w-[230px] h-full bg-[rgba(49,2,118,0.4)] rounded-[4px]">
                 <p className="w-full h-full text-center text-white font-montserrat font-semibold text-3xl">+R$ 750.000</p>
                 <p className="w-full h-full text-center text-[#BABABA] font-montserrat font-normal text-base">Em oportunidade de vendas</p>
               </div>
             </div>
           </div>
-          <div className="flex flex-col justify-center items-center p-6 gap-6 w-[340px] h-full border border-[#310276] rounded-[10px]">
+          <div className="flex flex-col justify-center items-center p-4 gap-6 w-[370px] h-full border border-[#310276] rounded-[10px]">
             <Image src="/Agrotuba.png" width={106} height={88} alt="Agrotuba Logo" />
 
             {/* Case Stats Container */}
@@ -202,7 +202,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="flex flex-col justify-center items-center p-6 gap-6 w-[340px] h-full border border-[#310276] rounded-[10px]">
+          <div className="flex flex-col justify-center items-center p-4 gap-6 w-[370px] h-full border border-[#310276] rounded-[10px]">
             <Image src="/LeluhKids.png" width={106} height={88} alt="Leluh Kids Logo" />
 
             {/* Case Stats Container */}
