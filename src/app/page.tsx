@@ -5,7 +5,6 @@ import SmoothScroll from "@/components/scroll";
 import FormModal from "@/components/formbutton";
 import Image from "next/image";
 import GlassCard from "@/components/glasscard";
-import { TimelineDemo } from "./_components/Timeline";
 
 export default function Home() {
   return (
@@ -145,14 +144,14 @@ export default function Home() {
       </section>
 
       <section className="py-12 px-10 flex flex-col gap-12" id="cases">
-        <div className="gap-y-3 flex flex-col">
+        <div className="gap-y-3 flex flex-col justify-center items-center text-center">
           <p className="text-[#FF8500]">Parcerias que evoluem:</p>
           <h2 className="font-bold text-white text-4xl md:w-[800px] w-fit">
             Confira os  <span className="text-[#FF8500]"> cases</span> que mostram nosso compromisso com o seu crescimento.
           </h2>
         </div>
-        <div className="flex md:flex-row flex-col items-center justify-between gap-x-10">
-          <div className="flex flex-col justify-center items-center p-6 gap-6 w-[340px] h-full border border-[#310276] rounded-[10px]">
+        <div className="flex md:flex-row flex-col items-center justify-evenly gap-x-10 gap-y-10">
+          <div className="flex flex-col justify-center items-center max-w-[1200px] p-6 gap-6 w-[340px] h-full border border-[#310276] rounded-[10px]">
             {/* Imagem */}
             <Image src="/Polimetal.png" width={268} height={88} alt="JE Polimetal Logo" />
 
@@ -231,43 +230,43 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-12 px-10 flex flex-col gap-12" id="depoimentos">
+      <section className="py-8 flex flex-col items-center justify-center text-center gap-12 max-w-[1200px] mx-auto w-full" id="depoimentos">
         <div className="gap-y-3 flex flex-col">
           <p className="text-[#FF8500]">Depoimentos</p>
-          <h2 className="font-bold text-white text-4xl md:w-[800px] w-fit">
+          <h2 className="font-bold text-white text-4xl w-full">
             O que falam sobre nós?
           </h2>
         </div>
-        <div className="flex md:flex-row flex-col items-center justify-between gap-10">
-          <div className="flex flex-col items-start p-4 md:p-8 gap-5 md:w-[380px] w-fit h-fit bg-[rgba(49,2,118,0.4)] rounded-[8px]">
+        <div className="flex md:flex-row flex-col items-center justify-center gap-4">
+          <div className="flex flex-col items-start p-4 md:p-8 gap-5 md:w-[390px] w-full h-[200px] bg-[rgba(49,2,118,0.4)] rounded-[8px]">
             <div className="flex items-center gap-5 w-[320px] h-fit">
               <p className="text-white text-[16px] font-bold">
                 Jefferson Frizarin
               </p>
             </div>
-            <p className="w-[320px] h-fit text-[16px] font-medium text-[#BABABA]">
+            <p className="w-[320px] h-fit text-[16px] text-left font-medium text-[#BABABA]">
               Ótimos profissionais ,dedicados no atendimento ao cliente , entregam um excelente trabalho!
             </p>
           </div>
 
-          <div className="flex flex-col items-start p-4 md:p-8 gap-5 md:w-[380px] w-fit h-fit bg-[rgba(49,2,118,0.4)] rounded-[8px]">
+          <div className="flex flex-col items-start p-4 md:p-8 gap-5 md:w-[390px] w-full h-[200px] bg-[rgba(49,2,118,0.4)] rounded-[8px]">
             <div className="flex items-center gap-5 w-[320px] h-fit">
               <p className="text-white text-[16px] font-bold">
                 Lilia Aparecida Xavier de Lili
               </p>
             </div>
-            <p className="w-[320px] h-fit text-[16px] font-medium text-[#BABABA]">
+            <p className="w-[320px] h-fit text-[16px] text-left font-medium text-[#BABABA]">
               A equipe da conste superou nossas expectativas em marketing. As campanhas foram criativas e trouxeram ótimos resultados. Super indico 👏🏻👏🏻!!!
             </p>
           </div>
 
-          <div className="flex flex-col items-start p-4 md:p-8 gap-5 md:w-[380px] w-fit h-fit bg-[rgba(49,2,118,0.4)] rounded-[8px]">
+          <div className="flex flex-col items-start p-4 md:p-8 gap-5 md:w-[390px] w-full h-[200px] bg-[rgba(49,2,118,0.4)] rounded-[8px]">
             <div className="flex items-center gap-5 w-[320px] h-fit">
               <p className="text-white text-[16px] font-bold">
                 Domus Residencial
               </p>
             </div>
-            <p className="w-[320px] h-fit text-[16px] font-medium text-[#BABABA]">
+            <p className="w-[320px] h-fit text-[16px] text-left font-medium text-[#BABABA]">
               Muito bom o trabalho. Muitos clientes que não chegavam até mim estão me consultando agora!
             </p>
           </div>
@@ -278,7 +277,7 @@ export default function Home() {
       <section className="flex flex-col items-center justify-center w-full py-20 px-6 gap-20" id="nossos-processos">
         <div className="relative max-w-[1440px] w-full h-auto">
           {/* Background Blur */}
-          <div className="absolute w-[80%] max-w-[1208px] h-[70%] max-h-[1010px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 
+          <div className="absolute w-[80%] max-w-[1200px] h-[70%] max-h-[1010px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 
         bg-gradient-to-b from-[rgba(49,2,118,0.5)] to-[rgba(255,133,0,0.5)] blur-[80px] -z-10">
           </div>
 
@@ -289,7 +288,7 @@ export default function Home() {
           </div>
 
           {/* Etapas */}
-          <div className="flex flex-col gap-20 w-full max-w-[1018px] mx-auto mb-28">
+          <div className="flex flex-col gap-20 w-full max-w-[1200px] mx-auto mb-28">
             {/* Etapa 1 */}
             <div className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-6 md:gap-10">
               <div className="w-[120px] h-[120px] md:w-[164px] md:h-[164px] bg-[rgba(49,2,118,0.3)] flex justify-center items-center rounded-full">
@@ -347,14 +346,14 @@ export default function Home() {
       </section>
 
 
-      <div className="lg:h-[104px] lg:w-[1020px] flex lg:flex-row flex-col w-full h-full items-center justify-between mx-auto bg-[#2900677c] gap-y-2 p-5 rounded-[4px]">
+      <div className="lg:h-[104px] lg:w-[860px] flex lg:flex-row flex-col w-full h-full items-center justify-between mx-auto bg-[#2900677c] gap-y-2 p-5 rounded-[4px]">
         <h3 className="text-white text-xl text-center">Faça sua empresa crescer com <span className="font-bold">constância.</span></h3>
         <FormModal buttonText="Elevar minha empresa agora" />
       </div>
 
       <footer className="flex flex-col items-center w-full max-w-[1440px] h-[406px] py-10 gap-4 mx-auto">
         {/* Footer Container */}
-        <div className="flex flex-col items-start gap-[46px] w-full max-w-[1016px]">
+        <div className="flex flex-col items-start gap-[46px] w-full max-w-[1200px]">
           {/* Top Section */}
           <div className="flex flex-col md:flex-row justify-between items-center gap-[46px] w-full">
             {/* Logo e Redes Sociais */}

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,11 +13,11 @@ const Navbar = () => {
     <nav className="text-white">
       <div
         className="flex justify-between items-center md:h-24 h-20 px-6 md:px-10 mx-auto relative"
-        style={{ maxWidth: "1320px" }}
+        style={{ maxWidth: "1200px" }}
       >
         {/* Logo */}
         <Link href="https://www.constemarketing.com.br" className="text-2xl font-bold hover:scale-110 duration-200">
-          <img src="Logo Conste.png" alt="Logo Conste" className="h-12" />
+          <Image src="/Logo Conste.png" alt="Logo Conste" width={120} height={120} />
         </Link>
 
         {/* Botão de Menu Mobile */}
