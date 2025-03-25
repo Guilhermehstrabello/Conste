@@ -274,8 +274,6 @@ export default function Home() {
         </div>
       </section>
 
-      <TimelineDemo />
-
       <div className="lg:h-[104px] lg:w-[1020px] flex lg:flex-row flex-col w-full h-full items-center justify-between mx-auto bg-[#2900677c] gap-y-2 p-5 rounded-[4px]">
         <h3 className="text-white text-xl text-center">Faça sua empresa crescer com <span className="font-bold">constância.</span></h3>
         <FormModal buttonText="Elevar minha empresa agora" />
