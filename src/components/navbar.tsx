@@ -1,10 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-<<<<<<< HEAD
 import FormModal from "./formbutton";
-=======
->>>>>>> c78ab7721bca4305a76f16ccaa41a3f5405b052c
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);

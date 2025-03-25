@@ -270,9 +270,79 @@ export default function Home() {
               Muito bom o trabalho. Muitos clientes que não chegavam até mim estão me consultando agora!
             </p>
           </div>
-
         </div>
       </section>
+
+      <section id="nossos-processos" className="flex flex-col items-center justify-center w-full py-20 px-6 gap-20">
+         <div className="relative max-w-[1440px] w-full h-auto">
+           {/* Background Blur */}
+           <div className="absolute rounded-full w-[80%] max-w-[1200px] h-[70%] max-h-[1010px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 
+         bg-gradient-to-b from-[rgba(49,2,118,0.5)] to-[rgba(255,133,0,0.5)] blur-[80px] -z-10">
+           </div>
+ 
+           {/* Título */}
+           <div className="w-full flex flex-col items-center text-center gap-4 mb-40">
+             <p className="text-[#FF8500] font-neue-montreal text-lg md:text-xl">Nossos processos</p>
+             <h1 className="text-white font-montserrat font-bold text-3xl md:text-4xl lg:text-5xl">Como nós alavancamos o seu negócio!</h1>
+           </div>
+ 
+           {/* Etapas */}
+           <div className="flex flex-col gap-20 w-full max-w-[1200px] mx-auto mb-28">
+             {/* Etapa 1 */}
+             <div className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-6 md:gap-10">
+               <div className="w-[120px] h-[120px] md:w-[164px] md:h-[164px] bg-[rgba(49,2,118,0.3)] flex justify-center items-center rounded-full">
+                 <span className="text-white font-montserrat font-medium text-5xl md:text-[120px]">1</span>
+               </div>
+               <div className="text-center md:text-left w-full md:w-[433px]">
+                 <h3 className="text-white font-montserrat font-bold text-xl md:text-2xl lg:text-3xl">Alinhamento de expectativas</h3>
+                 <p className="text-[#BABABA] font-montserrat font-medium text-base md:text-lg mt-2">
+                   Entendemos seu negócio, público e objetivos. É aqui que começa a mágica.
+                 </p>
+               </div>
+             </div>
+ 
+             {/* Etapa 2 */}
+             <div className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-6 md:gap-10">
+               <div className="w-[120px] h-[120px] md:w-[164px] md:h-[164px] bg-[rgba(49,2,118,0.3)] flex justify-center items-center rounded-full">
+                 <span className="text-white font-montserrat font-medium text-5xl md:text-[120px]">2</span>
+               </div>
+               <div className="text-center md:text-left w-full md:w-[433px]">
+                 <h3 className="text-white font-montserrat font-bold text-xl md:text-2xl lg:text-3xl">Pesquisa e planejamento</h3>
+                 <p className="text-[#BABABA] font-montserrat font-medium text-base md:text-lg mt-2">
+                   Analisamos o mercado, seus concorrentes e as melhores estratégias para você.
+                 </p>
+               </div>
+             </div>
+ 
+             {/* Etapa 3 */}
+             <div className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-6 md:gap-10">
+               <div className="w-[120px] h-[120px] md:w-[164px] md:h-[164px] bg-[rgba(49,2,118,0.3)] flex justify-center items-center rounded-full">
+                 <span className="text-white font-montserrat font-medium text-5xl md:text-[120px]">3</span>
+               </div>
+               <div className="text-center md:text-left w-full md:w-[433px]">
+                 <h3 className="text-white font-montserrat font-bold text-xl md:text-2xl lg:text-3xl">Implementação e lançamento</h3>
+                 <p className="text-[#BABABA] font-montserrat font-medium text-base md:text-lg mt-2">
+                   Colocamos tudo em prática e garantimos que cada detalhe esteja perfeito.
+                 </p>
+               </div>
+             </div>
+ 
+             {/* Etapa 4 */}
+             <div className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-6 md:gap-10">
+               <div className="w-[120px] h-[120px] md:w-[164px] md:h-[164px] bg-[rgba(49,2,118,0.3)] flex justify-center items-center rounded-full">
+                 <span className="text-white font-montserrat font-medium text-5xl md:text-[120px]">4</span>
+               </div>
+               <div className="text-center md:text-left w-full md:w-[433px]">
+                 <h3 className="text-white font-montserrat font-bold text-xl md:text-2xl lg:text-3xl">Análise e evolução contínua</h3>
+                 <p className="text-[#BABABA] font-montserrat font-medium text-base md:text-lg mt-2">
+                   Monitoramos os resultados e ajustamos o que for necessário para crescer juntos.
+                 </p>
+               </div>
+             </div>
+ 
+           </div>
+         </div>
+       </section>
 
       <div className="lg:h-[104px] lg:w-[1020px] flex lg:flex-row flex-col w-full h-full items-center justify-between mx-auto bg-[#2900677c] gap-y-2 p-5 rounded-[4px]">
         <h3 className="text-white text-xl text-center">Faça sua empresa crescer com <span className="font-bold">constância.</span></h3>
