@@ -29,7 +29,7 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('/api/submit-lead', {
+      const response = await fetch('/api/submit-lead/route.ts', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
