@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 
 interface FormModalProps {
@@ -6,15 +8,13 @@ interface FormModalProps {
 
 const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     revenue: "",
   });
-
-  const SUPABASE_URL = "https://liwlupnnccwnnkcjnfjm.supabase.co";
-  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxpd2x1cG5uY2N3bm5rY2puZmptIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEyODEzMTcsImV4cCI6MjA1Njg1NzMxN30.z6J197-bSrylwAFjE5OzljmhT8cgYsvWHWZQMeNZiwc";
 
   const handleOpenModal = () => setIsOpen(true);
   const handleCloseModal = () => setIsOpen(false);
@@ -26,34 +26,40 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    setIsSubmitting(true);
 
     try {
-      const response = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
-        method: "POST",
+      const response = await fetch('/api/submit-lead', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
-          "apikey": SUPABASE_ANON_KEY,
-          "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
-          "Prefer": "return=representation",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       });
 
-      if (!response.ok) throw new Error("Erro ao enviar os dados");
+      const result = await response.json();
 
-      console.log("Enviado com sucesso!");
-      alert("Formulário enviado!");
-      setFormData({ name: "", email: "", phone: "", revenue: "" }); // Limpar formulário
-      handleCloseModal();
+      if (!response.ok) {
+        throw new Error(result.message || 'Erro ao enviar formulário');
+      }
+
+      alert(result.message || 'Formulário enviado com sucesso!');
+      
+      // Resetar formulário
+      setFormData({ name: "", email: "", phone: "", revenue: "" });
+      
+      // Opcional: Fechar modal após sucesso
+      // handleCloseModal();
     } catch (error) {
-      console.error("Erro ao enviar:", error);
-      alert("Erro ao enviar formulário.");
+      console.error('Erro:', error);
+      alert(error instanceof Error ? error.message : 'Erro ao enviar formulário. Tente novamente.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
     <div className="flex items-center h-fit">
-      {/* Botão para abrir o formulário */}
       <button
         onClick={handleOpenModal}
         className="z-10 px-5 py-4 my-12 text-white bg-[#310276] hover:bg-[#40009E] duration-200 rounded-[6px]"
@@ -61,11 +67,9 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
         {buttonText}
       </button>
 
-      {/* Modal com o formulário */}
       {isOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
           <div className="bg-white p-6 shadow-lg w-[500px] relative rounded-[8px]">
-            {/* Botão de Fechar */}
             <button
               onClick={handleCloseModal}
               className="absolute top-2 right-2 text-[#310276] hover:text-[#40009E]"
@@ -77,7 +81,6 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
               Preencha o formulário e fale com um dos nossos especialistas
             </h2>
 
-            {/* Formulário */}
             <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
               <label className="font-bold text-sm">
                 Qual o seu nome?
@@ -138,9 +141,10 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
 
               <button
                 type="submit"
-                className="p-4 bg-[#310276] hover:bg-[#40009E] text-white rounded-[4px]"
+                disabled={isSubmitting}
+                className="p-4 bg-[#310276] hover:bg-[#40009E] text-white rounded-[4px] disabled:opacity-50"
               >
-                Solicitar contato
+                {isSubmitting ? 'Enviando...' : 'Solicitar contato'}
               </button>
             </form>
           </div>
