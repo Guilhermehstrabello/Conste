@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { db } from "../app/firebase"; // Certifique-se de ajustar o caminho para seu arquivo firebase
 import { collection, addDoc } from "firebase/firestore";
-import { m } from "framer-motion";
 
 interface FormModalProps {
   buttonText: string;
