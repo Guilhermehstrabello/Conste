@@ -97,7 +97,7 @@ const Navbar = () => {
 
         {/* Botão Desktop */}
         <div className="hidden md:block">
-          <FormModal buttonText="Contratar a Conste" />
+          <FormModal buttonText="Entrar em Contato" />
         </div>
       </div>
     </nav>
