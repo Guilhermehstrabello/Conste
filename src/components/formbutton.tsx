@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { db } from "../app/firebase"; // Certifique-se de ajustar o caminho para seu arquivo firebase
 import { collection, addDoc } from "firebase/firestore";
@@ -59,7 +61,6 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
 
   return (
     <div className="flex items-center h-fit">
-      {/* Botão para abrir o formulário */}
       <button
         onClick={handleOpenModal}
         className="z-10 px-5 py-4 my-12 text-white bg-[#310276] hover:bg-[#40009E] duration-200 rounded-[6px]"
@@ -67,11 +68,9 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
         {buttonText}
       </button>
 
-      {/* Modal com o formulário */}
       {isOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
           <div className="bg-white p-6 shadow-lg w-[500px] relative rounded-[8px]">
-            {/* Botão de Fechar */}
             <button
               onClick={handleCloseModal}
               className="absolute top-2 right-2 text-[#310276] hover:text-[#40009E]"
@@ -83,7 +82,6 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
               Preencha o formulário e fale com um dos nossos especialistas
             </h2>
 
-            {/* Formulário */}
             <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
               <label className="font-bold text-sm">
                 Qual o seu nome?

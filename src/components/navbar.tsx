@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import FormModal from "./formbutton";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -55,7 +56,7 @@ const Navbar = () => {
 
           {/* Links do Menu */}
           <ul className="flex flex-col items-center space-y-6">
-            {["Quem Somos", "Setores", "Cases", "Depoimentos", "Nosso Processo"].map((item) => (
+            {["Quem Somos", "Setores", "Cases", "Depoimentos", "Nossos Processos"].map((item) => (
               <li key={item} className="hover:text-[#FF8500] duration-200">
                 <Link href={`#${item.toLowerCase().replace(" ", "-")}`} onClick={() => setIsOpen(false)}>
                   {item}
@@ -86,8 +87,8 @@ const Navbar = () => {
         {/* Links do Menu Desktop */}
         <div className="hidden md:flex items-center space-x-10">
           <ul className="flex space-x-8 text-white">
-            {["Quem Somos", "Setores", "Cases", "Depoimentos", "Nosso Processo"].map((item) => (
-              <li key={item} className="hover:text-[#FF8500] duration-200">
+            {["Quem Somos", "Setores", "Cases", "Depoimentos", "Nossos Processos"].map((item) => (
+              <li key={item} className="hover:scale-110 duration-200">
                 <Link href={`#${item.toLowerCase().replace(" ", "-")}`}>{item}</Link>
               </li>
             ))}
@@ -96,23 +97,7 @@ const Navbar = () => {
 
         {/* Botão Desktop */}
         <div className="hidden md:block">
-          <Link href="#contato" className="px-5 py-3 text-sm text-white bg-[#310276] hover:bg-[#40009E] duration-200 rounded-[4px] flex items-center">
-            Contratar a Conste{" "}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4 ml-2 hover:-rotate-12"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M17 8l4 4m0 0l-4 4m4-4H3"
-              />
-            </svg>
-          </Link>
+          <FormModal buttonText="Contratar a Conste" />
         </div>
       </div>
     </nav>
