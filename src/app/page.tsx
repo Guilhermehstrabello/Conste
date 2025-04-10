@@ -53,12 +53,12 @@ export default function Home() {
           </div>
           <div className="bg-[linear-gradient(180deg,#310276_0%,#0E0E0E_45.19%)] p-6 rounded-[12px] flex flex-col items-center justify-center text-white text-center w-64 h-64 px-10 py-7 border border-[#310276]">
             <Image className="mb-3" src="/icon2.svg" width={40} height={40} alt="icone de experiência" />
-            <h3 className="text-4xl font-bold">+115</h3>
+            <h3 className="text-4xl font-bold">+122</h3>
             <p className="text-[#BABABA]">Clientes Atendidos</p>
           </div>
           <div className="bg-[linear-gradient(180deg,#310276_0%,#0E0E0E_45.19%)] p-6 rounded-[12px] flex flex-col items-center justify-center text-white text-center w-64 h-64 px-10 py-7 border border-[#310276]">
             <Image className="mb-3" src="/icon3.svg" width={40} height={40} alt="icone de experiência" />
-            <h3 className="text-4xl font-bold">+5.6M</h3>
+            <h3 className="text-4xl font-bold">+6.5M</h3>
             <p className="text-[#BABABA]">em Vendas</p>
           </div>
         </div>
