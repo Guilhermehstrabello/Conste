@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { db } from "../app/firebase"; // Certifique-se de ajustar o caminho para seu arquivo firebase
 import { collection, addDoc } from "firebase/firestore";
+import { m } from "framer-motion";
 
 interface FormModalProps {
   buttonText: string;
@@ -13,6 +14,7 @@ interface FormData {
   email: string;
   phone: string;
   revenue: string;
+  message: string;
 }
 
 const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
@@ -23,12 +25,13 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
     email: "",
     phone: "",
     revenue: "",
+    message: "",
   });
 
   const handleOpenModal = () => setIsOpen(true);
   const handleCloseModal = () => setIsOpen(false);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
@@ -44,12 +47,13 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
         email: formData.email,
         phone: formData.phone,
         revenue: formData.revenue,
+        message: formData.message,
         createdAt: new Date() // opcional: adiciona timestamp
       });
       
       console.log("Enviado com sucesso!");
       alert("Formulário enviado!");
-      setFormData({ name: "", email: "", phone: "", revenue: "" });
+      setFormData({ name: "", email: "", phone: "", revenue: "", message: "" });
       handleCloseModal();
     } catch (error) {
       console.error("Erro ao enviar:", error);
@@ -138,6 +142,19 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
                   <option value="R$100.000 - R$500.000">R$100.000 - R$500.000</option>
                   <option value="+ de R$1.000.000">+ de R$1.000.000</option>
                 </select>
+              </label>
+
+
+              <label className="font-bold text-sm">
+                Tem alguma dúvida ou mensagem?
+                <textarea
+                  name="message"
+                  typeof="text"
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="Digite sua mensagem aqui"
+                  className="border p-3 my-2 text-base rounded-[4px] font-medium w-full focus:outline-[#40009E]"
+                />
               </label>
 
               <button

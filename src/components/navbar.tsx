@@ -11,7 +11,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="text-white">
+    <nav>
       <div
         className="flex justify-between items-center md:h-24 h-20 px-6 md:px-10 mx-auto relative"
         style={{ maxWidth: "1200px" }}
@@ -97,7 +97,7 @@ const Navbar = () => {
 
         {/* Botão Desktop */}
         <div className="hidden md:block">
-          <FormModal buttonText="Entrar em Contato" />
+          <FormModal buttonText="Entrar em contato" />
         </div>
       </div>
     </nav>
