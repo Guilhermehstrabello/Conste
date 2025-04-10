@@ -1,20 +1,27 @@
 import React, { useState } from "react";
+import { db } from "../app/firebase"; // Certifique-se de ajustar o caminho para seu arquivo firebase
+import { collection, addDoc } from "firebase/firestore";
 
 interface FormModalProps {
   buttonText: string;
 }
 
+interface FormData {
+  name: string;
+  email: string;
+  phone: string;
+  revenue: string;
+}
+
 const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [formData, setFormData] = useState({
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     phone: "",
     revenue: "",
   });
-
-  const SUPABASE_URL = "https://liwlupnnccwnnkcjnfjm.supabase.co";
-  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxpd2x1cG5uY2N3bm5rY2puZmptIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEyODEzMTcsImV4cCI6MjA1Njg1NzMxN30.z6J197-bSrylwAFjE5OzljmhT8cgYsvWHWZQMeNZiwc";
 
   const handleOpenModal = () => setIsOpen(true);
   const handleCloseModal = () => setIsOpen(false);
@@ -26,28 +33,27 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    setLoading(true);
 
     try {
-      const response = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "apikey": SUPABASE_ANON_KEY,
-          "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
-          "Prefer": "return=representation",
-        },
-        body: JSON.stringify(formData),
+      // Adicionando dados ao Firestore
+      await addDoc(collection(db, "leads"), {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        revenue: formData.revenue,
+        createdAt: new Date() // opcional: adiciona timestamp
       });
-
-      if (!response.ok) throw new Error("Erro ao enviar os dados");
-
+      
       console.log("Enviado com sucesso!");
       alert("Formulário enviado!");
-      setFormData({ name: "", email: "", phone: "", revenue: "" }); // Limpar formulário
+      setFormData({ name: "", email: "", phone: "", revenue: "" });
       handleCloseModal();
     } catch (error) {
       console.error("Erro ao enviar:", error);
-      alert("Erro ao enviar formulário.");
+      alert("Erro ao enviar formulário. Por favor, tente novamente.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -138,9 +144,10 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
 
               <button
                 type="submit"
-                className="p-4 bg-[#310276] hover:bg-[#40009E] text-white rounded-[4px]"
+                disabled={loading}
+                className={`p-4 ${loading ? 'bg-gray-400' : 'bg-[#310276] hover:bg-[#40009E]'} text-white rounded-[4px] transition-colors`}
               >
-                Solicitar contato
+                {loading ? "Enviando..." : "Solicitar contato"}
               </button>
             </form>
           </div>
