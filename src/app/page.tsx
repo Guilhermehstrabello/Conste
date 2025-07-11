@@ -19,7 +19,7 @@ export default function Home() {
         </h1>
 
         <p className="text-[#9A9A9A] max-w-[512px] text-sm md:text-lg">
-          Criamos estratégias inovadoras que unem criatividade, dados e tecnologia para impulsionar marcas.
+          Estratégias de marketing e vendas inovadoras que unem dados, construção e escala.
         </p>
 
         <FormModal buttonText="Eleve seus resultados" />
@@ -33,7 +33,7 @@ export default function Home() {
 
       <section id="quem-somos" className="flex flex-col items-center justify-center p-0">
         <h2 className="text-white font-bold text-4xl">Quem Somos</h2>
-        <Image src="/Equipe.png" alt="Imagem da Equipe" width={1080} height={370} />
+        <Image src="/Equipe.png" alt="Imagem da Equipe" width={674} height={370} />
         <div className="space-y-3 flex flex-col items-center justify-center text-base">
           <p className="text-[#9A9A9A] md:w-[600px] w-[280px] text-center">
             A Conste atua em soluções digitais, dedicada a impulsionar a captação de clientes para empresas por meio de estratégias de marketing digital.
@@ -53,12 +53,12 @@ export default function Home() {
           </div>
           <div className="bg-[linear-gradient(180deg,#310276_0%,#0E0E0E_45.19%)] p-6 rounded-[12px] flex flex-col items-center justify-center text-white text-center w-64 h-64 px-10 py-7 border border-[#310276]">
             <Image className="mb-3" src="/icon2.svg" width={40} height={40} alt="icone de experiência" />
-            <h3 className="text-4xl font-bold">+122</h3>
+            <h3 className="text-4xl font-bold">+130</h3>
             <p className="text-[#BABABA]">Clientes Atendidos</p>
           </div>
           <div className="bg-[linear-gradient(180deg,#310276_0%,#0E0E0E_45.19%)] p-6 rounded-[12px] flex flex-col items-center justify-center text-white text-center w-64 h-64 px-10 py-7 border border-[#310276]">
             <Image className="mb-3" src="/icon3.svg" width={40} height={40} alt="icone de experiência" />
-            <h3 className="text-4xl font-bold">+6.5M</h3>
+            <h3 className="text-4xl font-bold">+8M</h3>
             <p className="text-[#BABABA]">em Vendas</p>
           </div>
         </div>

@@ -14,151 +14,157 @@ export default function ClientsLogo() {
       >
         <ul x-ref="logos" className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
           <li>
-            <Image src="/Agrotuba.png" width={120} height={70} alt="Facebook" />
+            <Image src="/3Afest.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/Arita.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Agrotuba.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/bless.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Alumifine.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/campconsulting.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Bless.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/comercial.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Campconsulting.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/delux.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Centopeia.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/doif.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Comercial.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/dom_portas.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Delux.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/Domus.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Domus.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/Dra Ethel Sfeir.png" width={120} height={70} alt="Disney" />
+            <Image src="/Dra_Ethel.png" width={200} height={100} alt="Disney" />
           </li>
           <li>
-            <Image src="/Ella Belle.png" width={120} height={70} alt="Airbnb" />
+            <Image src="/Drix.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/ep_tijolos.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Ep_tijolos.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/golden_boy.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Imperio.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/Hide Sushi.png" width={120} height={70} alt="Apple" />
+            <Image src="/Jackeline.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/imperio.png" width={120} height={70} alt="Facebook" />
+            <Image src="/JE_polimetal.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/Jackeline.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Jmex.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/je_polimetal.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Leluh Kids.png" width={200} height={100} alt="Apple" />
           </li>
           <li>
-            <Image src="/LeluhKids.png" width={120} height={70} alt="Apple" />
+            <Image src="/Maile.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/maiale_pizza.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Meu_pet.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/meupet.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Monstermill.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/patricia_yano.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Patricia_yano.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/Polimetal.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Qajuste.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/Qajuste.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Rei_do_basico.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/Sogima Embalagens.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Sathya.png" width={200} height={100} alt="Facebook" />
+          </li>
+          <li>
+            <Image src="/SHT.png" width={200} height={100} alt="Facebook" />
           </li>
         </ul>
 
         <ul className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll" aria-hidden="true">
-        <li>
-            <Image src="/Agrotuba.png" width={120} height={70} alt="Facebook" />
+          <li>
+            <Image src="/3Afest.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/Arita.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Agrotuba.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/bless.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Alumifine.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/campconsulting.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Bless.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/comercial.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Campconsulting.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/delux.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Centopeia.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/doif.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Comercial.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/dom_portas.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Delux.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/Domus.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Domus.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/Dra Ethel Sfeir.png" width={120} height={70} alt="Disney" />
+            <Image src="/Dra_Ethel.png" width={200} height={100} alt="Disney" />
           </li>
           <li>
-            <Image src="/Ella Belle.png" width={120} height={70} alt="Airbnb" />
+            <Image src="/Drix.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/ep_tijolos.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Ep_tijolos.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/golden_boy.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Imperio.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/Hide Sushi.png" width={120} height={70} alt="Apple" />
+            <Image src="/Jackeline.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/imperio.png" width={120} height={70} alt="Facebook" />
+            <Image src="/JE_polimetal.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/Jackeline.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Jmex.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/je_polimetal.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Leluh Kids.png" width={200} height={100} alt="Apple" />
           </li>
           <li>
-            <Image src="/LeluhKids.png" width={120} height={70} alt="Apple" />
+            <Image src="/Maile.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/maiale_pizza.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Meu_pet.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/meupet.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Monstermill.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/patricia_yano.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Patricia_yano.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/Polimetal.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Qajuste.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/Qajuste.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Rei_do_basico.png" width={200} height={100} alt="Facebook" />
           </li>
           <li>
-            <Image src="/Sogima Embalagens.png" width={120} height={70} alt="Facebook" />
+            <Image src="/Sathya.png" width={200} height={100} alt="Facebook" />
+          </li>
+          <li>
+            <Image src="/SHT.png" width={200} height={100} alt="Facebook" />
           </li>
         </ul>
       </div>
