@@ -47,7 +47,7 @@ export default function ClientsLogo() {
             <Image src="/Drix.png" width={200} height={100} alt="Drix" />
           </li>
           <li>
-            <Image src="/Ep_tijolos.png" width={200} height={100} alt="Ep tijolos" />
+            <Image src="/EP-Tijolos.png" width={200} height={100} alt="Ep tijolos" />
           </li>
           <li>
             <Image src="/Imperio.png" width={200} height={100} alt="Imperio" />
@@ -56,7 +56,7 @@ export default function ClientsLogo() {
             <Image src="/Jackeline.png" width={200} height={100} alt="Jackeline" />
           </li>
           <li>
-            <Image src="/JE_polimetal.png" width={200} height={100} alt="JE polimetal" />
+            <Image src="/JE-Polimetal.png" width={200} height={100} alt="JE polimetal" />
           </li>
           <li>
             <Image src="/Jmex.png" width={200} height={100} alt="Jmex" />
@@ -125,7 +125,7 @@ export default function ClientsLogo() {
             <Image src="/Drix.png" width={200} height={100} alt="Drix" />
           </li>
           <li>
-            <Image src="/EpTijolos.png" width={200} height={100} alt="Ep tijolos" />
+            <Image src="/EP-Tijolos.png" width={200} height={100} alt="Ep tijolos" />
           </li>
           <li>
             <Image src="/Imperio.png" width={200} height={100} alt="Imperio" />
@@ -134,7 +134,7 @@ export default function ClientsLogo() {
             <Image src="/Jackeline.png" width={200} height={100} alt="Jackeline" />
           </li>
           <li>
-            <Image src="/JEPolimetal.png" width={200} height={100} alt="JE polimetal" />
+            <Image src="/JE-Polimetal.png" width={200} height={100} alt="JE polimetal" />
           </li>
           <li>
             <Image src="/Jmex.png" width={200} height={100} alt="Jmex" />
