@@ -153,10 +153,10 @@ export default function Home() {
         <div className="flex md:flex-row flex-col items-center justify-center gap-x-10 gap-y-10">
           <div className="flex flex-col justify-center items-center max-w-[1200px] p-4 gap-6 w-[370px] h-full border border-[#310276] rounded-[10px]">
             {/* Imagem */}
-            <Image src="/Polimetal.png" width={268} height={88} alt="JE Polimetal Logo" />
+            <Image src="/JE_polimetal.png" width={200} height={88} alt="JE Polimetal Logo" />
 
             {/* Case Stats Container */}
-            <div className="flex flex-col justify-center items-center gap-4 w-[260px] h-full">
+            <div className="flex flex-col justify-center items-center gap-4 w-[260px] h-[400px]">
 
               {/* Stat Container 1 */}
               <div className="flex flex-col justify-center items-center p-4 w-[230px] h-full bg-[rgba(49,2,118,0.4)] rounded-[4px]">
@@ -178,10 +178,10 @@ export default function Home() {
             </div>
           </div>
           <div className="flex flex-col justify-center items-center p-4 gap-6 w-[370px] h-full border border-[#310276] rounded-[10px]">
-            <Image src="/Agrotuba.png" width={106} height={88} alt="Agrotuba Logo" />
+            <Image src="/Agrotuba.png" width={200} height={88} alt="Agrotuba Logo" />
 
             {/* Case Stats Container */}
-            <div className="flex flex-col justify-center items-center gap-4 w-[260px] h-full">
+            <div className="flex flex-col justify-center items-center gap-4 w-[260px] h-[400px]">
 
               {/* Stat Container 1 */}
               <div className="flex flex-col justify-center items-center p-4 w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-[4px]">
@@ -203,10 +203,10 @@ export default function Home() {
             </div>
           </div>
           <div className="flex flex-col justify-center items-center p-4 gap-6 w-[370px] h-full border border-[#310276] rounded-[10px]">
-            <Image src="/LeluhKids.png" width={106} height={88} alt="Leluh Kids Logo" />
+            <Image src="/LeluhKids.png" width={200} height={88} alt="Leluh Kids Logo" />
 
             {/* Case Stats Container */}
-            <div className="flex flex-col justify-center items-center gap-4 w-[260px] h-full">
+            <div className="flex flex-col justify-center items-center gap-4 w-[260px] h-[400px]">
 
               {/* Stat Container 1 */}
               <div className="flex flex-col justify-center items-center p-4 w-[260px] h-full bg-[rgba(49,2,118,0.4)] rounded-[4px]">
