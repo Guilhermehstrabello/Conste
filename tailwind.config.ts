@@ -17,7 +17,11 @@ export default {
         montserrat: ["Montserrat", "sans-serif"],
       },
       animation: {
+<<<<<<< HEAD
         'infinite-scroll': 'infinite-scroll 25s linear infinite',
+=======
+        'infinite-scroll': 'infinite-scroll 40s linear infinite',
+>>>>>>> master
       },
       keyframes: {
         'infinite-scroll': {
