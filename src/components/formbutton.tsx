@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { db } from "../app/firebase"; // Certifique-se de ajustar o caminho para seu arquivo firebase
-import { collection, addDoc } from "firebase/firestore";
+import { db } from "../app/firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 interface FormModalProps {
   buttonText: string;
@@ -19,6 +19,8 @@ interface FormData {
 const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [successModalOpen, setSuccessModalOpen] = useState<boolean>(false);
+
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -40,20 +42,17 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
     setLoading(true);
 
     try {
-      // Adicionando dados ao Firestore
       await addDoc(collection(db, "leads"), {
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
         revenue: formData.revenue,
         message: formData.message,
-        createdAt: new Date() // opcional: adiciona timestamp
+        createdAt: serverTimestamp()
       });
-      
-      console.log("Enviado com sucesso!");
-      alert("Formulário enviado!");
+
       setFormData({ name: "", email: "", phone: "", revenue: "", message: "" });
-      handleCloseModal();
+      setSuccessModalOpen(true); // mostra modal de sucesso
     } catch (error) {
       console.error("Erro ao enviar:", error);
       alert("Erro ao enviar formulário. Por favor, tente novamente.");
@@ -71,8 +70,9 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
         {buttonText}
       </button>
 
+      {/* Formulário */}
       {isOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+        <div className="fixed inset-0 flex items-center text-left justify-center bg-black/50 z-50">
           <div className="bg-white p-6 shadow-lg w-[500px] relative rounded-[8px]">
             <button
               onClick={handleCloseModal}
@@ -81,11 +81,12 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
               ✖
             </button>
 
-            <h2 className="text-lg font-bold mb-4 text-center">
+            <h2 className="text-lg font-bold mb-4 text-left">
               Preencha o formulário e fale com um dos nossos especialistas
             </h2>
 
-            <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+            <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
+              {/* Campos do form — mantidos iguais */}
               <label className="font-bold text-sm">
                 Qual o seu nome?
                 <input
@@ -131,7 +132,7 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
                   name="revenue"
                   value={formData.revenue}
                   onChange={handleChange}
-                  className="border p-3 my-2 bg-gray-200 text-base rounded-[4px] font-medium w-full focus:outline-[#40009E]"
+                  className="border p-3 my-2 bg-white text-[#310276] text-base rounded-[4px] font-medium w-full focus:outline-[#310276] focus:bg-white"
                   required
                 >
                   <option value="">Selecionar faturamento</option>
@@ -142,7 +143,6 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
                   <option value="+ de R$1.000.000">+ de R$1.000.000</option>
                 </select>
               </label>
-
 
               <label className="font-bold text-sm">
                 Tem alguma dúvida ou mensagem?
@@ -164,6 +164,27 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
                 {loading ? "Enviando..." : "Solicitar contato"}
               </button>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Modal de sucesso */}
+      {successModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded-xl shadow-xl p-8 max-w-sm text-center animate-fade-in">
+            <h2 className="text-xl font-semibold mb-4 text-[#310276]">Formulário enviado com sucesso!</h2>
+            <p className="text-gray-700 mb-6">
+              Obrigado pelo seu contato. Em breve entraremos em contato com você.
+            </p>
+            <button
+              className="px-5 py-2 bg-[#310276] text-white rounded-lg hover:bg-[#40009E] transition"
+              onClick={() => {
+                setSuccessModalOpen(false);
+                setIsOpen(false); // fecha o form também
+              }}
+            >
+              Fechar
+            </button>
           </div>
         </div>
       )}
