@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { db } from "../app/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { shootConfetti } from "./confetti";
 
 interface FormModalProps {
   buttonText: string;
@@ -53,6 +54,7 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
 
       setFormData({ name: "", email: "", phone: "", revenue: "", message: "" });
       setSuccessModalOpen(true); // mostra modal de sucesso
+      shootConfetti();
     } catch (error) {
       console.error("Erro ao enviar:", error);
       alert("Erro ao enviar formulário. Por favor, tente novamente.");
