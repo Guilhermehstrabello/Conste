@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { db } from "../app/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { shootConfetti } from "./confetti";
+import { useRouter } from 'next/navigation';
 
 interface FormModalProps {
   buttonText: string;
@@ -11,23 +12,23 @@ interface FormModalProps {
 
 interface FormData {
   name: string;
+  empresa: string;
   email: string;
   phone: string;
   revenue: string;
-  message: string;
 }
 
 const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const [successModalOpen, setSuccessModalOpen] = useState<boolean>(false);
 
+  const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     name: "",
+    empresa: "",
     email: "",
     phone: "",
     revenue: "",
-    message: "",
   });
 
   const handleOpenModal = () => setIsOpen(true);
@@ -45,16 +46,19 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
     try {
       await addDoc(collection(db, "leads"), {
         name: formData.name,
+        empresa: formData.empresa,
         email: formData.email,
         phone: formData.phone,
         revenue: formData.revenue,
-        message: formData.message,
         createdAt: serverTimestamp()
       });
 
-      setFormData({ name: "", email: "", phone: "", revenue: "", message: "" });
-      setSuccessModalOpen(true); // mostra modal de sucesso
+      setFormData({ name: "", empresa: "", email: "", phone: "", revenue: "" });
+
       shootConfetti();
+
+      // redireciona após submissão
+      router.push("/obrigado");
     } catch (error) {
       console.error("Erro ao enviar:", error);
       alert("Erro ao enviar formulário. Por favor, tente novamente.");
@@ -97,6 +101,19 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Seu primeiro nome"
+                  className="border p-3 my-2 text-base rounded-[4px] font-medium w-full focus:outline-[#40009E]"
+                  required
+                />
+              </label>
+
+              <label className="font-bold text-sm">
+                Qual o nome da sua empresa?
+                <input
+                  type="text"
+                  name="empresa"
+                  value={formData.empresa}
+                  onChange={handleChange}
+                  placeholder="Ex: Conste Agência"
                   className="border p-3 my-2 text-base rounded-[4px] font-medium w-full focus:outline-[#40009E]"
                   required
                 />
@@ -146,18 +163,6 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
                 </select>
               </label>
 
-              <label className="font-bold text-sm">
-                Tem alguma dúvida ou mensagem?
-                <textarea
-                  name="message"
-                  typeof="text"
-                  value={formData.message}
-                  onChange={handleChange}
-                  placeholder="Digite sua mensagem aqui"
-                  className="border p-3 my-2 text-base rounded-[4px] font-medium w-full focus:outline-[#40009E]"
-                />
-              </label>
-
               <button
                 type="submit"
                 disabled={loading}
@@ -166,27 +171,6 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
                 {loading ? "Enviando..." : "Solicitar contato"}
               </button>
             </form>
-          </div>
-        </div>
-      )}
-
-      {/* Modal de sucesso */}
-      {successModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white rounded-xl shadow-xl p-8 max-w-sm text-center animate-fade-in">
-            <h2 className="text-xl font-semibold mb-4 text-[#310276]">Formulário enviado com sucesso!</h2>
-            <p className="text-gray-700 mb-6">
-              Obrigado pelo seu contato. Em breve entraremos em contato com você.
-            </p>
-            <button
-              className="px-5 py-2 bg-[#310276] text-white rounded-lg hover:bg-[#40009E] transition"
-              onClick={() => {
-                setSuccessModalOpen(false);
-                setIsOpen(false); // fecha o form também
-              }}
-            >
-              Fechar
-            </button>
           </div>
         </div>
       )}
