@@ -12,23 +12,39 @@ interface FormModalProps {
 
 interface FormData {
   name: string;
-  empresa: string;
   email: string;
   phone: string;
   revenue: string;
+  company: string;
 }
 
 const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  let value = e.target.value.replace(/\D/g, ""); // Remove tudo que não for número
+
+  if (value.length > 11) value = value.slice(0, 11); // Limita a 11 dígitos
+
+  if (value.length <= 10) {
+    // Formato fixo: (99) 9999-9999
+    value = value.replace(/(\d{2})(\d{4})(\d{0,4})/, "($1) $2-$3");
+  } else {
+    // Formato celular: (99) 99999-9999
+    value = value.replace(/(\d{2})(\d{5})(\d{0,4})/, "($1) $2-$3");
+  }
+
+  setFormData((prev) => ({ ...prev, phone: value }));
+};
+
   const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     name: "",
-    empresa: "",
     email: "",
     phone: "",
     revenue: "",
+    company: "",
   });
 
   const handleOpenModal = () => setIsOpen(true);
@@ -40,32 +56,41 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    setLoading(true);
+  event.preventDefault();
+  setLoading(true);
 
-    try {
-      await addDoc(collection(db, "leads"), {
-        name: formData.name,
-        empresa: formData.empresa,
-        email: formData.email,
-        phone: formData.phone,
-        revenue: formData.revenue,
-        createdAt: serverTimestamp()
-      });
+  try {
 
-      setFormData({ name: "", empresa: "", email: "", phone: "", revenue: "" });
+    await addDoc(collection(db, "leads"), {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      revenue: formData.revenue,
+      company: formData.company,
+      createdAt: serverTimestamp(),
+    });
 
-      shootConfetti();
+    const response = await fetch("/api/send-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
 
-      // redireciona após submissão
-      router.push("/obrigado");
-    } catch (error) {
-      console.error("Erro ao enviar:", error);
-      alert("Erro ao enviar formulário. Por favor, tente novamente.");
-    } finally {
-      setLoading(false);
-    }
-  };
+    if (!response.ok) throw new Error("Erro ao enviar e-mail");
+
+    setFormData({ name: "", email: "", phone: "", revenue: "", company: "" });
+
+    shootConfetti();
+    router.push("/obrigado");
+  } catch (error) {
+    console.error("Erro:", error);
+    alert("Erro ao enviar formulário. Por favor, tente novamente.");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="flex items-center h-fit">
@@ -109,13 +134,12 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
               <label className="font-bold text-sm">
                 Qual o nome da sua empresa?
                 <input
+                  name="company"
                   type="text"
-                  name="empresa"
-                  value={formData.empresa}
+                  value={formData.company}
                   onChange={handleChange}
-                  placeholder="Ex: Conste Agência"
+                  placeholder="Digite sua mensagem aqui"
                   className="border p-3 my-2 text-base rounded-[4px] font-medium w-full focus:outline-[#40009E]"
-                  required
                 />
               </label>
 
@@ -138,7 +162,7 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
                   type="tel"
                   name="phone"
                   value={formData.phone}
-                  onChange={handleChange}
+                  onChange={handlePhoneChange}
                   placeholder="(19)99999-9999"
                   className="border p-3 my-2 text-base rounded-[4px] font-medium w-full focus:outline-[#40009E]"
                   required
@@ -165,9 +189,8 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
 
               <button
                 type="submit"
-                disabled={loading}
-                className={`p-4 ${loading ? 'bg-gray-400' : 'bg-[#310276] hover:bg-[#40009E]'} text-white rounded-[4px] transition-colors`}
-              >
+                className="bg-[#310276] hover:bg-[#40009E] text-white font-bold py-3 px-6 rounded-[6px] transition duration-200"
+                disabled={loading}>
                 {loading ? "Enviando..." : "Solicitar contato"}
               </button>
             </form>
