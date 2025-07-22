@@ -3,7 +3,7 @@ import Footer from "@/components/footer";
 export default function ObrigadoPage() {
   return (
     <>
-      <div className="text-white h-fit flex flex-col items-center justify-center text-center p-36 bg-gradient-to-r from-[#310276] to-[#ff8500]">
+      <div className="text-white h-fit flex flex-col items-center justify-center text-center p-32 bg-gradient-to-r from-[#310276] to-[#ff8500]">
         <h1 className="text-3xl font-bold mb-4">Obrigado pelo contato!</h1>
         <p className="mb-6">Recebemos suas informações e entraremos em contato em breve.</p>
         <a
