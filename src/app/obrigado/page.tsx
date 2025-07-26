@@ -12,7 +12,7 @@ export default function ObrigadoPage() {
           rel="noopener noreferrer"
           className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl transition"
         >
-          Ir para o WhatsApp
+          Falar no WhatsApp
         </a>
       </div>
       <Footer />

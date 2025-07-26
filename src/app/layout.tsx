@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { GoogleTagManager } from '@next/third-parties/google';
+import { Analytics } from "@vercel/analytics/next"
 
 export const metadata: Metadata = {
   title: "Conste",
@@ -26,8 +27,10 @@ export default function RootLayout({
         />
       </head>
       <body className="font-montserrat">
+        <Analytics />
         <GoogleTagManager gtmId="GTM-TVRWH47F" />
-        {children}</body>
+        {children}
+      </body>
     </html>
   );
 }

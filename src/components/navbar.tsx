@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import FormModal from "./formbutton";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -47,17 +46,17 @@ const Navbar = () => {
         <div
           className={`${
             isOpen ? "flex" : "hidden"
-          } md:hidden fixed top-0 left-0 w-full h-screen bg-black flex-col items-center justify-center text-lg space-y-6 z-50`}
+          } md:hidden fixed top-0 left-0 w-full h-screen bg-black text-white flex-col items-center justify-center text-lg space-y-6 z-50`}
         >
           {/* Logo no topo */}
           <Link href="https://www.constemarketing.com.br" onClick={() => setIsOpen(false)}>
-            <img src="Logo Conste.png" alt="Logo Conste" className="h-16" />
+            <img src="/Logo Conste.png" alt="Logo Conste" className="h-10" />
           </Link>
 
           {/* Links do Menu */}
           <ul className="flex flex-col items-center space-y-6">
             {["Quem Somos", "Setores", "Cases", "Depoimentos", "Nossos Processos"].map((item) => (
-              <li key={item} className="hover:text-[#FF8500] duration-200">
+              <li key={item} className="hover:bg-[#310276]  p-4 duration-200">
                 <Link href={`#${item.toLowerCase().replace(" ", "-")}`} onClick={() => setIsOpen(false)}>
                   {item}
                 </Link>
@@ -88,17 +87,13 @@ const Navbar = () => {
         <div className="hidden md:flex items-center space-x-10">
           <ul className="flex space-x-8 text-white">
             {["Quem Somos", "Setores", "Cases", "Depoimentos", "Nossos Processos"].map((item) => (
-              <li key={item} className="hover:scale-110 duration-200">
+              <li key={item} className="hover:scale-110 duration-300 p-4 hover:bg-[#310276] rounded-md">
                 <Link href={`#${item.toLowerCase().replace(" ", "-")}`}>{item}</Link>
               </li>
             ))}
           </ul>
         </div>
 
-        {/* Botão Desktop */}
-        <div className="hidden md:block">
-          <FormModal buttonText="Entrar em contato" />
-        </div>
       </div>
     </nav>
   );
