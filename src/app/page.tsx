@@ -5,10 +5,12 @@ import SmoothScroll from "@/components/scroll";
 import Image from "next/image";
 import GlassCard from "@/components/glasscard";
 import Footer from "@/components/footer";
+import WhatsApp from "@/components/wpp";
 
 export default function Home() {
   return (
     <>
+      
       <SmoothScroll />
       <Navbar />
       <section className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-hero_bg bg-cover bg-center gap-y-4 px-4 text-center">
@@ -398,6 +400,7 @@ export default function Home() {
         </a>
       </div>
       <Footer />
+      <WhatsApp />
     </>
   );
 }
