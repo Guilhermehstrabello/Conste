@@ -29,7 +29,11 @@ export async function POST(req: NextRequest) {
         await transporter.sendMail(mailOptions);
         return NextResponse.json({ message: "E-mail enviado com sucesso" });
     } catch (error) {
-        console.error("Erro ao enviar e-mail:", error);
+        if (error instanceof Error) {
+            console.error("Erro ao enviar e-mail:", error.message);
+        } else {
+            console.error("Erro ao enviar e-mail:", error);
+        }
         return NextResponse.json({ message: "Erro ao enviar e-mail" }, { status: 500 });
     }
 }

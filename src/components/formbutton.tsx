@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { db } from "../app/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { shootConfetti } from "./confetti";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 interface FormModalProps {
   buttonText: string;
@@ -18,27 +18,12 @@ interface FormData {
   company: string;
 }
 
+const steps = ["name", "company", "email", "phone", "revenue"];
+
 const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
-
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  let value = e.target.value.replace(/\D/g, ""); // Remove tudo que não for número
-
-  if (value.length > 11) value = value.slice(0, 11); // Limita a 11 dígitos
-
-  if (value.length <= 10) {
-    // Formato fixo: (99) 9999-9999
-    value = value.replace(/(\d{2})(\d{4})(\d{0,4})/, "($1) $2-$3");
-  } else {
-    // Formato celular: (99) 99999-9999
-    value = value.replace(/(\d{2})(\d{5})(\d{0,4})/, "($1) $2-$3");
-  }
-
-  setFormData((prev) => ({ ...prev, phone: value }));
-};
-
-  const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [stepIndex, setStepIndex] = useState(0);
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -47,152 +32,169 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
     company: "",
   });
 
-  const handleOpenModal = () => setIsOpen(true);
-  const handleCloseModal = () => setIsOpen(false);
+  const router = useRouter();
+  const currentStep = steps[stepIndex];
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value } = event.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value.replace(/\D/g, "");
+    if (value.length > 11) value = value.slice(0, 11);
+    if (value.length <= 10) {
+      value = value.replace(/(\d{2})(\d{4})(\d{0,4})/, "($1) $2-$3");
+    } else {
+      value = value.replace(/(\d{2})(\d{5})(\d{0,4})/, "($1) $2-$3");
+    }
+    setFormData((prev) => ({ ...prev, phone: value }));
   };
 
-  const handleSubmit = async (event: React.FormEvent) => {
-  event.preventDefault();
-  setLoading(true);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
-  try {
+  const handleNext = () => setStepIndex((prev) => Math.min(prev + 1, steps.length - 1));
+  const handlePrev = () => setStepIndex((prev) => Math.max(prev - 1, 0));
 
-    await addDoc(collection(db, "leads"), {
-      name: formData.name,
-      email: formData.email,
-      phone: formData.phone,
-      revenue: formData.revenue,
-      company: formData.company,
-      createdAt: serverTimestamp(),
-    });
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      await addDoc(collection(db, "leads"), {
+        ...formData,
+        createdAt: serverTimestamp(),
+      });
 
-    const response = await fetch("/api/send-email", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-    if (!response.ok) throw new Error("Erro ao enviar e-mail");
+      if (!response.ok) throw new Error("Erro ao enviar e-mail");
 
-    setFormData({ name: "", email: "", phone: "", revenue: "", company: "" });
-
-    shootConfetti();
-    router.push("/obrigado");
-  } catch (error) {
-    console.error("Erro:", error);
-    alert("Erro ao enviar formulário. Por favor, tente novamente.");
-  } finally {
-    setLoading(false);
-  }
-};
+      setFormData({ name: "", email: "", phone: "", revenue: "", company: "" });
+      shootConfetti();
+      router.push("/obrigado");
+    } catch (error) {
+      console.error("Erro:", error);
+      alert("Erro ao enviar formulário.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="flex items-center h-fit">
       <button
-        onClick={handleOpenModal}
+        onClick={() => setIsOpen(true)}
         className="z-10 px-5 py-4 my-12 text-white bg-[#310276] hover:bg-[#40009E] duration-200 rounded-[6px]"
       >
         {buttonText}
       </button>
 
-      {/* Formulário */}
       {isOpen && (
-        <div className="fixed inset-0 flex items-center text-left justify-center bg-black/50 z-50">
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
           <div className="bg-white p-6 shadow-lg w-[500px] relative rounded-[8px]">
             <button
-              onClick={handleCloseModal}
+              onClick={() => setIsOpen(false)}
               className="absolute top-2 right-2 text-[#310276] hover:text-[#40009E]"
-            >
-              ✖
-            </button>
+            >✖</button>
 
-            <h2 className="text-lg font-bold mb-4 text-left">
-              Preencha o formulário e fale com um dos nossos especialistas
-            </h2>
+            <h2 className="text-lg font-bold mb-4">Preencha o formulário e fale com um especialista</h2>
 
-            <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
-              {/* Campos do form — mantidos iguais */}
-              <label className="font-bold text-sm">
-                Qual o seu nome?
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+              <div className="text-sm font-medium">
+                Passo {stepIndex + 1} de {steps.length}
+              </div>
+
+              {currentStep === "name" && (
                 <input
-                  type="text"
                   name="name"
+                  placeholder="Seu nome"
                   value={formData.name}
                   onChange={handleChange}
-                  placeholder="Seu primeiro nome"
-                  className="border p-3 my-2 text-base rounded-[4px] font-medium w-full focus:outline-[#40009E]"
                   required
+                  className="border p-3 rounded w-full"
                 />
-              </label>
-
-              <label className="font-bold text-sm">
-                Qual o nome da sua empresa?
+              )}
+              {currentStep === "company" && (
                 <input
                   name="company"
-                  type="text"
+                  placeholder="Nome da empresa"
                   value={formData.company}
                   onChange={handleChange}
-                  placeholder="Digite sua mensagem aqui"
-                  className="border p-3 my-2 text-base rounded-[4px] font-medium w-full focus:outline-[#40009E]"
+                  className="border p-3 rounded w-full"
                 />
-              </label>
-
-              <label className="font-bold text-sm">
-                Qual o seu melhor e-mail?
+              )}
+              {currentStep === "email" && (
                 <input
-                  type="email"
                   name="email"
+                  type="email"
+                  placeholder="seuemail@email.com"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="meuemail@gmail.com"
-                  className="border p-3 my-2 text-base rounded-[4px] font-medium w-full focus:outline-[#40009E]"
                   required
+                  className="border p-3 rounded w-full"
                 />
-              </label>
-
-              <label className="font-bold text-sm">
-                Qual o seu Whatsapp?
+              )}
+              {currentStep === "phone" && (
                 <input
-                  type="tel"
                   name="phone"
+                  placeholder="(00) 00000-0000"
                   value={formData.phone}
                   onChange={handlePhoneChange}
-                  placeholder="(19)99999-9999"
-                  className="border p-3 my-2 text-base rounded-[4px] font-medium w-full focus:outline-[#40009E]"
                   required
+                  className="border p-3 rounded w-full"
                 />
-              </label>
-
-              <label className="font-bold text-sm">
-                Qual sua média de faturamento mensal?
+              )}
+              {currentStep === "revenue" && (
                 <select
                   name="revenue"
                   value={formData.revenue}
                   onChange={handleChange}
-                  className="border p-3 my-2 bg-white text-[#310276] text-base rounded-[4px] font-medium w-full focus:outline-[#310276] focus:bg-white"
                   required
+                  className="border p-3 rounded w-full"
                 >
-                  <option value="">Selecionar faturamento</option>
+                  <option value="">Selecione o faturamento</option>
                   <option value="R$0 - R$30.000">R$0 - R$30.000</option>
                   <option value="R$30.000 - R$50.000">R$30.000 - R$50.000</option>
                   <option value="R$50.000 - R$100.000">R$50.000 - R$100.000</option>
                   <option value="R$100.000 - R$500.000">R$100.000 - R$500.000</option>
                   <option value="+ de R$1.000.000">+ de R$1.000.000</option>
                 </select>
-              </label>
+              )}
 
-              <button
-                type="submit"
-                className="bg-[#310276] hover:bg-[#40009E] text-white font-bold py-3 px-6 rounded-[6px] transition duration-200"
-                disabled={loading}>
-                {loading ? "Enviando..." : "Solicitar contato"}
-              </button>
+              <div className="flex justify-between items-center mt-4">
+                {stepIndex > 0 && (
+                  <button
+                    type="button"
+                    onClick={handlePrev}
+                    className="text-sm text-[#310276] hover:underline"
+                  >Voltar</button>
+                )}
+
+                {stepIndex < steps.length - 1 ? (
+                  <button
+                    type="button"
+                    onClick={handleNext}
+                    className="bg-[#310276] hover:bg-[#40009E] text-white font-bold py-2 px-4 rounded"
+                  >Avançar</button>
+                ) : (
+                  <button
+                    type="submit"
+                    className="bg-[#310276] hover:bg-[#40009E] text-white font-bold py-2 px-4 rounded"
+                    disabled={loading}
+                  >
+                    {loading ? "Enviando..." : "Solicitar Contato"}
+                  </button>
+                )}
+              </div>
+
+              <div className="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-[#310276] transition-all duration-300"
+                  style={{ width: `${((stepIndex + 1) / steps.length) * 100}%` }}
+                />
+              </div>
             </form>
           </div>
         </div>
