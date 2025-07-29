@@ -14,7 +14,7 @@ export default function Home() {
     <>
       <SmoothScroll />
       <Navbar />
-      <section className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-hero_bg bg-cover bg-center gap-y-4 px-4 text-center">
+      <section className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-hero_bg bg-cover bg-center gap-y-3 px-4 text-center">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

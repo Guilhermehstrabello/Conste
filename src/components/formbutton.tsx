@@ -86,7 +86,7 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
     <div className="flex items-center h-fit">
       <button
         onClick={() => setIsOpen(true)}
-        className="z-10 px-5 py-4 my-12 text-white bg-[#310276] hover:bg-[#40009E] duration-200 rounded-[6px]"
+        className="z-10 px-5 py-4 my-8 text-white bg-[#310276] hover:bg-[#40009E] duration-200 rounded-[6px]"
       >
         {buttonText}
       </button>
