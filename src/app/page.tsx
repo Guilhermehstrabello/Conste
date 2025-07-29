@@ -46,8 +46,6 @@ export default function Home() {
       >
         <Typewriter
           words={['Transformamos estratégias em crescimento constante para o seu negócio.']}
-          cursor
-          cursorStyle="|"
           typeSpeed={40}
           deleteSpeed={0}
           delaySpeed={1000}
@@ -62,8 +60,6 @@ export default function Home() {
       >
         <Typewriter
           words={['Estratégias de marketing e vendas inovadoras que unem dados, construção e escala.']}
-          cursor
-          cursorStyle="_"
           typeSpeed={40}
           deleteSpeed={0}
           delaySpeed={1000}

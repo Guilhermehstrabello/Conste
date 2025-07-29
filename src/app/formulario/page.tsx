@@ -45,8 +45,6 @@ export default function Home() {
         >
           <Typewriter
             words={['Transformamos estratégias em crescimento constante para o seu negócio.']}
-            cursor
-            cursorStyle="|"
             typeSpeed={40}
             deleteSpeed={0}
             delaySpeed={1000}
@@ -61,8 +59,6 @@ export default function Home() {
         >
           <Typewriter
             words={['Estratégias de marketing e vendas inovadoras que unem dados, construção e escala.']}
-            cursor
-            cursorStyle="_"
             typeSpeed={40}
             deleteSpeed={0}
             delaySpeed={1000}
@@ -72,7 +68,7 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.8, duration: 1.2, ease: 'easeOut' }}
+          transition={{ delay: 4.5, duration: 1.2, ease: 'easeOut' }}
         >
           <FormModal buttonText="Eleve seus resultados" />
         </motion.div>
