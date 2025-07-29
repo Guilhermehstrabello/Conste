@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { db } from "../app/firebase";
+import { db } from "../app/lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { shootConfetti } from "./confetti";
 import { useRouter } from "next/navigation";
