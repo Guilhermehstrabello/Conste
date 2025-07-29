@@ -6,53 +6,90 @@ import Image from "next/image";
 import GlassCard from "@/components/glasscard";
 import Footer from "@/components/footer";
 import WhatsApp from "@/components/wpp";
+import { motion } from 'framer-motion';
+import { Typewriter } from 'react-simple-typewriter';
+
 
 export default function Home() {
-  return (
+  return ( 
     <>
-      
       <SmoothScroll />
       <Navbar />
       <section className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-hero_bg bg-cover bg-center gap-y-4 px-4 text-center">
-        <p className="text-[#e7e7e7] bg-[#200843d0] p-2 rounded-[8px]">
-          Bem-vindo à Conste.
-          <picture>
-            <source
-              srcSet="https://fonts.gstatic.com/s/e/notoemoji/latest/1f450/512.webp"
-              type="image/webp"
-            />
-            <img
-              src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f450/512.gif"
-              alt="👐"
-              width="30"
-              height="30"
-              style={{ display: "inline", marginLeft: "4px" }}
-            />
-          </picture>
-        </p>
-        <h1 className="z-10 text-white font-bold font-montserrat text-4xl md:text-6xl max-w-[960px]">
-          Transformamos estratégias em crescimento constante para o seu negócio.
-        </h1>
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2, duration: 0.5, ease: 'easeOut' }}
+        className="text-[#e7e7e7] bg-[#200843d0] p-2 rounded-[8px]"
+      >
+        Bem-vindo à Conste.
+        <picture>
+          <source
+            srcSet="https://fonts.gstatic.com/s/e/notoemoji/latest/1f450/512.webp"
+            type="image/webp"
+          />
+          <img
+            src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f450/512.gif"
+            alt="👐"
+            width="30"
+            height="30"
+            style={{ display: "inline", marginLeft: "4px" }}
+          />
+        </picture>
+      </motion.p>
 
-        <p className="text-[#9A9A9A] max-w-[512px] text-sm md:text-lg">
-          Estratégias de marketing e vendas inovadoras que unem dados, construção e escala.
-        </p>
+      <motion.h1
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5, duration: 1 }}
+        className="z-10 text-white font-bold font-montserrat text-4xl md:text-6xl max-w-[960px] min-h-[130px]" // min-h evita pulos visuais durante digitação
+      >
+        <Typewriter
+          words={['Transformamos estratégias em crescimento constante para o seu negócio.']}
+          cursor
+          cursorStyle="|"
+          typeSpeed={40}
+          deleteSpeed={0}
+          delaySpeed={1000}
+        />
+      </motion.h1>
 
-        <a
-          href="https://wa.me/5519989276583?text=Vim%20do%20site%20e%20gostaria%20de%20iniciar%20um%20projeto%20com%20a%20Conste"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-[#310276] hover:bg-[#40009E] duration-200 text-white px-5 py-4 my-12 rounded-[6px] transition"
-        >
-          Eleve seus resultados
-        </a>
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5, duration: .5 }}
+        className="text-[#9A9A9A] max-w-[512px] text-sm md:text-lg min-h-[80px]"
+      >
+        <Typewriter
+          words={['Estratégias de marketing e vendas inovadoras que unem dados, construção e escala.']}
+          cursor
+          cursorStyle="_"
+          typeSpeed={40}
+          deleteSpeed={0}
+          delaySpeed={1000}
+        />
+      </motion.p>
 
-        <iframe
-          className="w-[80px] h-[80px]"
-          src="https://lottie.host/embed/29c0b424-f966-42a9-8d57-a09a9f3b4fdf/gfVQpr5NXz.lottie">
-        </iframe>
-      </section>
+      <motion.a
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 4.5, duration: 1.2, ease: 'easeInOut' }}
+        href="https://wa.me/5519989276583?text=Vim%20do%20site%20e%20gostaria%20de%20iniciar%20um%20projeto%20com%20a%20Conste"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="bg-[#310276] hover:bg-[#40009E] duration-200 text-white px-5 py-4 my-12 rounded-[6px] transition"
+      >
+        Eleve seus resultados
+      </motion.a>
 
+      <motion.iframe
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 4, duration: .5 }}
+        className="w-[80px] h-[80px]"
+        src="https://lottie.host/embed/29c0b424-f966-42a9-8d57-a09a9f3b4fdf/gfVQpr5NXz.lottie"
+      ></motion.iframe>
+    </section>
 
       <section id="quem-somos" className="flex flex-col items-center justify-center p-0">
         <h2 className="text-white font-bold text-4xl">Quem Somos</h2>

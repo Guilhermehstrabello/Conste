@@ -18,14 +18,19 @@ export default {
       },
       animation: {
         'infinite-scroll': 'infinite-scroll 50s linear infinite',
+        TextReveal: 'textReveal 3s ease forwards',
       },
       keyframes: {
         'infinite-scroll': {
           from: { transform: 'translateX(0)' },
           to: { transform: 'translateX(-100%)' },
         },
+        textReveal: {
+          '0%': { backgroundPosition: '200% 0' },
+          '100%': { backgroundPosition: '0% 0' }
+        }
       },
+    },
   },
-},
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;
