@@ -870,7 +870,7 @@ export default function Home() {
       {/* CTA Sticky Container */}
       <div className="relative" ref={stickyCtaRef}>
         {/* Spacer para manter o layout - só quando não está perto do footer */}
-        {!isNearFooter && <div className="lg:h-[104px] w-full"></div>}
+        {!isNearFooter && <div className="lg:h-[104px] h-[70px] w-full"></div>}
         
         {/* CTA Sticky */}
         <motion.div 
@@ -889,12 +889,12 @@ export default function Home() {
             damping: 20
           }}
         >
-          <div className="lg:h-[104px] lg:w-[800px] flex lg:flex-row flex-col w-full h-full items-center justify-evenly mx-auto bg-[#2900677c] gap-y-2 p-5 rounded-[4px] shadow-2xl backdrop-blur-sm border border-[#310276]/20 lg:mx-auto">
+          <div className="lg:h-[104px] h-[70px] lg:w-[800px] w-[95%] flex lg:flex-row flex-row items-center justify-between mx-auto bg-[#2900677c] gap-x-2 lg:gap-x-3 gap-y-0 p-3 lg:p-5 rounded-[4px] shadow-2xl backdrop-blur-sm border border-[#310276]/20 lg:mx-auto">
             <motion.h3
               initial={{ opacity: 0, x: -30 }}
               animate={isStickyVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-white text-xl text-center"
+              className="text-white text-sm lg:text-xl text-left flex-shrink-0 leading-tight max-w-[200px] lg:max-w-none"
             >
               Faça sua empresa crescer com{" "}
               <motion.span 
@@ -913,7 +913,7 @@ export default function Home() {
                 constância.
               </motion.span>
             </motion.h3>
-            <FormModal buttonText="Elevar minha empresa agora" />
+        <FormModal buttonText="Elevar minha empresa agora" />
           </div>
         </motion.div>
       </div>

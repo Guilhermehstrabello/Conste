@@ -234,11 +234,10 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
     <div className="flex items-center h-fit">
       <button
         onClick={() => setIsOpen(true)}
-        className="z-10 px-5 py-4 my-8 text-white bg-[#310276] hover:bg-[#40009E] duration-200 rounded-[6px]"
+        className="z-10 p-4 my-2 lg:my-8 text-white bg-[#310276] hover:bg-[#40009E] duration-200 rounded-[6px] text-sm lg:text-base whitespace-nowrap"
       >
         {buttonText}
       </button>
-
       {mounted && isOpen && createPortal(modalContent, document.body)}
     </div>
   );
