@@ -226,7 +226,7 @@ interface ProcessStepProps {
 
 const ProcessStep = ({ number, title, description, index }: ProcessStepProps) => {
   const ref = useRef<HTMLDivElement | null>(null);
-  const isInView = useInView(ref, { once: true, margin: "-150px", amount: 0.3 });
+  const isInView = useInView(ref, { once: true, margin: "-50px", amount: 0.1 });
 
   return (
     <motion.div
@@ -245,7 +245,7 @@ const ProcessStep = ({ number, title, description, index }: ProcessStepProps) =>
         scale: 1.02,
         transition: { duration: 0.3 }
       }}
-      className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-6 md:gap-10 relative"
+      className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-4 md:gap-10 relative"
     >
       {/* Linha conectora animada */}
       {index < 3 && (
@@ -257,7 +257,7 @@ const ProcessStep = ({ number, title, description, index }: ProcessStepProps) =>
             delay: index * 0.4 + 0.8,
             ease: "easeOut"
           }}
-          className="absolute left-1/2 md:left-auto md:right-[calc(50%+82px)] top-[120px] md:top-[164px] w-0.5 h-20 md:h-32 bg-gradient-to-b from-[#310276] to-[#FF8500] transform -translate-x-1/2 md:translate-x-0"
+          className="absolute left-1/2 md:left-auto md:right-[calc(50%+82px)] top-[100px] md:top-[164px] w-0.5 h-16 md:h-32 bg-gradient-to-b from-[#310276] to-[#FF8500] transform -translate-x-1/2 md:translate-x-0"
         />
       )}
 
@@ -268,7 +268,7 @@ const ProcessStep = ({ number, title, description, index }: ProcessStepProps) =>
           boxShadow: "0 0 40px rgba(49, 2, 118, 0.6)",
           transition: { duration: 0.4 }
         }}
-        className="relative w-[120px] h-[120px] md:w-[164px] md:h-[164px] bg-gradient-to-br from-[rgba(49,2,118,0.4)] to-[rgba(255,133,0,0.2)] flex justify-center items-center rounded-full border border-[#310276]/30 backdrop-blur-sm"
+        className="relative w-[80px] h-[80px] md:w-[164px] md:h-[164px] bg-gradient-to-br from-[rgba(49,2,118,0.4)] to-[rgba(255,133,0,0.2)] flex justify-center items-center rounded-full border border-[#310276]/30 backdrop-blur-sm"
       >
         {/* Efeito de brilho */}
         <motion.div
@@ -291,14 +291,14 @@ const ProcessStep = ({ number, title, description, index }: ProcessStepProps) =>
             stiffness: 200,
             damping: 20
           }}
-          className="text-white font-montserrat font-bold text-5xl md:text-[120px] drop-shadow-lg"
+          className="text-white font-montserrat font-bold text-3xl md:text-[120px] drop-shadow-lg"
         >
           {number}
         </motion.span>
       </motion.div>
       
       {/* Conteúdo textual */}
-      <div className="text-center md:text-left w-full md:w-[433px] relative">
+      <div className="text-center md:text-left w-full md:w-[433px] relative px-2 md:px-0">
         <motion.h3
           initial={{ opacity: 0, y: 30, x: index % 2 === 0 ? -20 : 20 }}
           animate={isInView ? { opacity: 1, y: 0, x: 0 } : { opacity: 0, y: 30, x: index % 2 === 0 ? -20 : 20 }}
@@ -307,7 +307,7 @@ const ProcessStep = ({ number, title, description, index }: ProcessStepProps) =>
             delay: index * 0.4 + 0.5,
             ease: "easeOut"
           }}
-          className="text-white font-montserrat font-bold text-xl md:text-2xl lg:text-3xl mb-3"
+          className="text-white font-montserrat font-bold text-lg md:text-2xl lg:text-3xl mb-3"
         >
           {title}
         </motion.h3>
@@ -319,7 +319,7 @@ const ProcessStep = ({ number, title, description, index }: ProcessStepProps) =>
             delay: index * 0.4 + 0.7,
             ease: "easeOut"
           }}
-          className="text-[#BABABA] font-montserrat font-medium text-base md:text-lg leading-relaxed"
+          className="text-[#BABABA] font-montserrat font-medium text-sm md:text-lg leading-relaxed"
         >
           {description}
         </motion.p>
@@ -736,7 +736,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="nossos-processos" className="flex flex-col items-center justify-center w-full py-20 px-6 gap-20 relative overflow-hidden">
+      <section id="nossos-processos" className="flex flex-col items-center justify-center w-full py-10 md:py-20 px-3 md:px-6 gap-10 md:gap-20 relative overflow-hidden">
         {/* Partículas flutuantes de fundo */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -802,15 +802,15 @@ export default function Home() {
           />
         </motion.div>
         
-        <div className="relative max-w-[1440px] w-full h-auto">
+        <div className="relative max-w-[1440px] w-full h-auto min-h-[400px]">
           {/* Background Blur com animação */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-200px" }}
             transition={{ duration: 2, ease: "easeOut" }}
-            className="absolute rounded-full w-[80%] max-w-[1200px] h-[70%] max-h-[1200px] left-1/2 top-1/4 -translate-x-1/2 -translate-y-1/2 
-           bg-gradient-to-b from-[rgba(49,2,118,0.5)] to-[rgba(255,133,0,0.5)] blur-[80px] -z-10"
+            className="absolute rounded-full w-[70%] md:w-[80%] max-w-[1200px] h-[40%] md:h-[70%] max-h-[800px] md:max-h-[1200px] left-1/2 top-1/3 md:top-1/4 -translate-x-1/2 -translate-y-1/2 
+           bg-gradient-to-b from-[rgba(49,2,118,0.3)] to-[rgba(255,133,0,0.3)] md:from-[rgba(49,2,118,0.5)] md:to-[rgba(255,133,0,0.5)] blur-[30px] md:blur-[80px] -z-10"
           >
           </motion.div>
 
@@ -820,7 +820,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="w-full flex flex-col items-center text-center gap-4 mb-40"
+            className="w-full flex flex-col items-center text-center gap-4 mb-20 md:mb-40"
           >
             <motion.p 
               initial={{ opacity: 0, scale: 0.8 }}
@@ -836,7 +836,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
-              className="text-white font-montserrat font-bold text-3xl md:text-4xl lg:text-5xl"
+              className="text-white font-montserrat font-bold text-2xl md:text-4xl lg:text-5xl"
             >
               Como nós alavancamos o seu negócio!
             </motion.h1>
@@ -845,7 +845,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-              className="text-[#BABABA] font-montserrat font-medium text-lg md:text-xl max-w-[800px] mt-4"
+              className="text-[#BABABA] font-montserrat font-medium text-base md:text-xl max-w-[800px] mt-4 px-4 md:px-0"
             >
               Aqui na Conste, cada projeto é uma história que queremos contar junto com você!
             </motion.p>
@@ -857,7 +857,7 @@ export default function Home() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 1, delay: 0.2 }}
-            className="flex flex-col gap-20 w-full max-w-[1200px] mx-auto mb-28"
+            className="flex flex-col gap-10 md:gap-20 w-full max-w-[1200px] mx-auto mb-20 md:mb-28 px-2 md:px-0"
           >
             <ProcessStep number="1" title="Alinhamento de expectativas" description="Entendemos seu negócio, público e objetivos. É aqui que começa a mágica." index={0} />
             <ProcessStep number="2" title="Pesquisa e planejamento" description="Analisamos o mercado, seus concorrentes e as melhores estratégias para você." index={1} />

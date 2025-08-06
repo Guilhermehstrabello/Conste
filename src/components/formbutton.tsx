@@ -234,7 +234,7 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
     <div className="flex items-center h-fit">
       <button
         onClick={() => setIsOpen(true)}
-        className="z-10 p-4 my-2 lg:my-8 text-white bg-[#310276] hover:bg-[#40009E] duration-200 rounded-[6px] text-sm lg:text-base whitespace-nowrap"
+        className="z-10 p-3 my-2 lg:my-8 text-white bg-[#310276] hover:bg-[#40009E] duration-200 rounded-[6px] text-xs md:text-base lg:text-base whitespace-pre-wrap"
       >
         {buttonText}
       </button>
