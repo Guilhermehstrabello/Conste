@@ -16,9 +16,9 @@ const Navbar = () => {
         style={{ maxWidth: "1200px" }}
       >
         {/* Logo */}
-        <Link href="https://www.constemarketing.com.br" className="text-2xl font-bold hover:scale-110 duration-200">
+        <div className="text-2xl font-bold hover:scale-110 duration-200">
           <Image src="/Logo Conste.png" alt="Logo Conste" width={120} height={120} />
-        </Link>
+        </div>
 
         {/* Botão de Menu Mobile */}
         <button
@@ -56,11 +56,16 @@ const Navbar = () => {
           {/* Links do Menu */}
           <ul className="flex flex-col items-center space-y-6">
             {["Quem Somos", "Setores", "Cases", "Depoimentos", "Nossos Processos"].map((item) => (
-              <li key={item} className="hover:bg-[#310276]  p-4 duration-200">
-                <Link href={`#${item.toLowerCase().replace(" ", "-")}`} onClick={() => setIsOpen(false)}>
+              <Link 
+                key={item} 
+                href={`#${item.toLowerCase().replace(" ", "-")}`} 
+                onClick={() => setIsOpen(false)}
+                className="block w-full"
+              >
+                <li className="hover:bg-[#310276] p-4 duration-200 text-center w-full">
                   {item}
-                </Link>
-              </li>
+                </li>
+              </Link>
             ))}
           </ul>
 
@@ -87,9 +92,15 @@ const Navbar = () => {
         <div className="hidden md:flex items-center space-x-10">
           <ul className="flex space-x-8 text-white">
             {["Quem Somos", "Setores", "Cases", "Depoimentos", "Nossos Processos"].map((item) => (
-              <li key={item} className="hover:scale-110 duration-300 p-4 hover:bg-[#310276] rounded-md">
-                <Link href={`#${item.toLowerCase().replace(" ", "-")}`}>{item}</Link>
-              </li>
+              <Link 
+                key={item} 
+                href={`#${item.toLowerCase().replace(" ", "-")}`}
+                className="block"
+              >
+                <li className="hover:scale-110 duration-300 p-4 hover:bg-[#310276] rounded-md cursor-pointer">
+                  {item}
+                </li>
+              </Link>
             ))}
           </ul>
         </div>

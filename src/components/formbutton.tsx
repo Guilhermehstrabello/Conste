@@ -1,10 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { db } from "../app/lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { shootConfetti } from "./confetti";
 import { useRouter } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
+import { createPortal } from "react-dom";
 
 interface FormModalProps {
   buttonText: string;
@@ -24,6 +26,7 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
+  const [mounted, setMounted] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -34,6 +37,22 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
 
   const router = useRouter();
   const currentStep = steps[stepIndex];
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value.replace(/\D/g, "");
@@ -82,21 +101,30 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
     }
   };
 
-  return (
-    <div className="flex items-center h-fit">
-      <button
-        onClick={() => setIsOpen(true)}
-        className="z-10 px-5 py-4 my-8 text-white bg-[#310276] hover:bg-[#40009E] duration-200 rounded-[6px]"
-      >
-        {buttonText}
-      </button>
-
+  const modalContent = (
+    <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-          <div className="bg-white p-6 shadow-lg w-[500px] relative rounded-[8px]">
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-[99999] p-4"
+          onClick={() => setIsOpen(false)}
+          style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
+        >
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8, y: 50 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: 50 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="bg-white p-6 shadow-2xl w-full max-w-[500px] relative rounded-[8px] max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+            style={{ position: 'relative' }}
+          >
             <button
               onClick={() => setIsOpen(false)}
-              className="absolute top-2 right-2 text-[#310276] hover:text-[#40009E]"
+              className="absolute top-4 right-4 text-[#310276] hover:text-[#40009E] text-xl font-bold transition-colors duration-200"
             >✖</button>
 
             <h2 className="text-lg font-bold mb-4">Preencha o formulário e fale com um especialista</h2>
@@ -163,7 +191,7 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
                 </select>
               )}
 
-              <div className="flex justify-between items-center mt-4">
+              <div className="flex justify-center gap-4 items-center mt-4">
                 {stepIndex > 0 && (
                   <button
                     type="button"
@@ -196,9 +224,22 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
                 />
               </div>
             </form>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       )}
+    </AnimatePresence>
+  );
+
+  return (
+    <div className="flex items-center h-fit">
+      <button
+        onClick={() => setIsOpen(true)}
+        className="z-10 px-5 py-4 my-8 text-white bg-[#310276] hover:bg-[#40009E] duration-200 rounded-[6px]"
+      >
+        {buttonText}
+      </button>
+
+      {mounted && isOpen && createPortal(modalContent, document.body)}
     </div>
   );
 };
