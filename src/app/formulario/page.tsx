@@ -84,8 +84,8 @@ const StatCard = ({ icon, number, text, delay }: StatCardProps) => {
       initial={{ opacity: 0, scale: 0.8 }}
       animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
       transition={{ duration: 0.6, delay, ease: "easeOut" }}
-      whileHover={{ 
-        scale: 1.05, 
+      whileHover={{
+        scale: 1.05,
         boxShadow: "0 20px 40px rgba(49, 2, 118, 0.3)",
         transition: { duration: 0.3 }
       }}
@@ -98,7 +98,7 @@ const StatCard = ({ icon, number, text, delay }: StatCardProps) => {
       >
         <Image className="mb-3" src={icon} width={40} height={40} alt="icone" />
       </motion.div>
-      
+
       <motion.h3
         initial={{ scale: 0 }}
         animate={isInView ? { scale: 1 } : { scale: 0 }}
@@ -107,7 +107,7 @@ const StatCard = ({ icon, number, text, delay }: StatCardProps) => {
       >
         {number}
       </motion.h3>
-      
+
       <motion.p
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -136,7 +136,7 @@ const CaseCard = ({ logo, stats, index }: CaseCardProps) => {
       initial={{ opacity: 0, y: 100 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
       transition={{ duration: 0.8, delay: index * 0.2 }}
-      whileHover={{ 
+      whileHover={{
         y: -10,
         transition: { duration: 0.3 }
       }}
@@ -179,7 +179,7 @@ interface TestimonialCardProps {
   index: number;
 }
 
-const TestimonialCard = ({ name, text, index }: TestimonialCardProps) => {  
+const TestimonialCard = ({ name, text, index }: TestimonialCardProps) => {
   const ref = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
@@ -189,7 +189,7 @@ const TestimonialCard = ({ name, text, index }: TestimonialCardProps) => {
       initial={{ opacity: 0, scale: 0.8 }}
       animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
       transition={{ duration: 0.6, delay: index * 0.2 }}
-      whileHover={{ 
+      whileHover={{
         scale: 1.02,
         boxShadow: "0 10px 30px rgba(49, 2, 118, 0.3)",
         transition: { duration: 0.3 }
@@ -204,7 +204,7 @@ const TestimonialCard = ({ name, text, index }: TestimonialCardProps) => {
       >
         <p className="text-white text-[16px] font-bold">{name}</p>
       </motion.div>
-      
+
       <motion.p
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : { opacity: 0 }}
@@ -233,15 +233,15 @@ const ProcessStep = ({ number, title, description, index }: ProcessStepProps) =>
       ref={ref}
       initial={{ opacity: 0, x: index % 2 === 0 ? -150 : 150, y: 50 }}
       animate={isInView ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: index % 2 === 0 ? -150 : 150, y: 50 }}
-      transition={{ 
-        duration: 1.2, 
+      transition={{
+        duration: 1.2,
         delay: index * 0.4,
         ease: "easeOut",
         type: "spring",
         stiffness: 50,
         damping: 15
       }}
-      whileHover={{ 
+      whileHover={{
         scale: 1.02,
         transition: { duration: 0.3 }
       }}
@@ -252,8 +252,8 @@ const ProcessStep = ({ number, title, description, index }: ProcessStepProps) =>
         <motion.div
           initial={{ scaleY: 0 }}
           animate={isInView ? { scaleY: 1 } : { scaleY: 0 }}
-          transition={{ 
-            duration: 1.5, 
+          transition={{
+            duration: 1.5,
             delay: index * 0.4 + 0.8,
             ease: "easeOut"
           }}
@@ -263,7 +263,7 @@ const ProcessStep = ({ number, title, description, index }: ProcessStepProps) =>
 
       {/* Círculo com número */}
       <motion.div
-        whileHover={{ 
+        whileHover={{
           scale: 1.15,
           boxShadow: "0 0 40px rgba(49, 2, 118, 0.6)",
           transition: { duration: 0.4 }
@@ -280,13 +280,13 @@ const ProcessStep = ({ number, title, description, index }: ProcessStepProps) =>
             background: `linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%)`
           }}
         />
-        
+
         <motion.span
           initial={{ scale: 0, rotate: -180, opacity: 0 }}
           animate={isInView ? { scale: 1, rotate: 0, opacity: 1 } : { scale: 0, rotate: -180, opacity: 0 }}
-          transition={{ 
-            duration: 0.8, 
-            delay: index * 0.4 + 0.3, 
+          transition={{
+            duration: 0.8,
+            delay: index * 0.4 + 0.3,
             type: "spring",
             stiffness: 200,
             damping: 20
@@ -296,14 +296,14 @@ const ProcessStep = ({ number, title, description, index }: ProcessStepProps) =>
           {number}
         </motion.span>
       </motion.div>
-      
+
       {/* Conteúdo textual */}
       <div className="text-center md:text-left w-full md:w-[433px] relative px-2 md:px-0">
         <motion.h3
           initial={{ opacity: 0, y: 30, x: index % 2 === 0 ? -20 : 20 }}
           animate={isInView ? { opacity: 1, y: 0, x: 0 } : { opacity: 0, y: 30, x: index % 2 === 0 ? -20 : 20 }}
-          transition={{ 
-            duration: 0.8, 
+          transition={{
+            duration: 0.8,
             delay: index * 0.4 + 0.5,
             ease: "easeOut"
           }}
@@ -314,8 +314,8 @@ const ProcessStep = ({ number, title, description, index }: ProcessStepProps) =>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ 
-            duration: 0.8, 
+          transition={{
+            duration: 0.8,
             delay: index * 0.4 + 0.7,
             ease: "easeOut"
           }}
@@ -323,8 +323,8 @@ const ProcessStep = ({ number, title, description, index }: ProcessStepProps) =>
         >
           {description}
         </motion.p>
-        
-        
+
+
       </div>
     </motion.div>
   );
@@ -335,7 +335,7 @@ interface ParallaxSectionProps {
   speed?: number;
 }
 
-  const ParallaxSection = ({ children, speed = 0.5 }: ParallaxSectionProps) => {
+const ParallaxSection = ({ children, speed = 0.5 }: ParallaxSectionProps) => {
   const ref = useRef<HTMLDivElement | null>(null);
   const [offset, setOffset] = useState(0);
 
@@ -378,14 +378,14 @@ export default function Home() {
         const documentHeight = document.documentElement.scrollHeight;
         const offset = 100; // Offset para melhor timing
         const footerOffset = 200; // Distância do footer para ativar modo estático
-        
+
         // Mostra o CTA sticky quando passa da seção hero
         if (scrollPosition > heroBottom + offset) {
           setIsStickyVisible(true);
         } else {
           setIsStickyVisible(false);
         }
-        
+
         // Verifica se está perto do footer para ativar modo estático
         if (window.scrollY + window.innerHeight >= documentHeight - footerOffset) {
           setIsNearFooter(true);
@@ -444,6 +444,94 @@ export default function Home() {
           </motion.picture>
         </motion.p>
 
+        {/* Ícones flutuantes animados */}
+        <motion.div className="absolute inset-0 pointer-events-none z-10">
+          {/* Google Ads */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+            className="absolute top-8 left-6 md:top-1/4 md:left-32"
+          >
+            <motion.div
+              animate={{ y: [0, 20, 0], x: [0, -10, 0] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <Image src="/google-ads.svg" width={36} height={36} alt="Google Ads" className="md:w-[56px] md:h-[56px] w-[36px] h-[36px]" />
+            </motion.div>
+          </motion.div>
+          {/* Meta */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
+            className="absolute top-8 left-20 md:bottom-1/4 md:left-40"
+          >
+            <motion.div
+              animate={{ y: [0, -20, 0], x: [0, 20, 0] }}
+              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <Image src="/meta-ads.svg" width={36} height={36} alt="Meta" className="md:w-[56px] md:h-[56px] w-[36px] h-[36px]" />
+            </motion.div>
+          </motion.div>
+          {/* Framer */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
+            className="absolute top-8 left-36 md:top-1/2 md:left-60"
+          >
+            <motion.div
+              animate={{ y: [0, -20, 0], x: [0, 20, 0] }}
+              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <Image src="/framer.svg" width={36} height={36} alt="Framer" className="md:w-[56px] md:h-[56px] w-[36px] h-[36px]" />
+            </motion.div>
+          </motion.div>
+          {/* Instagram */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.8, ease: "easeOut" }}
+            className="absolute top-8 right-32 md:top-1/2 md:right-60"
+          >
+            <motion.div
+              animate={{ y: [0, 15, 0], x: [0, -15, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <Image src="/icon-instagram.svg" width={36} height={36} alt="Instagram" className="md:w-[56px] md:h-[56px] w-[36px] h-[36px]" />
+            </motion.div>
+          </motion.div>
+          {/* Figma */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 1.0, ease: "easeOut" }}
+            className="absolute top-8 right-20 md:top-1/3 md:right-40"
+          >
+            <motion.div
+              animate={{ y: [0, -18, 0], x: [0, 18, 0] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <Image src="/figma.svg" width={36} height={36} alt="Figma" className="md:w-[56px] md:h-[56px] w-[36px] h-[36px]" />
+            </motion.div>
+          </motion.div>
+          {/* WordPress */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 1.2, ease: "easeOut" }}
+            className="absolute top-8 right-6 md:bottom-1/4 md:right-32"
+          >
+            <motion.div
+              animate={{ y: [0, 22, 0], x: [0, -22, 0] }}
+              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <Image src="/wordpress.svg" width={36} height={36} alt="WordPress" className="md:w-[56px] md:h-[56px] w-[36px] h-[36px]" />
+            </motion.div>
+          </motion.div>
+        </motion.div>
+
         <motion.h1
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -491,7 +579,7 @@ export default function Home() {
 
 
       <section id="quem-somos" className="flex flex-col items-center justify-center p-0">
-        <motion.h2 
+        <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -500,19 +588,19 @@ export default function Home() {
         >
           Quem Somos
         </motion.h2>
-        
+
         <motion.div
           initial={{ opacity: 0, scale: 0.8, y: 50 }}
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
-          transition={{ 
-            duration: 1.2, 
+          transition={{
+            duration: 1.2,
             ease: "easeOut",
             type: "spring",
             stiffness: 50,
             damping: 15
           }}
-          whileHover={{ 
+          whileHover={{
             scale: 1.02,
             transition: { duration: 0.3 }
           }}
@@ -527,41 +615,41 @@ export default function Home() {
             className="absolute inset-0 pointer-events-none z-10"
           >
             <motion.div
-              animate={{ 
+              animate={{
                 y: [0, -10, 0],
                 x: [0, 5, 0],
                 rotate: [0, 5, 0]
               }}
-              transition={{ 
-                duration: 4, 
-                repeat: Infinity, 
-                ease: "easeInOut" 
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut"
               }}
               className="absolute top-4 left-4 w-2 h-2 bg-[#FF8500] rounded-full opacity-60"
             />
             <motion.div
-              animate={{ 
+              animate={{
                 y: [0, 15, 0],
                 x: [0, -8, 0],
                 rotate: [0, -3, 0]
               }}
-              transition={{ 
-                duration: 5, 
-                repeat: Infinity, 
+              transition={{
+                duration: 5,
+                repeat: Infinity,
                 ease: "easeInOut",
                 delay: 1
               }}
               className="absolute bottom-6 right-6 w-1 h-1 bg-[#310276] rounded-full opacity-80"
             />
             <motion.div
-              animate={{ 
+              animate={{
                 y: [0, -8, 0],
                 x: [0, 12, 0],
                 scale: [1, 1.2, 1]
               }}
-              transition={{ 
-                duration: 6, 
-                repeat: Infinity, 
+              transition={{
+                duration: 6,
+                repeat: Infinity,
                 ease: "easeInOut",
                 delay: 2
               }}
@@ -575,10 +663,10 @@ export default function Home() {
             transition={{ duration: 1.5, ease: "easeOut" }}
             className="relative"
           >
-            <Image 
-              src="/Equipe.png" 
-              alt="Imagem da Equipe" 
-              width={674} 
+            <Image
+              src="/Equipe.png"
+              alt="Imagem da Equipe"
+              width={674}
               height={370}
               className="rounded-lg shadow-2xl"
             />
@@ -592,15 +680,15 @@ export default function Home() {
             />
           </motion.div>
         </motion.div>
-        
-        <motion.div 
+
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
           className="space-y-3 flex flex-col items-center justify-center text-base"
         >
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
@@ -609,7 +697,7 @@ export default function Home() {
           >
             A Conste atua em soluções digitais, dedicada a impulsionar a captação de clientes para empresas por meio de estratégias de marketing digital.
           </motion.p>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
@@ -746,65 +834,65 @@ export default function Home() {
           className="absolute inset-0 pointer-events-none"
         >
           <motion.div
-            animate={{ 
+            animate={{
               y: [0, -20, 0],
               x: [0, 10, 0],
               rotate: [0, 5, 0]
             }}
-            transition={{ 
-              duration: 8, 
-              repeat: Infinity, 
-              ease: "easeInOut" 
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut"
             }}
             className="absolute top-20 left-10 w-2 h-2 bg-[#FF8500] rounded-full opacity-60"
           />
           <motion.div
-            animate={{ 
+            animate={{
               y: [0, 30, 0],
               x: [0, -15, 0],
               scale: [1, 1.2, 1]
             }}
-            transition={{ 
-              duration: 10, 
-              repeat: Infinity, 
+            transition={{
+              duration: 10,
+              repeat: Infinity,
               ease: "easeInOut",
               delay: 2
             }}
             className="absolute top-40 right-20 w-1 h-1 bg-[#310276] rounded-full opacity-80"
           />
           <motion.div
-            animate={{ 
+            animate={{
               y: [0, -15, 0],
               x: [0, 20, 0],
               rotate: [0, -3, 0]
             }}
-            transition={{ 
-              duration: 12, 
-              repeat: Infinity, 
+            transition={{
+              duration: 12,
+              repeat: Infinity,
               ease: "easeInOut",
               delay: 4
             }}
             className="absolute bottom-40 left-1/4 w-1.5 h-1.5 bg-[#FF8500] rounded-full opacity-70"
           />
           <motion.div
-            animate={{ 
+            animate={{
               y: [0, 25, 0],
               x: [0, -12, 0],
               scale: [1, 1.3, 1]
             }}
-            transition={{ 
-              duration: 9, 
-              repeat: Infinity, 
+            transition={{
+              duration: 9,
+              repeat: Infinity,
               ease: "easeInOut",
               delay: 1
             }}
             className="absolute bottom-20 right-1/3 w-1 h-1 bg-[#310276] rounded-full opacity-60"
           />
         </motion.div>
-        
+
         <div className="relative max-w-[1440px] w-full h-auto min-h-[400px]">
           {/* Background Blur com animação */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-200px" }}
@@ -815,14 +903,14 @@ export default function Home() {
           </motion.div>
 
           {/* Título com animação melhorada */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1, ease: "easeOut" }}
             className="w-full flex flex-col items-center text-center gap-4 mb-20 md:mb-40"
           >
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -831,7 +919,7 @@ export default function Home() {
             >
               Nossos processos
             </motion.p>
-            <motion.h1 
+            <motion.h1
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -840,7 +928,7 @@ export default function Home() {
             >
               Como nós alavancamos o seu negócio!
             </motion.h1>
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -852,7 +940,7 @@ export default function Home() {
           </motion.div>
 
           {/* Etapas com animação progressiva */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, margin: "-50px" }}
@@ -871,18 +959,18 @@ export default function Home() {
       <div className="relative" ref={stickyCtaRef}>
         {/* Spacer para manter o layout - só quando não está perto do footer */}
         {!isNearFooter && <div className="lg:h-[104px] h-[70px] w-full"></div>}
-        
+
         {/* CTA Sticky */}
-        <motion.div 
+        <motion.div
           id="sticky-cta"
           className={`${isNearFooter ? 'relative' : 'fixed bottom-10'} left-0 right-0 z-50`}
           initial={{ y: "100%", opacity: 0 }}
-          animate={{ 
+          animate={{
             y: isStickyVisible ? "0%" : "100%",
             opacity: isStickyVisible ? 1 : 0
           }}
-          transition={{ 
-            duration: 0.5, 
+          transition={{
+            duration: 0.5,
             ease: "easeOut",
             type: "spring",
             stiffness: 100,
@@ -897,15 +985,15 @@ export default function Home() {
               className="text-white text-sm lg:text-xl text-left flex-shrink-0 leading-tight max-w-[200px] lg:max-w-none"
             >
               Faça sua empresa crescer com{" "}
-              <motion.span 
+              <motion.span
                 className="font-bold"
-                animate={isStickyVisible ? { 
+                animate={isStickyVisible ? {
                   scale: [1, 1.05, 1],
                   color: ["#ffffff", "#FF8500", "#ffffff"]
                 } : {}}
-                transition={{ 
-                  duration: 2, 
-                  repeat: Infinity, 
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
                   repeatDelay: 3,
                   ease: "easeInOut"
                 }}
@@ -913,7 +1001,7 @@ export default function Home() {
                 constância.
               </motion.span>
             </motion.h3>
-        <FormModal buttonText="Elevar minha empresa agora" />
+            <FormModal buttonText="Elevar minha empresa agora" />
           </div>
         </motion.div>
       </div>
