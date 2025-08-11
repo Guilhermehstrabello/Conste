@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { GoogleTagManager } from '@next/third-parties/google';
 import { Analytics } from "@vercel/analytics/next"
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Conste",
@@ -27,6 +28,15 @@ export default function RootLayout({
         />
       </head>
       <body className="font-montserrat">
+          <Script id="microsoft-clarity-analytics" strategy="lazyOnload">
+                  {`
+                    (function(c,l,a,r,i,t,y){
+                      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+                    })(window, document, "clarity", "script", "[sjxf5yw5cb]");
+                  `}
+                </Script>
         <Analytics />
         <GoogleTagManager gtmId="GTM-TVRWH47F" />
         {children}
