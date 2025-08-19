@@ -364,11 +364,70 @@ const ParallaxSection = ({ children, speed = 0.5 }: ParallaxSectionProps) => {
   );
 };
 
+const setores = [
+  {
+    key: "performance",
+    label: "Campanhas de performance",
+    image: "/performance.png",
+    title: "Campanhas de Performance",
+    description: [
+      "Anúncios com foco em resultados reais",
+      "Estratégias orientadas por dados, não achismos",
+      "Gestão de tráfego que converte cliques em clientes"
+    ]
+  },
+  {
+    key: "social",
+    label: "Gestão de mídias sociais",
+    image: "/midias.png",
+    title: "Gestão de Mídias Sociais",
+    description: [
+      "Planejamento e produção de conteúdo estratégico",
+      "Acompanhamento de métricas e engajamento",
+      "Fortalecimento da presença digital da sua marca"
+    ]
+  },
+  {
+    key: "branding",
+    label: "Identidade Visual e Branding",
+    image: "/id-visual.png",
+    title: "Identidade Visual e Branding",
+    description: [
+      "Criação de logotipo e identidade visual",
+      "Manual de marca e aplicações",
+      "Posicionamento estratégico para diferenciação"
+    ]
+  },
+  {
+    key: "dev",
+    label: "Desenvolvimento de Sites",
+    image: "/dev.png",
+    title: "Desenvolvimento de Sites",
+    description: [
+      "Sites institucionais, landing pages e e-commerce",
+      "Design responsivo e otimizado para conversão",
+      "Integração com ferramentas de marketing"
+    ]
+  },
+  {
+    key: "video",
+    label: "Criação e edição de vídeos",
+    image: "/visual.png",
+    title: "Criação e Edição de Vídeos",
+    description: [
+      "Captação e edição profissional de vídeos",
+      "Conteúdo audiovisual para redes sociais",
+      "Vídeos institucionais e promocionais"
+    ]
+  }
+];
+
 export default function Home() {
   const [isStickyVisible, setIsStickyVisible] = useState(false);
   const [isNearFooter, setIsNearFooter] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
   const stickyCtaRef = useRef<HTMLDivElement>(null);
+  const [activeSetor, setActiveSetor] = useState(setores[0]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -718,37 +777,61 @@ export default function Home() {
         <FormModal buttonText="Quero Elevar meus resultados" />
       </section>
 
-      <section className="flex flex-col items-center justify-center gap-y-3" id="setores">
-        <div className="flex flex-col items-center justify-center">
-          <h2 className="text-4xl text-white font-bold py-16">Nossos Setores</h2>
-        </div>
-        <div className="flex flex-col items-center justify-center gap-y-11">
-          <GlassCard
-            title="Performance"
-            description="Tudo que envolve criação e gerenciamento de anúncios nas mídias sociais, performance do seu time de vendas, sites e etc."
-            image="/Logo Conste.png"
-          />
-          <GlassCard
-            title="Social Media"
-            description="Criação de estratégias personalizadas para as suas redes sociais, com base na sua área de atuação."
-            image="/Logo Conste.png"
-          />
-          <GlassCard
-            title="Design"
-            description="Criação dos designs dos posts, capas de vídeos, sites, landing pages e etc. "
-            image="/Logo Conste.png"
-          />
-          <GlassCard
-            title="Desenvolvimento"
-            description="Realizamos Desenvolvimento de sites, páginas de captura, páginas de vendas, ecommerce. E claro, tudo otimizado para os celulares.."
-            image="/Logo Conste.png"
-          />
-          <GlassCard
-            title="Audiovisual"
-            description="Captamos e editamos os vídeos para suas redes sociais. Capturamos tanto com câmera profissional, quanto com drone."
-            image="/Logo Conste.png"
-          />
-        </div>
+      <section className="flex flex-col lg:w-full items-center justify-center py-20 mx-auto" id="setores">
+              <h2 className="md:text-4xl text-3xl text-white font-bold mb-6 text-center md:w-full max-w-[780px] w-[320px]">
+                Serviços que farão sua empresa se <span className="text-[#FF8500]">destacar</span> no digital
+              </h2>
+              <p className="text-[#BABABA] text-lg mb-10 text-center max-w-[600px] md:w-full w-[320px]">
+                Conheça como a Conste vai te ajudar a se posicionar no digital e se diferenciar dos concorrentes.
+              </p>
+              <div className="flex overflow-x-auto gap-4 justify-start mb-10 w-full px-2 md:justify-center md:flex-wrap md:overflow-visible">
+                {setores.map((setor) => (
+                  <button
+                    key={setor.key}
+                    onClick={() => setActiveSetor(setor)}
+                    className={`flex-shrink-0 p-5 rounded-xl border-2 transition duration-200 font-bold text-white md:w-[204px] w-[180px] text-sm
+                ${activeSetor.key === setor.key
+                  ? "border-none bg-gradient-to-l from-[#310276] to-[#6C63FF]"
+                  : "border-[#310276] hover:bg-gradient-to-l from-[#310276] to-[#6C63FF] hover:border-none"}`}
+                    style={{ minWidth: 150 }}
+                  >
+                    {setor.label}
+                  </button>
+                ))}
+              </div>
+              <motion.div
+                key={activeSetor.key}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="flex flex-col md:flex-row items-center justify-center gap-10 border border-[#310276] rounded-xl p-8 w-[320px] md:w-full md:max-w-[1080px] md:h-[400px] h-[600px] bg-[#0e0e0e]"
+              >
+                <div className="flex-shrink-0 mb-6 md:mb-0">
+                  <Image
+                    src={activeSetor.image}
+                    alt={activeSetor.title}
+                    width={540}
+                    height={400}
+                    className="rounded-xl shadow-lg"
+                  />
+                </div>
+                <div className="text-left">
+                  <h3 className="text-white font-bold md:text-2xl text-xl mb-4">{activeSetor.title}</h3>
+                  <ul className="text-[#BABABA] md:text-lg textg-base space-y-2">
+                    {activeSetor.description.map((desc, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <Image
+                          src="/infinite-icon.svg"
+                          width={24}
+                          height={24}
+                          alt="Conste Infinite Icone"
+                        />
+                        {desc}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
 
         <div className="flex flex-col items-center justify-center">
           <FormModal buttonText="Quero Elevar meus resultados" />
