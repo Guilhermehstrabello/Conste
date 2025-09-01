@@ -1,38 +1,33 @@
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+"use client"
+import { useEffect, createContext, useContext, useRef } from "react";
+import Lenis from "@studio-freight/lenis";
 
-const SmoothScroll = () => {
-  const scrollContainer = useRef<HTMLDivElement | null>(null);
+const LenisContext = createContext<Lenis | null>(null);
+
+export const useLenis = () => useContext(LenisContext);
+
+const SmoothScroll = ({ children }: { children?: React.ReactNode }) => {
+  const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+    const lenis = new Lenis({ lerp: 0.2 });
+    lenisRef.current = lenis;
 
-    let ctx = gsap.context(() => {
-      if (!scrollContainer.current) return;
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
 
-      const height = scrollContainer.current.scrollHeight - window.innerHeight;
-
-      gsap.to(scrollContainer.current, {
-        y: () => -height,
-        ease: "power2.inOut", // Deixa o movimento mais suave
-        duration: 7, // Controla a velocidade geral do scroll
-        scrollTrigger: {
-          trigger: scrollContainer.current,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 5, // Quanto maior, mais lento e suave
-        },
-      });
-    });
-
-    return () => ctx.revert(); // Limpa os efeitos ao desmontar
+    return () => {
+      lenis.destroy();
+    };
   }, []);
 
   return (
-    <div ref={scrollContainer} className="relative w-full">
-      {null} {/* Componente invisível */}
-    </div>
+    <LenisContext.Provider value={lenisRef.current}>
+      {children}
+    </LenisContext.Provider>
   );
 };
 

@@ -1,12 +1,27 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useLenis } from "@/components/scroll"; // Import Lenis hook
+
+const NAV_ITEMS = [
+  "Quem Somos",
+  "Setores",
+  "Cases",
+  "Depoimentos",
+  "Nossos Processos",
+];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const lenis = useLenis();
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
+  const handleSmoothScroll = (e: React.MouseEvent, id: string) => {
+    e.preventDefault();
+    setIsOpen(false);
+    const section = document.getElementById(id);
+    if (section && lenis) {
+      lenis.scrollTo(section, { offset: -40, duration: 2.0 });
+    }
   };
 
   return (
@@ -22,7 +37,7 @@ const Navbar = () => {
 
         {/* Botão de Menu Mobile */}
         <button
-          onClick={toggleMenu}
+          onClick={() => setIsOpen(!isOpen)}
           className="md:hidden text-white focus:outline-none"
           aria-label="Toggle menu"
         >
@@ -55,22 +70,25 @@ const Navbar = () => {
 
           {/* Links do Menu */}
           <ul className="flex flex-col items-center space-y-6">
-            {["Quem Somos", "Setores", "Cases", "Depoimentos", "Nossos Processos"].map((item) => (
-              <Link 
-                key={item} 
-                href={`#${item.toLowerCase().replace(" ", "-")}`} 
-                onClick={() => setIsOpen(false)}
-                className="block w-full"
-              >
-                <li className="hover:bg-[#310276] p-4 duration-200 text-center w-full">
-                  {item}
-                </li>
-              </Link>
-            ))}
+            {NAV_ITEMS.map((item) => {
+              const id = item.toLowerCase().replace(/ /g, "-");
+              return (
+                <a
+                  key={item}
+                  href={`#${id}`}
+                  onClick={(e) => handleSmoothScroll(e, id)}
+                  className="block w-full"
+                >
+                  <li className="hover:bg-[#310276] p-4 duration-200 text-center w-full">
+                    {item}
+                  </li>
+                </a>
+              );
+            })}
           </ul>
 
           {/* Botão de Fechar (X) após os links */}
-          <button onClick={toggleMenu} className="text-white mt-8">
+          <button onClick={() => setIsOpen(false)} className="text-white mt-8">
             <svg
               className="h-12 w-12"
               xmlns="http://www.w3.org/2000/svg"
@@ -91,20 +109,23 @@ const Navbar = () => {
         {/* Links do Menu Desktop */}
         <div className="hidden md:flex items-center space-x-10">
           <ul className="flex space-x-8 text-white">
-            {["Quem Somos", "Setores", "Cases", "Depoimentos", "Nossos Processos"].map((item) => (
-              <Link 
-                key={item} 
-                href={`#${item.toLowerCase().replace(" ", "-")}`}
-                className="block"
-              >
-                <li className="hover:scale-110 duration-300 p-4 hover:bg-[#310276] rounded-md cursor-pointer">
-                  {item}
-                </li>
-              </Link>
-            ))}
+            {NAV_ITEMS.map((item) => {
+              const id = item.toLowerCase().replace(/ /g, "-");
+              return (
+                <a
+                  key={item}
+                  href={`#${id}`}
+                  onClick={(e) => handleSmoothScroll(e, id)}
+                  className="block"
+                >
+                  <li className="hover:scale-110 duration-300 p-4 hover:bg-[#310276] rounded-md cursor-pointer">
+                    {item}
+                  </li>
+                </a>
+              );
+            })}
           </ul>
         </div>
-
       </div>
     </nav>
   );

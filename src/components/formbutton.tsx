@@ -16,11 +16,10 @@ interface FormData {
   name: string;
   email: string;
   phone: string;
-  revenue: string;
   company: string;
 }
 
-const steps = ["name", "company", "email", "phone", "revenue"];
+const steps = ["name", "company", "email", "phone"];
 
 const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,7 +30,6 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
     name: "",
     email: "",
     phone: "",
-    revenue: "",
     company: "",
   });
 
@@ -90,7 +88,7 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
 
       if (!response.ok) throw new Error("Erro ao enviar e-mail");
 
-      setFormData({ name: "", email: "", phone: "", revenue: "", company: "" });
+      setFormData({ name: "", email: "", phone: "", company: "" });
       shootConfetti();
       router.push("/obrigado");
     } catch (error) {
@@ -174,22 +172,6 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
                   className="border p-3 rounded w-full"
                 />
               )}
-              {currentStep === "revenue" && (
-                <select
-                  name="revenue"
-                  value={formData.revenue}
-                  onChange={handleChange}
-                  required
-                  className="border p-3 rounded w-full"
-                >
-                  <option value="">Selecione o faturamento</option>
-                  <option value="R$0 - R$30.000">R$0 - R$30.000</option>
-                  <option value="R$30.000 - R$50.000">R$30.000 - R$50.000</option>
-                  <option value="R$50.000 - R$100.000">R$50.000 - R$100.000</option>
-                  <option value="R$100.000 - R$500.000">R$100.000 - R$500.000</option>
-                  <option value="+ de R$1.000.000">+ de R$1.000.000</option>
-                </select>
-              )}
 
               <div className="flex justify-center gap-4 items-center mt-4">
                 {stepIndex > 0 && (
@@ -234,7 +216,7 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
     <div className="flex items-center h-fit">
       <button
         onClick={() => setIsOpen(true)}
-        className="z-10 p-3 my-2 lg:my-8 text-white bg-[#310276] hover:bg-[#40009E] duration-200 rounded-[6px] text-xs md:text-base lg:text-base whitespace-pre-wrap"
+        className="z-10 p-4 my-2 lg:my-8 text-white bg-[#310276] hover:bg-[#40009E] duration-200 rounded-[6px] text-xs md:text-base lg:text-base whitespace-pre-wrap"
       >
         {buttonText}
       </button>

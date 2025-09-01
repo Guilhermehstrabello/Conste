@@ -10,9 +10,6 @@ body {
   cursor: default;
 }
 
-*{
-  scroll-behavior: smooth;
-}
 
 @keyframes scrollLeft {
   from {
