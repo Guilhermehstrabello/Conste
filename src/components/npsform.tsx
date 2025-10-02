@@ -71,7 +71,8 @@ export default function NpsForm() {
     if (currentStep === "positivePoints") return data.positivePoints.trim().length >= 3;
     if (currentStep === "marketingEffectiveness") return data.marketingEffectiveness !== null;
     if (currentStep === "recommend") return data.recommend !== null;
-    return true;
+    if (currentStep === "extraComment") return true; // Permite avançar sempre
+    return false;
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -240,10 +241,10 @@ export default function NpsForm() {
                     <button
                       key={option.label}
                       type="button"
-                      onClick={() => setData(d => ({ ...d, recommend: option.label }))}
+                      onClick={() => setData(d => ({ ...d, marketingEffectiveness: option.label }))}
                       className={`px-6 py-3 rounded-full border-[1px] border-[#7047BD] text-white font-semibold transition-colors
                         ${option.style} 
-                        ${data.recommend === option.label ? "bg-[#7047BD]" : "bg-transparent hover:bg-[#7047BD]"}`}
+                        ${data.marketingEffectiveness === option.label ? "bg-[#7047BD]" : "bg-transparent hover:bg-[#7047BD]"}`}
                     >
                       {option.label}
                     </button>
