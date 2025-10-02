@@ -177,13 +177,13 @@ export default function NpsForm() {
                 <label className="block font-semibold font-montserrat md:text-xl text-lg text-white">
                   Em uma escala de 1 a 10, qual a probabilidade de você recomendar a Conste?
                 </label>
-                <div className="grid grid-cols-5 gap-6">
+                <div className="grid md:grid-cols-5 grid-cols-5 gap-6">
                   {Array.from({ length: 10 }).map((_, i) => (
                     <button
                       type="button"
                       key={i + 1}
                       onClick={() => setData((d) => ({ ...d, score: i + 1 }))}
-                      className={`p-6 text-xl rounded-[100px] text-white border border-[#7047BD] w-20 h-10${data.score === i + 1
+                      className={`md:p-6 p-4 md:text-xl text-base rounded-[100px] text-white border border-[#7047BD] md:w-20 md:h-10 w-16 h-8${data.score === i + 1
                         ? "text-white border-[#7047BD] bg-[#7047BD]"
                         : "bg-[#b48cff] hover:bg-[#7047BD]"
                         }`}
