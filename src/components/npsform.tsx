@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { db } from "../app/lib/firebase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { motion, AnimatePresence } from "framer-motion";
-import { shootConfetti } from "./confetti";
 
 interface NpsResponse {
   // Passo 1: Dados básicos
@@ -40,7 +39,6 @@ type StepKey = typeof steps[number];
 
 export default function NpsForm() {
   const [stepIndex, setStepIndex] = useState(0);
-  const isSubmitting = useRef(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -77,15 +75,12 @@ export default function NpsForm() {
     return false;
   }
 
-  async function handleSubmit(e?: React.FormEvent) {
-    if (e) e.preventDefault();
-    // evita submissões duplicadas (duplo clique / enter)
-    if (isSubmitting.current) return;
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
     if (!canProceed()) {
       setErrorMessage("Preencha todos os passos antes de enviar.");
       return;
     }
-    isSubmitting.current = true;
     setLoading(true);
     setErrorMessage(null);
     try {
@@ -116,13 +111,11 @@ export default function NpsForm() {
         createdAt: serverTimestamp(),
       });
       setSuccess(true);
-      shootConfetti();
     } catch (err) {
       const message = err instanceof Error ? err.message : "Erro desconhecido";
       console.error("NPS submit error:", err);
       setErrorMessage(`Erro ao enviar sua resposta: ${message}`);
     } finally {
-      isSubmitting.current = false;
       setLoading(false);
     }
   }
@@ -190,7 +183,7 @@ export default function NpsForm() {
                       type="button"
                       key={i + 1}
                       onClick={() => setData((d) => ({ ...d, score: i + 1 }))}
-                      className={`p-2 md:text-xl text-base rounded-[100px] text-white border border-[#7047BD] md:w-20 md:h-20 w-16 h-8${data.score === i + 1
+                      className={`md:p-6 p-4 md:text-xl text-base rounded-[100px] text-white border border-[#7047BD] md:w-20 md:h-10 w-16 h-8${data.score === i + 1
                         ? "text-white border-[#7047BD] bg-[#7047BD]"
                         : "bg-[#b48cff] hover:bg-[#7047BD]"
                         }`}
@@ -294,7 +287,7 @@ export default function NpsForm() {
                   Comentário extra (opcional)
                 </label>
                 <textarea
-                  className="w-full border rounded-[100px] p-3 bg-transparent text-white border-[#7047BD]"
+                  className="w-full border rounded-[100px] p-3 bg-transparent text-white border-[#7047BD] min-h-[120px]"
                   placeholder="Deixe aqui qualquer comentário adicional que gostaria de compartilhar"
                   value={data.extraComment}
                   onChange={(e) => setData((d) => ({ ...d, extraComment: e.target.value }))}
@@ -328,10 +321,9 @@ export default function NpsForm() {
               </button>
             ) : (
               <button
-                type="button"
-                onClick={() => handleSubmit()}
+                type="submit"
                 disabled={loading}
-                className="w-full text-xl text-white bg-[#FE7300] hover:bg-[#FEAC56] py-2 px-4 rounded-[100px] duration-200 disabled:opacity-60"
+                className="w-full text-xl text-white bg-[#FE7300] hover:bg-[#FEAC56] py-2 px-4 rounded-[100px] duration-200"
               >
                 {loading ? "Enviando..." : "Enviar"}
               </button>
