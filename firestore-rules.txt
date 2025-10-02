@@ -1,0 +1,59 @@
+// Firestore Security Rules - Atualizada para formulário NPS expandido
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Somente criação de respostas na coleção NPS
+    match /respostas-nps/{docId} {
+      // Permite criar com validação estrita de campos
+      allow create: if
+        // Verifica se contém apenas os campos esperados
+        request.resource.data.keys().hasOnly(['name','company','score','positivePoints','marketingEffectiveness','strategyQuality','supportQuality','recommend','extraComment','createdAt']) &&
+        
+        // Validação dos campos obrigatórios
+        request.resource.data.name is string &&
+        request.resource.data.name.size() >= 2 && request.resource.data.name.size() <= 100 &&
+        request.resource.data.company is string &&
+        request.resource.data.company.size() >= 2 && request.resource.data.company.size() <= 100 &&
+        request.resource.data.score is int &&
+        request.resource.data.score >= 0 && request.resource.data.score <= 10 &&
+        request.resource.data.positivePoints is string &&
+        request.resource.data.positivePoints.size() >= 3 && request.resource.data.positivePoints.size() <= 1000 &&
+        
+        // Validação das avaliações específicas
+        request.resource.data.marketingEffectiveness in ['eficaz','ineficaz'] &&
+        request.resource.data.strategyQuality in ['sim','nao'] &&
+        request.resource.data.supportQuality in ['excelente','bom','regular','ruim'] &&
+        request.resource.data.recommend in ['sim','nao'] &&
+        
+        // Validação do comentário extra (opcional)
+        request.resource.data.extraComment is string &&
+        request.resource.data.extraComment.size() <= 2000 &&
+        
+        // Validação do timestamp
+        (!('createdAt' in request.resource.data) || request.resource.data.createdAt is timestamp);
+
+      // Bloqueia leitura e alterações
+      allow read: if false;
+      allow update, delete: if false;
+    }
+
+    // Permite leitura da coleção leads (formulário principal)
+    match /leads/{docId} {
+      allow create: if
+        request.resource.data.keys().hasOnly(['name','email','phone','company','createdAt']) &&
+        request.resource.data.name is string &&
+        request.resource.data.email is string &&
+        request.resource.data.phone is string &&
+        request.resource.data.company is string &&
+        (!('createdAt' in request.resource.data) || request.resource.data.createdAt is timestamp);
+      
+      allow read, update, delete: if false;
+    }
+
+    // Bloqueia tudo que não foi explicitamente permitido
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

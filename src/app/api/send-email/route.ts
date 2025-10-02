@@ -1,29 +1,48 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
-export async function POST(req: NextRequest) {
-    const { name, email, phone, revenue, company } = await req.json();
+export const runtime = "nodejs";
+
+export async function POST(req: NextRequest)  {
+    let body: unknown;
+    try {
+        body = await req.json();
+    } catch {
+        return NextResponse.json({ message: "JSON inválido" }, { status: 400 });
+    }
+
+    const { name, email, phone, company } = (body as Record<string, unknown>) || {};
+
+    if (!name || !email || !phone) {
+        return NextResponse.json({ message: "Campos obrigatórios ausentes: name, email, phone" }, { status: 400 });
+    }
+
+    const toList = [process.env.EMAIL_TO_1, process.env.EMAIL_TO_2].filter(
+        (addr): addr is string => typeof addr === "string" && addr.length > 0
+    );
+    const fromAddr = process.env.EMAIL_FROM || process.env.EMAIL_USER;
+    const user = process.env.EMAIL_USER || process.env.EMAIL_FROM;
+    const pass = process.env.EMAIL_PASS;
+
+    if (!user || !pass || !fromAddr || toList.length === 0) {
+        return NextResponse.json({
+            message: "Configuração de e-mail ausente. Defina EMAIL_USER, EMAIL_PASS, EMAIL_FROM e pelo menos EMAIL_TO_1.",
+        }, { status: 500 });
+    }
 
     const transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-            user: process.env.EMAIL_USER, // seu e-mail
-            pass: process.env.EMAIL_PASS, // app password ou senha
-        },
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
+        auth: { user, pass },
     });
 
     const mailOptions = {
-        from: `"Conste site" <${process.env.EMAIL_FROM}>`,
-        to: [process.env.EMAIL_TO_1, process.env.EMAIL_TO_2].filter((email): email is string => typeof email === "string"),
+        from: `Conste site <${fromAddr}>`,
+        to: toList,
         subject: "Novo lead recebido!",
-        text: `
-      Nome: ${name}
-      E-mail: ${email}
-      Telefone: ${phone}
-      Faturamento: ${revenue}
-      Empresa: ${company}
-    `,
-    };
+        text: `Nome: ${name}\nE-mail: ${email}\nTelefone: ${phone}\nEmpresa: ${company ?? "-"}`,
+    } as const;
 
     try {
         await transporter.sendMail(mailOptions);

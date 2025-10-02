@@ -3,7 +3,6 @@ import Navbar from "@/components/navbar";
 import ClientLogos from "@/components/clientslogo";
 import SmoothScroll from "@/components/scroll";
 import Image from "next/image";
-import GlassCard from "@/components/glasscard";
 import Footer from "@/components/footer";
 import WhatsApp from "@/components/wpp";
 import { motion, useInView } from 'framer-motion';

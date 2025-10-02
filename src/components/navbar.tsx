@@ -20,7 +20,7 @@ const Navbar = () => {
     setIsOpen(false);
     const section = document.getElementById(id);
     if (section && lenis) {
-      lenis.scrollTo(section, { offset: -40, duration: 2.0 });
+      lenis.scrollTo(section, { offset: -40, duration: 1.2 });
     }
   };
 
@@ -79,7 +79,7 @@ const Navbar = () => {
                   onClick={(e) => handleSmoothScroll(e, id)}
                   className="block w-full"
                 >
-                  <li className="hover:bg-[#310276] p-4 duration-200 text-center w-full">
+                  <li className="hover:bg-[#310276] p-4 duration-200 rounded-lg text-center w-full">
                     {item}
                   </li>
                 </a>
