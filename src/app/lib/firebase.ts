@@ -2,18 +2,9 @@ import { getFirestore } from 'firebase/firestore';
 import { FirebaseApp, initializeApp, getApps, getApp } from 'firebase/app';
 import { Firestore } from 'firebase/firestore';
 
-// Definindo a interface para as configurações do Firebase
-interface FirebaseConfig {
-  apiKey: string;
-  authDomain: string;
-  projectId: string;
-  storageBucket: string;
-  messagingSenderId: string;
-  appId: string;
-}
 
 // Configuração do Firebase com tipagem (usa env se disponível; fallback para valores atuais)
-const firebaseConfig: FirebaseConfig = {
+const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "",
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN || "",
   projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || "",
