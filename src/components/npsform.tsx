@@ -56,10 +56,12 @@ export default function NpsForm() {
   const currentStep: StepKey = steps[stepIndex];
 
   function next() {
+    console.log("NPS: next() — stepIndex:", stepIndex, "currentStep:", currentStep);
     setStepIndex((p) => Math.min(p + 1, steps.length - 1));
   }
 
   function back() {
+    console.log("NPS: back() — stepIndex:", stepIndex, "currentStep:", currentStep);
     setStepIndex((p) => Math.max(p - 1, 0));
   }
 
@@ -77,8 +79,18 @@ export default function NpsForm() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    console.log("NPS: handleSubmit called", { stepIndex, currentStep, data });
+
+    // Se não estivermos na última etapa, apenas avançar (evita envio acidental via Enter)
+    if (currentStep !== "extraComment") {
+      console.log("NPS: não é último passo — avançando em vez de enviar");
+      next();
+      return;
+    }
+
     if (!canProceed()) {
       setErrorMessage("Preencha todos os passos antes de enviar.");
+      console.warn("NPS: tentativa de envio sem campos obrigatórios", { data });
       return;
     }
     setLoading(true);
@@ -99,7 +111,7 @@ export default function NpsForm() {
         throw new Error("Dados obrigatórios ausentes");
       }
 
-      await addDoc(collection(db, "respostas-nps"), {
+      const payload = {
         name: data.name.trim(),
         company: data.company.trim(),
         score: normalizedScore,
@@ -109,7 +121,11 @@ export default function NpsForm() {
         recommend: data.recommend,
         extraComment: data.extraComment.trim(),
         createdAt: serverTimestamp(),
-      });
+      };
+
+      console.log("NPS: enviando payload", payload);
+      const docRef = await addDoc(collection(db, "respostas-nps"), payload);
+      console.log("NPS: enviado com sucesso, docId:", docRef.id);
       setSuccess(true);
     } catch (err) {
       const message = err instanceof Error ? err.message : "Erro desconhecido";
@@ -138,7 +154,23 @@ export default function NpsForm() {
           <p className="text-white mt-2">Sua resposta foi registrada com sucesso.</p>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+        <form
+          // Não usar onSubmit para evitar submissões automáticas do browser.
+          // Previne Enter de submeter o form e, em vez disso, avança para próxima etapa (exceto quando textarea está focado)
+          onKeyDown={(e: React.KeyboardEvent<HTMLFormElement>) => {
+            if (e.key === "Enter") {
+              const target = e.target as HTMLElement;
+              const isTextArea = target.tagName === "TEXTAREA";
+              if (!isTextArea) {
+                e.preventDefault();
+                console.log("NPS: Enter capturado no form — avançando", { stepIndex, currentStep });
+                if (currentStep !== "extraComment") next();
+              }
+            }
+          }}
+          className="flex flex-col gap-6"
+          noValidate
+        >
           <div className="text-sm bg-[#7047BD] text-white px-4 py-2 rounded-[100px] w-fit">
             Passo {stepIndex + 1} de {steps.length}
           </div>
@@ -177,18 +209,19 @@ export default function NpsForm() {
                 <label className="block font-semibold font-montserrat md:text-xl text-lg text-white">
                   Em uma escala de 1 a 10, qual a probabilidade de você recomendar a Conste?
                 </label>
-                <div className="grid md:grid-cols-5 grid-cols-5 gap-6">
+                <div className="grid grid-cols-5 gap-3 md:gap-6">
                   {Array.from({ length: 10 }).map((_, i) => (
                     <button
                       type="button"
                       key={i + 1}
                       onClick={() => setData((d) => ({ ...d, score: i + 1 }))}
-                      className={`md:p-6 p-4 md:text-xl text-base rounded-[100px] text-white border border-[#7047BD] md:w-20 md:h-10 w-16 h-8${data.score === i + 1
-                        ? "text-white border-[#7047BD] bg-[#7047BD]"
-                        : "bg-[#b48cff] hover:bg-[#7047BD]"
-                        }`}
+                      aria-pressed={data.score === i + 1}
+                      aria-label={`Nota ${i + 1}`}
+                      className={`flex items-center justify-center rounded-full border border-[#7047BD] text-white transition-colors
+                        w-14 h-14 md:w-20 md:h-20 text-sm md:text-xl select-none
+                        ${data.score === i + 1 ? "bg-[#7047BD]" : " hover:bg-[#7047BD]"}`}
                     >
-                      {i + 1}
+                      <span>{i + 1}</span>
                     </button>
                   ))}
                 </div>
@@ -260,17 +293,17 @@ export default function NpsForm() {
                 </label>
                 <div className="flex flex-wrap gap-4 justify-center">
                   {[
-                    { label: "Com certeza", style: "basis-[220px] grow" },
+                    { label: "Com certeza", style: "basis-[140px] grow" },
                     { label: "Provavelmente sim", style: "basis-[200px] grow" },
-                    { label: "Não sei", style: "basis-[140px] grow" },
-                    { label: "Provavelmente não", style: "basis-[200px] grow" },
-                    { label: "De jeito nenhum", style: "basis-[180px] grow" }
+                    { label: "Não sei", style: "basis-[100px] grow" },
+                    { label: "Provavelmente não", style: "basis-[180px] grow" },
+                    { label: "De jeito nenhum", style: "basis-[140px] grow" }
                   ].map(option => (
                     <button
                       key={option.label}
                       type="button"
                       onClick={() => setData(d => ({ ...d, recommend: option.label }))}
-                      className={`px-6 py-3 rounded-full border-[1px] border-[#7047BD] text-white font-semibold transition-colors
+                      className={`p-4 rounded-full border-[1px] border-[#7047BD] text-white font-semibold transition-colors
                         ${option.style} 
                         ${data.recommend === option.label ? "bg-[#7047BD]" : "bg-transparent hover:bg-[#7047BD]"}`}
                     >
@@ -287,7 +320,7 @@ export default function NpsForm() {
                   Comentário extra (opcional)
                 </label>
                 <textarea
-                  className="w-full border rounded-[100px] p-3 bg-transparent text-white border-[#7047BD] min-h-[120px]"
+                  className="w-full border rounded-[100px] p-3 bg-transparent text-white border-[#7047BD]"
                   placeholder="Deixe aqui qualquer comentário adicional que gostaria de compartilhar"
                   value={data.extraComment}
                   onChange={(e) => setData((d) => ({ ...d, extraComment: e.target.value }))}
@@ -321,7 +354,8 @@ export default function NpsForm() {
               </button>
             ) : (
               <button
-                type="submit"
+                type="button"
+                onClick={handleSubmit}
                 disabled={loading}
                 className="w-full text-xl text-white bg-[#FE7300] hover:bg-[#FEAC56] py-2 px-4 rounded-[100px] duration-200"
               >
