@@ -24,9 +24,22 @@ export async function POST(req: Request) {
       return new Response(JSON.stringify({ error: 'name or email required' }), { status: 400 });
     }
 
+    // Diagnostic checks for env vars
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if (!url || !key) {
+      console.error('Supabase admin client not configured. NEXT_PUBLIC_SUPABASE_URL present:', Boolean(url), 'SUPABASE_SERVICE_ROLE_KEY present:', Boolean(key));
+      return new Response(JSON.stringify({ error: 'Supabase not configured', details: { hasUrl: Boolean(url), hasServiceKey: Boolean(key) } }), { status: 500 });
+    }
+    const keyTrim = key.trim();
+    if (keyTrim.length !== key.length || /^['"].*['"]$/.test(keyTrim)) {
+      console.warn('Supabase service key appears to have surrounding quotes or whitespace (length:', key.length, 'trimmed:', keyTrim.length, ')');
+      return new Response(JSON.stringify({ error: 'Supabase service key malformed', details: { keyLength: key.length, keyTrimLength: keyTrim.length } }), { status: 500 });
+    }
+
     const supabaseAdmin = getSupabaseAdmin();
     if (!supabaseAdmin) {
-      console.error('Supabase admin client not configured. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY');
+      console.error('Unexpected: supabaseAdmin null after env checks');
       return new Response(JSON.stringify({ error: 'Supabase not configured' }), { status: 500 });
     }
 
