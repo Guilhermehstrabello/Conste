@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { db } from "../app/lib/firebase";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { supabase } from "../app/lib/supabase";
 import { shootConfetti } from "./confetti";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -75,25 +74,26 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
     e.preventDefault();
     setLoading(true);
     try {
-      await addDoc(collection(db, "leads"), {
-        ...formData,
-        createdAt: serverTimestamp(),
-      });
-
-      const response = await fetch("/api/send-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      // Call server-side API route which uses the service role key to insert into Supabase.
+      const res = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
 
-      if (!response.ok) throw new Error("Erro ao enviar e-mail");
+      if (!res.ok) {
+        const errBody = await res.json().catch(() => ({}));
+        throw new Error(errBody?.error || `API error ${res.status}`);
+      }
 
-      setFormData({ name: "", email: "", phone: "", company: "" });
+      // Email sending is handled server-side in /api/leads (best-effort). No additional client request needed.
+
+      setFormData({ name: '', email: '', phone: '', company: '' });
       shootConfetti();
-      router.push("/obrigado");
+      router.push('/obrigado');
     } catch (error) {
-      console.error("Erro:", error);
-      alert("Erro ao enviar formulário.");
+      console.error('Erro:', error);
+      alert('Erro ao enviar formulário.');
     } finally {
       setLoading(false);
     }
