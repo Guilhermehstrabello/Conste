@@ -182,7 +182,7 @@ export default function NpsForm() {
             Passo {stepIndex + 1} de {steps.length}
           </div>
 
-          <div className="h-[250px] md:h-[250px] flex items-center">
+          <div className="flex items-center">
             <AnimatePresence mode="wait">
             {currentStep === "name" && (
               <motion.div key="name" {...motionProps} className="flex flex-col gap-7 h-full justify-center">
