@@ -1,8 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { db } from "../app/lib/firebase";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface NpsResponse {
@@ -120,12 +118,21 @@ export default function NpsForm() {
         marketingEffectiveness: data.marketingEffectiveness,
         recommend: data.recommend,
         extraComment: data.extraComment.trim(),
-        createdAt: serverTimestamp(),
       };
 
       console.log("NPS: enviando payload", payload);
-      const docRef = await addDoc(collection(db, "respostas-nps"), payload);
-      console.log("NPS: enviado com sucesso, docId:", docRef.id);
+      const res = await fetch('/api/respostas-nps', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body?.error || `Erro API ${res.status}`);
+      }
+
+      console.log('NPS: enviado com sucesso');
       setSuccess(true);
     } catch (err) {
       const message = err instanceof Error ? err.message : "Erro desconhecido";
@@ -144,10 +151,10 @@ export default function NpsForm() {
   };
 
   return (
-    <div className="w-full max-w-[600px] mx-auto bg-[#310276] rounded-[40px] h-400px max-h-[900px] md:py-32 md:px-16 py-16 px-8 shadow-2xl">
+    <>
+  <div className="w-full max-w-[600px] mx-auto bg-[#310276] rounded-[40px] overflow-visible md:py-20 md:px-16 py-16 px-8 shadow-2xl">
       <h1 className="text-white text-2xl font-bold mb-2">Pesquisa NPS</h1>
       <p className="text-white mb-6">Sua opinião nos ajuda a melhorar.</p>
-
       {success ? (
         <div className="text-center py-10">
           <p className="text-[#ff8500] font-semibold text-xl">Obrigado por responder!</p>
@@ -175,10 +182,11 @@ export default function NpsForm() {
             Passo {stepIndex + 1} de {steps.length}
           </div>
 
-          <AnimatePresence mode="wait">
+          <div className="h-[250px] md:h-[250px] flex items-center">
+            <AnimatePresence mode="wait">
             {currentStep === "name" && (
-              <motion.div key="name" {...motionProps} className="flex flex-col gap-7">
-                <label className="text-white font-bold mb-2">Qual seu nome?</label>
+              <motion.div key="name" {...motionProps} className="flex flex-col gap-7 h-full justify-center">
+                <label className="text-white font-bold md:text-xl text-lg mb-2">Insira o seu nome:</label>
                 <input
                   type="text"
                   className="w-full border rounded-[100px] p-3 bg-transparent text-white border-[#7047BD]"
@@ -191,8 +199,8 @@ export default function NpsForm() {
             )}
 
             {currentStep === "company" && (
-              <motion.div key="company" {...motionProps} className="flex flex-col gap-7">
-                <label className="text-white font-bold mb-2">Qual o nome da sua empresa?</label>
+              <motion.div key="company" {...motionProps} className="flex flex-col gap-7 h-full justify-center">
+                <label className="text-white font-bold md:text-xl text-lg mb-2">Insira o nome da sua empresa:</label>
                 <input
                   type="text"
                   className="w-full border rounded-[100px] p-3 bg-transparent text-white border-[#7047BD]"
@@ -205,8 +213,8 @@ export default function NpsForm() {
             )}
 
             {currentStep === "score" && (
-              <motion.div key="score" {...motionProps} className="flex flex-col gap-10">
-                <label className="block font-semibold font-montserrat md:text-xl text-lg text-white">
+              <motion.div key="score" {...motionProps} className="flex flex-col gap-4 h-full justify-center">
+                <label className="block font-semibold font-montserrat md:text-xl text-base text-white">
                   Em uma escala de 1 a 10, qual a probabilidade de você recomendar a Conste?
                 </label>
                 <div className="grid grid-cols-5 gap-3 md:gap-6">
@@ -218,7 +226,7 @@ export default function NpsForm() {
                       aria-pressed={data.score === i + 1}
                       aria-label={`Nota ${i + 1}`}
                       className={`flex items-center justify-center rounded-full border border-[#7047BD] text-white transition-colors
-                        w-14 h-14 md:w-20 md:h-20 text-sm md:text-xl select-none
+                        w-10 h-10 md:w-[76px] md:h-[76px] text-sm md:text-xl select-none
                         ${data.score === i + 1 ? "bg-[#7047BD]" : " hover:bg-[#7047BD]"}`}
                     >
                       <span>{i + 1}</span>
@@ -229,7 +237,7 @@ export default function NpsForm() {
             )}
 
             {currentStep === "improvement" && (
-              <motion.div key="improvement" {...motionProps} className="flex flex-col gap-4">
+              <motion.div key="improvement" {...motionProps} className="flex flex-col gap-4 h-full justify-center">
                 <label className="block font-semibold font-montserrat text-lg text-white">
                   O que poderia ter sido melhor?
                 </label>
@@ -244,7 +252,7 @@ export default function NpsForm() {
             )}
 
             {currentStep === "positivePoints" && (
-              <motion.div key="positivePoints" {...motionProps} className="flex flex-col gap-10">
+              <motion.div key="positivePoints" {...motionProps} className="flex flex-col gap-10 h-full justify-center">
                 <label className="block font-semibold font-montserrat text-lg text-white">
                   Qual o maior ponto positivo identificado na entrega do serviço?
                 </label>
@@ -259,7 +267,7 @@ export default function NpsForm() {
             )}
 
             {currentStep === "marketingEffectiveness" && (
-              <motion.div key="marketingEffectiveness" {...motionProps} className="flex flex-col gap-6">
+              <motion.div key="marketingEffectiveness" {...motionProps} className="flex flex-col gap-6 h-full justify-center">
                 <label className="block font-semibold font-montserrat text-lg text-white mb-4">
                   Como você avalia a eficácia das estratégias de marketing digital aplicadas pela Conste?
                 </label>
@@ -287,7 +295,7 @@ export default function NpsForm() {
             )}
 
             {currentStep === "recommend" && (
-              <motion.div key="recommend" {...motionProps} className="flex flex-col gap-6">
+              <motion.div key="recommend" {...motionProps} className="flex flex-col gap-6 h-full justify-center">
                 <label className="block font-semibold font-montserrat text-lg text-white mb-4">
                   Você recomendaria os serviços da Conste para outras empresas?
                 </label>
@@ -315,7 +323,7 @@ export default function NpsForm() {
             )}
 
             {currentStep === "extraComment" && (
-              <motion.div key="extraComment" {...motionProps} className="flex flex-col gap-4">
+              <motion.div key="extraComment" {...motionProps} className="flex flex-col gap-4 h-full justify-center">
                 <label className="block font-semibold font-montserrat text-lg text-white">
                   Comentário extra (opcional)
                 </label>
@@ -328,6 +336,7 @@ export default function NpsForm() {
               </motion.div>
             )}
           </AnimatePresence>
+          </div>
 
           {errorMessage && (
             <div className="text-red-600 text-sm">{errorMessage}</div>
@@ -366,5 +375,6 @@ export default function NpsForm() {
         </form>
       )}
     </div>
+    </>
   );
 }
