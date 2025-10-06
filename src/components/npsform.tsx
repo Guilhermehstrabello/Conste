@@ -152,12 +152,12 @@ export default function NpsForm() {
 
   return (
     <>
-  {/* Left fixed logo - doesn't affect form layout */}
-  <div className="hidden md:flex fixed left-6 top-40 transform -translate-y-1/2 z-40 pointer-events-none">
-    <img src="/Logo Conste.png" alt="Conste" className="w-64 h-full object-contain" />
-  </div>
+  <div className="flex flex-col items-start md:items-start justify-center gap-10 w-full">
+    <div className="flex-shrink-0 flex justify-center md:justify-start items-start w-full md:w-fit">
+      <img src="/Logo Conste.png" alt="Conste" className="w-40 md:w-64 h-auto object-contain" />
+    </div>
 
-  <div className="w-full max-w-[600px] mx-auto bg-[#310276] shadow-[#310276] rounded-[40px] overflow-visible md:py-20 md:px-16 py-16 px-8 shadow-2xl">
+    <div className="w-full max-w-[600px] mx-auto bg-[#310276] shadow-[#310276] rounded-[40px] overflow-visible md:py-20 md:px-16 py-16 px-8 shadow-2xl">
       <h1 className="text-white text-2xl font-bold mb-2">Pesquisa NPS</h1>
       <p className="text-white mb-6">Sua opinião nos ajuda a melhorar.</p>
       {success ? (
@@ -376,6 +376,7 @@ export default function NpsForm() {
         </form>
       )}
     </div>
+  </div>
     </>
   );
 }
