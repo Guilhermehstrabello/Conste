@@ -152,7 +152,12 @@ export default function NpsForm() {
 
   return (
     <>
-  <div className="w-full max-w-[600px] mx-auto bg-[#310276] rounded-[40px] overflow-visible md:py-20 md:px-16 py-16 px-8 shadow-2xl">
+  {/* Left fixed logo - doesn't affect form layout */}
+  <div className="hidden md:flex fixed left-6 top-40 transform -translate-y-1/2 z-40 pointer-events-none">
+    <img src="/Logo Conste.png" alt="Conste" className="w-64 h-full object-contain" />
+  </div>
+
+  <div className="w-full max-w-[600px] mx-auto bg-[#310276] shadow-[#310276] rounded-[40px] overflow-visible md:py-20 md:px-16 py-16 px-8 shadow-2xl">
       <h1 className="text-white text-2xl font-bold mb-2">Pesquisa NPS</h1>
       <p className="text-white mb-6">Sua opinião nos ajuda a melhorar.</p>
       {success ? (
@@ -189,7 +194,7 @@ export default function NpsForm() {
                 <label className="text-white font-bold md:text-xl text-lg mb-2">Insira o seu nome:</label>
                 <input
                   type="text"
-                  className="max-w-full outline-none border rounded-[100px] p-3 bg-transparent text-white border-[#7047BD]"
+                    className="max-w-full outline-none border rounded-[100px] p-3 bg-transparent text-white border-[#7047BD] focus:outline-none focus-visible:ring-1 focus-visible:ring-[#FEAC56] focus-visible:ring-offset-transparent caret-[#FEAC56]"
                   placeholder="Digite seu nome"
                   value={data.name}
                   onChange={(e) => setData((d) => ({ ...d, name: e.target.value }))}
@@ -203,7 +208,7 @@ export default function NpsForm() {
                 <label className="text-white font-bold md:text-xl text-lg mb-2">Insira o nome da sua empresa:</label>
                 <input
                   type="text"
-                  className="w-full max-w-full border rounded-[100px] p-3 bg-transparent text-white border-[#7047BD]"
+                    className="w-full max-w-full border rounded-[100px] p-3 bg-transparent text-white border-[#7047BD] focus:outline-none focus-visible:ring-1 focus-visible:ring-[#FEAC56] focus-visible:ring-offset-transparent caret-[#FEAC56]"
                   placeholder="Digite o nome da empresa"
                   value={data.company}
                   onChange={(e) => setData((d) => ({ ...d, company: e.target.value }))}
@@ -242,7 +247,7 @@ export default function NpsForm() {
                   O que poderia ter sido melhor?
                 </label>
                 <input
-                  className="w-full max-w-full border rounded-[100px] p-3 bg-transparent text-white border-[#7047BD]"
+                  className="w-full max-w-full border rounded-[100px] p-3 bg-transparent text-white border-[#7047BD] focus:outline-none focus-visible:ring-1 focus-visible:ring-[#FEAC56] focus-visible:ring-offset-transparent caret-[#FEAC56]"
                   placeholder="Descreva o que poderia ser melhorado"
                   value={data.improvement}
                   onChange={(e) => setData((d) => ({ ...d, improvement: e.target.value }))}
@@ -257,7 +262,7 @@ export default function NpsForm() {
                   Qual o maior ponto positivo identificado na entrega do serviço?
                 </label>
                 <input
-                  className="w-full max-w-full border rounded-[100px] p-3 bg-transparent text-white border-[#7047BD]"
+                  className="w-full max-w-full border rounded-[100px] p-3 bg-transparent text-white border-[#7047BD] focus:outline-none focus-visible:ring-1 focus-visible:ring-[#FEAC56] focus-visible:ring-offset-transparent caret-[#FEAC56]"
                   placeholder="Descreva o que mais te impressionou positivamente"
                   value={data.positivePoints}
                   onChange={(e) => setData((d) => ({ ...d, positivePoints: e.target.value }))}
@@ -324,7 +329,7 @@ export default function NpsForm() {
                   Comentário extra (opcional)
                 </label>
                 <textarea
-                  className="w-full border rounded-[100px] p-3 bg-transparent text-white border-[#7047BD]"
+                  className="w-full border rounded-[100px] p-3 bg-transparent text-white border-[#7047BD] focus:outline-none focus-visible:ring-1 focus-visible:ring-[#FEAC56] focus-visible:ring-offset-transparent caret-[#FEAC56]"
                   placeholder="Deixe aqui qualquer comentário adicional que gostaria de compartilhar"
                   value={data.extraComment}
                   onChange={(e) => setData((d) => ({ ...d, extraComment: e.target.value }))}
