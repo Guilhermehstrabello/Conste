@@ -185,11 +185,11 @@ export default function NpsForm() {
           <div className="flex items-center">
             <AnimatePresence mode="wait">
             {currentStep === "name" && (
-              <motion.div key="name" {...motionProps} className="flex flex-col gap-7 h-full justify-center">
+              <motion.div key="name" {...motionProps} className="flex flex-col gap-7 h-full w-full justify-center">
                 <label className="text-white font-bold md:text-xl text-lg mb-2">Insira o seu nome:</label>
                 <input
                   type="text"
-                  className="w-full border rounded-[100px] p-3 bg-transparent text-white border-[#7047BD]"
+                  className="max-w-full outline-none border rounded-[100px] p-3 bg-transparent text-white border-[#7047BD]"
                   placeholder="Digite seu nome"
                   value={data.name}
                   onChange={(e) => setData((d) => ({ ...d, name: e.target.value }))}
@@ -199,11 +199,11 @@ export default function NpsForm() {
             )}
 
             {currentStep === "company" && (
-              <motion.div key="company" {...motionProps} className="flex flex-col gap-7 h-full justify-center">
+              <motion.div key="company" {...motionProps} className="flex flex-col gap-7 h-full w-full justify-center">
                 <label className="text-white font-bold md:text-xl text-lg mb-2">Insira o nome da sua empresa:</label>
                 <input
                   type="text"
-                  className="w-full border rounded-[100px] p-3 bg-transparent text-white border-[#7047BD]"
+                  className="w-full max-w-full border rounded-[100px] p-3 bg-transparent text-white border-[#7047BD]"
                   placeholder="Digite o nome da empresa"
                   value={data.company}
                   onChange={(e) => setData((d) => ({ ...d, company: e.target.value }))}
@@ -213,7 +213,7 @@ export default function NpsForm() {
             )}
 
             {currentStep === "score" && (
-              <motion.div key="score" {...motionProps} className="flex flex-col gap-4 h-full justify-center">
+              <motion.div key="score" {...motionProps} className="flex flex-col gap-4 h-full w-full justify-center">
                 <label className="block font-semibold font-montserrat md:text-xl text-base text-white">
                   Em uma escala de 1 a 10, qual a probabilidade de você recomendar a Conste?
                 </label>
@@ -226,7 +226,7 @@ export default function NpsForm() {
                       aria-pressed={data.score === i + 1}
                       aria-label={`Nota ${i + 1}`}
                       className={`flex items-center justify-center rounded-full border border-[#7047BD] text-white transition-colors
-                        w-10 h-10 md:w-[76px] md:h-[76px] text-sm md:text-xl select-none
+                        w-14 h-14 md:w-[76px] md:h-[76px] text-sm md:text-xl select-none
                         ${data.score === i + 1 ? "bg-[#7047BD]" : " hover:bg-[#7047BD]"}`}
                     >
                       <span>{i + 1}</span>
@@ -237,12 +237,12 @@ export default function NpsForm() {
             )}
 
             {currentStep === "improvement" && (
-              <motion.div key="improvement" {...motionProps} className="flex flex-col gap-4 h-full justify-center">
+              <motion.div key="improvement" {...motionProps} className="flex flex-col gap-4 h-full w-full justify-center">
                 <label className="block font-semibold font-montserrat text-lg text-white">
                   O que poderia ter sido melhor?
                 </label>
                 <input
-                  className="w-full border rounded-[100px] p-3 bg-transparent text-white border-[#7047BD]"
+                  className="w-full max-w-full border rounded-[100px] p-3 bg-transparent text-white border-[#7047BD]"
                   placeholder="Descreva o que poderia ser melhorado"
                   value={data.improvement}
                   onChange={(e) => setData((d) => ({ ...d, improvement: e.target.value }))}
@@ -252,12 +252,12 @@ export default function NpsForm() {
             )}
 
             {currentStep === "positivePoints" && (
-              <motion.div key="positivePoints" {...motionProps} className="flex flex-col gap-10 h-full justify-center">
+              <motion.div key="positivePoints" {...motionProps} className="flex flex-col gap-10 h-full w-full justify-center">
                 <label className="block font-semibold font-montserrat text-lg text-white">
                   Qual o maior ponto positivo identificado na entrega do serviço?
                 </label>
                 <input
-                  className="w-full border rounded-[100px] p-3 bg-transparent text-white border-[#7047BD]"
+                  className="w-full max-w-full border rounded-[100px] p-3 bg-transparent text-white border-[#7047BD]"
                   placeholder="Descreva o que mais te impressionou positivamente"
                   value={data.positivePoints}
                   onChange={(e) => setData((d) => ({ ...d, positivePoints: e.target.value }))}
@@ -267,53 +267,49 @@ export default function NpsForm() {
             )}
 
             {currentStep === "marketingEffectiveness" && (
-              <motion.div key="marketingEffectiveness" {...motionProps} className="flex flex-col gap-6 h-full justify-center">
+              <motion.div key="marketingEffectiveness" {...motionProps} className="flex flex-col gap-6 h-full w-full justify-center">
                 <label className="block font-semibold font-montserrat text-lg text-white mb-4">
                   Como você avalia a eficácia das estratégias de marketing digital aplicadas pela Conste?
                 </label>
-                <div className="flex flex-wrap gap-4 justify-center">
-                  {[
-                    { label: "Muito eficaz", style: "basis-[180px] grow" },
-                    { label: "Eficaz", style: "basis-[140px] grow" },
-                    { label: "Neutro", style: "basis-[80px] grow" },
-                    { label: "Pouco eficaz", style: "basis-[140px] grow" },
-                    { label: "Ineficaz", style: "basis-[100px] grow" }
-                  ].map(option => (
-                    <button
-                      key={option.label}
-                      type="button"
-                      onClick={() => setData(d => ({ ...d, marketingEffectiveness: option.label }))}
-                      className={`px-6 py-3 rounded-full border-[1px] border-[#7047BD] text-white font-semibold transition-colors
-                        ${option.style} 
-                        ${data.marketingEffectiveness === option.label ? "bg-[#7047BD]" : "bg-transparent hover:bg-[#7047BD]"}`}
-                    >
-                      {option.label}
-                    </button>
-                  ))}
-                </div>
+                    <div className="flex flex-wrap gap-4 justify-center">
+                      {[
+                        { label: "Muito eficaz", style: "basis-[200px] grow" },
+                        { label: "Eficaz", style: "basis-[200px] grow" },
+                        { label: "Neutro", style: "basis-[200px] grow" },
+                        { label: "Pouco eficaz", style: "basis-[160px] grow" },
+                      ].map(option => (
+                        <button
+                          key={option.label}
+                          type="button"
+                          onClick={() => setData(d => ({ ...d, marketingEffectiveness: option.label }))}
+                          className={`px-6 py-4 outline-none rounded-full border-[1px] border-[#7047BD] text-white font-semibold transition-colors text-sm
+                            ${option.style} 
+                            ${data.marketingEffectiveness === option.label ? "bg-[#7047BD]" : "bg-transparent hover:bg-[#7047BD]"}`}
+                        >
+                          {option.label}
+                        </button>
+                      ))}
+                    </div>
               </motion.div>
             )}
 
             {currentStep === "recommend" && (
-              <motion.div key="recommend" {...motionProps} className="flex flex-col gap-6 h-full justify-center">
+              <motion.div key="recommend" {...motionProps} className="flex flex-col gap-6 h-full w-full justify-center">
                 <label className="block font-semibold font-montserrat text-lg text-white mb-4">
                   Você recomendaria os serviços da Conste para outras empresas?
                 </label>
                 <div className="flex flex-wrap gap-4 justify-center">
                   {[
-                    { label: "Com certeza", style: "basis-[140px] grow" },
-                    { label: "Provavelmente sim", style: "basis-[200px] grow" },
-                    { label: "Não sei", style: "basis-[100px] grow" },
-                    { label: "Provavelmente não", style: "basis-[180px] grow" },
-                    { label: "De jeito nenhum", style: "basis-[140px] grow" }
+                    { label: "Com certeza", style: "basis-[200px] grow" },
+                    { label: "Quase certeza", style: "basis-[200px] grow" },
+                    { label: "Não sei", style: "basis-[200px] grow" },
+                    { label: "Provavelmente não", style: "basis-[160px] grow" },
                   ].map(option => (
                     <button
                       key={option.label}
                       type="button"
                       onClick={() => setData(d => ({ ...d, recommend: option.label }))}
-                      className={`p-4 rounded-full border-[1px] border-[#7047BD] text-white font-semibold transition-colors
-                        ${option.style} 
-                        ${data.recommend === option.label ? "bg-[#7047BD]" : "bg-transparent hover:bg-[#7047BD]"}`}
+                      className={`px-6 py-4 rounded-full border-[1px] border-[#7047BD] text-white font-semibold transition-colors text-sm ${option.style} ${data.recommend === option.label ? 'bg-[#7047BD]' : 'bg-transparent hover:bg-[#7047BD]'}`}
                     >
                       {option.label}
                     </button>
