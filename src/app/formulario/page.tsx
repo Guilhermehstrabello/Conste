@@ -4,7 +4,6 @@ import ClientLogos from "@/components/clientslogo";
 import SmoothScroll from "@/components/scroll";
 import FormModal from "@/components/formbutton";
 import Image from "next/image";
-import GlassCard from "@/components/glasscard";
 import Footer from "@/components/footer";
 import { motion, useInView } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
@@ -1060,7 +1059,7 @@ export default function Home() {
             damping: 20
           }}
         >
-          <div className="lg:h-[104px] h-[70px] lg:w-[800px] w-[95%] flex lg:flex-row flex-row items-center justify-between mx-auto bg-[#2900677c] gap-x-2 lg:gap-x-3 gap-y-0 p-3 lg:p-5 rounded-[4px] shadow-2xl backdrop-blur-sm border border-[#310276]/20 lg:mx-auto">
+          <div className="lg:h-[104px] h-[70px] lg:w-[800px] w-[95%] flex lg:flex-row flex-row items-center justify-between mx-auto bg-[#29006756] gap-x-4 gap-y-0 p-4 lg:p-5 rounded-[140px] shadow-2xl backdrop-blur-sm border border-[#310276]/20 lg:mx-auto">
             <motion.h3
               initial={{ opacity: 0, x: -30 }}
               animate={isStickyVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
@@ -1084,7 +1083,7 @@ export default function Home() {
                 constância.
               </motion.span>
             </motion.h3>
-            <FormModal buttonText="Elevar minha empresa agora" />
+            <FormModal buttonText="Fale Conosco" />
           </div>
         </motion.div>
       </div>
