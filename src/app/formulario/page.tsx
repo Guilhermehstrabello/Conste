@@ -721,13 +721,15 @@ export default function Home() {
             transition={{ duration: 1.5, ease: "easeOut" }}
             className="relative"
           >
-            <Image
-              src="/Equipe.png"
-              alt="Imagem da Equipe"
-              width={674}
-              height={370}
-              className="rounded-lg shadow-2xl"
+            <Image 
+              src="/Equipe.png" 
+              width={300} 
+              height={200} 
+              alt="Equipe Conste"
+              style={{ width: 'auto', height: 'auto' }}
+              className="max-w-[300px] h-auto"
             />
+
             {/* Overlay sutil para dar mais profundidade */}
             <motion.div
               initial={{ opacity: 0 }}
