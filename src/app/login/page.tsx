@@ -31,12 +31,12 @@ const LoginPage = () => {
                 setMessage(`Erro: ${error.message}`);
                 setIsSuccess(false);
             } else {
-                setMessage('Link mágico enviado! Verifique seu email.');
+                setMessage('Link de login enviado! Verifique seu email.');
                 setIsSuccess(true);
             }
         } catch (error) {
             console.error('Erro capturado:', error);
-            setMessage('Erro ao enviar link mágico. Tente novamente.');
+            setMessage('Erro ao enviar link de login. Tente novamente.');
             setIsSuccess(false);
         }
     };

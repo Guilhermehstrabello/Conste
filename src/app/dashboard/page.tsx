@@ -263,7 +263,8 @@ const DashboardPage = () => {
                           initial={{ opacity: 0, x: -20 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ duration: 0.8, delay: index * 0.1 }}
-                          className="grid grid-cols-4 gap-4 p-4 rounded-[40px] bg-[#310276]/40 hover:bg-[#7047BD]/60 duration-300 transition-colors group"
+                          className="grid grid-cols-4 gap-4 p-4 rounded-[40px] bg-[#310276]/40 hover:bg-[#7047BD]/60 duration-300 transition-colors group cursor-pointer"
+                          onClick={() => router.push(`/dashboard/client/${response.id}`)}
                         >
                           <div className="text-white font-medium">
                             {response.company}
