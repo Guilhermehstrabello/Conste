@@ -1,14 +1,23 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../../contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { useNPSData, getNPSCategory, formatNPSScore, formatDate, formatMonth } from '../../hooks/useNPSData';
 
 const DashboardPage = () => {
   const { user, loading, signOut } = useAuth();
   const router = useRouter();
+  const [filters, setFilters] = useState<{
+    limit: number;
+    offset: number;
+    score?: number | 'all';
+    dateFrom?: string;
+      dateTo?: string;
+  }>({ limit: 50, offset: 0 });
+  const { data: npsData, loading: npsLoading, error: npsError, refetch } = useNPSData(filters);
 
   const handleLogout = async () => {
     const { error } = await signOut();
@@ -47,7 +56,7 @@ const DashboardPage = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="relative z-10 bg-[#1A1A1A]/90 backdrop-blur-sm border-b border-[#310276]"
+        className="relative z-10 backdrop-blur-sm border-b border-[#310276]"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -73,10 +82,10 @@ const DashboardPage = () => {
                 onClick={handleLogout}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="group relative inline-block p-px font-semibold leading-6 text-white bg-red-600 shadow-2xl cursor-pointer rounded-lg shadow-red-600 transition-all duration-300 ease-in-out hover:scale-105 active:scale-95"
+                className="group relative inline-block p-px font-semibold leading-6 text-white bg-red-600 shadow-2xl cursor-pointer rounded-[100px] shadow-red-600 transition-all duration-300 ease-in-out hover:scale-105 active:scale-95"
               >
-                <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-red-600 via-red-500 to-red-400 p-[2px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"></span>
-                <span className="relative z-10 block px-4 py-2 rounded-lg bg-neutral-950">
+                <span className="absolute inset-0 rounded-[100px] bg-gradient-to-r from-red-600 via-red-500 to-red-400 p-[2px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"></span>
+                <span className="relative z-10 block px-4 py-2 rounded-[100px] bg-neutral-950">
                   <div className="relative z-10 flex items-center space-x-2">
                     <span className="transition-all duration-500 group-hover:text-red-300 text-sm">
                       Sair
@@ -98,127 +107,197 @@ const DashboardPage = () => {
       </motion.header>
 
       {/* Main Content */}
-      <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Welcome Section */}
+      <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Simple Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-center mb-12"
+          className="mb-8"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Dashboard <span className="text-[#FF8500]">Conste</span>
-          </h1>
-          <p className="text-[#BABABA] text-lg max-w-2xl mx-auto">
-            Bem-vindo ao seu painel de controle. Em breve, você terá acesso a todas as suas métricas e dados importantes.
-          </p>
+          <h1 className="text-2xl font-bold text-white mb-6">Conste NPS Dashboard</h1>
         </motion.div>
 
-        {/* Dashboard Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {/* Card 1 */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            whileHover={{ scale: 1.02 }}
-            className="bg-[#1A1A1A] border border-[#310276] rounded-lg p-6 shadow-lg"
-          >
-            <div className="flex items-center space-x-3 mb-4">
-              <div className="w-10 h-10 bg-[#310276] rounded-lg flex items-center justify-center">
-                <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-white font-semibold">Projetos Ativos</h3>
-            </div>
-            <p className="text-2xl font-bold text-white mb-2">0</p>
-            <p className="text-[#BABABA] text-sm">Em desenvolvimento</p>
-          </motion.div>
-
-          {/* Card 2 */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            whileHover={{ scale: 1.02 }}
-            className="bg-[#1A1A1A] border border-[#310276] rounded-lg p-6 shadow-lg"
-          >
-            <div className="flex items-center space-x-3 mb-4">
-              <div className="w-10 h-10 bg-[#FF8500] rounded-lg flex items-center justify-center">
-                <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
-                </svg>
-              </div>
-              <h3 className="text-white font-semibold">Leads Gerados</h3>
-            </div>
-            <p className="text-2xl font-bold text-white mb-2">0</p>
-            <p className="text-[#BABABA] text-sm">Este mês</p>
-          </motion.div>
-
-          {/* Card 3 */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            whileHover={{ scale: 1.02 }}
-            className="bg-[#1A1A1A] border border-[#310276] rounded-lg p-6 shadow-lg"
-          >
-            <div className="flex items-center space-x-3 mb-4">
-              <div className="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center">
-                <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                </svg>
-              </div>
-              <h3 className="text-white font-semibold">ROI</h3>
-            </div>
-            <p className="text-2xl font-bold text-white mb-2">0%</p>
-            <p className="text-[#BABABA] text-sm">Retorno sobre investimento</p>
-          </motion.div>
-        </div>
-
-        {/* Coming Soon Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="bg-[#1A1A1A] border border-[#310276] rounded-lg p-8 text-center"
-        >
-          <div className="w-16 h-16 bg-gradient-to-r from-[#310276] to-[#FF8500] rounded-full flex items-center justify-center mx-auto mb-6">
-            <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
-            </svg>
+        {npsLoading ? (
+          <div className="flex items-center justify-center py-20">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="flex flex-col items-center space-y-4"
+            >
+              <div className="w-8 h-8 border-4 border-[#310276] border-t-transparent rounded-full animate-spin"></div>
+              <p className="text-[#BABABA]">Carregando dados...</p>
+            </motion.div>
           </div>
-          <h2 className="text-2xl font-bold text-white mb-4">
-            Mais Funcionalidades em Breve!
-          </h2>
-          <p className="text-[#BABABA] max-w-2xl mx-auto mb-6">
-            Estamos trabalhando em recursos incríveis para o seu dashboard. Em breve você terá acesso a relatórios detalhados, análises de performance e muito mais.
-          </p>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => router.push('/')}
-            className="group relative inline-block p-px font-semibold leading-6 text-white bg-[#310276] shadow-2xl cursor-pointer rounded-lg shadow-[#310276] transition-all duration-300 ease-in-out hover:scale-105 active:scale-95 hover:shadow-orange-500"
+        ) : npsError ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="bg-red-900/20 border border-red-500 rounded-lg p-6 mb-8"
           >
-            <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#310276] via-orange-500 to-orange-600 p-[2px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"></span>
-            <span className="relative z-10 block px-6 py-3 rounded-lg bg-neutral-950">
-              <div className="relative z-10 flex items-center space-x-2">
-                <span className="transition-all duration-500 group-hover:translate-x-1 group-hover:text-orange-300">
-                  Voltar ao Site
-                </span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="w-5 h-5 transition-all duration-500 group-hover:translate-x-1 group-hover:text-orange-300"
-                >
-                  <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"></path>
-                </svg>
+            <h3 className="text-red-400 font-semibold mb-2">Erro ao carregar dados</h3>
+            <p className="text-red-300 mb-4">{npsError}</p>
+            <button
+              onClick={refetch}
+              className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg"
+            >
+              Tentar novamente
+            </button>
+          </motion.div>
+        ) : npsData ? (
+          <>
+            {/* Principais métricas */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="mb-8"
+            >
+              <h2 className="text-white text-xl font-semibold mb-6">Principais métricas</h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:h-[200px] h-auto">
+                {/* Média geral */}
+                <div className="bg-[#FF8500] border-[#FEAC56] border-2 rounded-3xl justify-between flex flex-col p-6">
+                  <p className="text-white text-base">Média geral</p>
+                  <div className="flex items-baseline gap-2 font-semibold">
+                    <span className="text-[#310276] text-3xl lg:text-4xl font-bold">
+                      {npsData.summary.averageScore.toFixed(1)}
+                    </span>
+                    <span className="text-[#310276] text-3xl lg:text-4xl">NPS</span>
+                    <span className="text-[#310276] text-sm">+0.5</span>
+                  </div>
+                </div>
+
+                {/* Respostas totais */}
+                <div className="bg-[#310276] border-2 border-[#7047BD] rounded-3xl p-6 flex flex-col justify-between">
+                  <p className="text-white text-base">Respostas totais</p>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-white text-3xl lg:text-4xl font-bold">
+                      {npsData.summary.totalResponses}
+                    </span>
+                    <span className="text-purple-300 text-sm">+5%</span>
+                  </div>
+                </div>
+
+                {/* Respostas no mês */}
+                <div className="bg-[#310276] border-2 border-[#7047BD] rounded-3xl p-6 flex flex-col justify-between">
+                  <p className="text-white text-base">Respostas no mês</p>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-white text-3xl lg:text-4xl font-bold">
+                      {npsData.summary.monthlyTrend.length > 0 
+                        ? npsData.summary.monthlyTrend[npsData.summary.monthlyTrend.length - 1]?.responseCount || 0 
+                        : 0}
+                    </span>
+                    <span className="text-purple-300 text-sm">+40%</span>
+                  </div>
+                </div>
+
+                {/* Respostas pendentes */}
+                <div className="bg-[#310276] border-2 border-[#7047BD] rounded-3xl p-6 flex flex-col justify-between">
+                  <p className="text-white text-sm">Respostas pendentes</p>
+                  <span className="text-white text-3xl lg:text-4xl font-bold">
+                    {Math.max(0, 8 - npsData.summary.totalResponses)}
+                  </span>
+                </div>
               </div>
-            </span>
-          </motion.button>
-        </motion.div>
+            </motion.div>
+
+            <div className='border-[#310276]/60 border-[1px] w-full mt-2 mb-2'></div>
+
+            {/* Tabela de respostas */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="overflow-hidden"
+            >
+              {npsData.data.length === 0 ? (
+                <div className="text-center py-12">
+                  <div className="w-16 h-16 bg-[#310276] flex items-center justify-center mx-auto mb-4">
+                    <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                    </svg>
+                  </div>
+                  <h4 className="text-white text-lg font-medium mb-2">Nenhuma resposta encontrada</h4>
+                  <p className="text-[#BABABA]">Ainda não há respostas NPS para exibir.</p>
+                </div>
+              ) : (
+                <>
+                  <h2 className="text-white text-xl font-semibold mb-6">Respostas clientes</h2>
+                  {/* Header da tabela */}
+                  <div className="grid grid-cols-4 gap-4 p-4 border-none">
+                    <div className="text-[#BABABA] text-sm font-medium flex items-center gap-1">
+                      Nome da empresa
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M7 14l5-5 5 5z"/>
+                      </svg>
+                    </div>
+                    <div className="text-[#BABABA] text-sm font-medium flex items-center gap-1">
+                      Nome do cliente
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M7 14l5-5 5 5z"/>
+                      </svg>
+                    </div>
+                    <div className="text-[#BABABA] text-sm font-medium flex items-center gap-1">
+                      Pontuação média
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M7 14l5-5 5 5z"/>
+                      </svg>
+                    </div>
+                    <div className="text-[#BABABA] text-sm font-medium flex items-center gap-1">
+                      Data de envio
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M7 14l5-5 5 5z"/>
+                      </svg>
+                    </div>
+                  </div>
+
+                  {/* Linhas da tabela */}
+                  <div className="divide-y divide-[#310276] space-y-4">
+                    {npsData.data.slice(0, 10).map((response, index) => {
+                      const category = getNPSCategory(response.score);
+                      
+                      return (
+                        <motion.div
+                          key={response.id}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.8, delay: index * 0.1 }}
+                          className="grid grid-cols-4 gap-4 p-4 rounded-[40px] bg-[#310276]/40 hover:bg-[#7047BD]/60 duration-300 transition-colors group"
+                        >
+                          <div className="text-white font-medium">
+                            {response.company}
+                          </div>
+                          <div className="text-white">
+                            {response.name}
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span 
+                              className="text-white font-bold text-lg"
+                              style={{ color: category.color }}
+                            >
+                              {response.score.toFixed(1)}
+                            </span>
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <span className="text-[#BABABA] text-sm">
+                              {formatDate(response.created_at)}
+                            </span>
+                            <button className="opacity-0 group-hover:opacity-100 transition-opacity">
+                              <svg className="w-4 h-4 text-[#BABABA] hover:text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                              </svg>
+                            </button>
+                          </div>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+                </>
+              )}
+            </motion.div>
+          </>
+        ) : null}
       </main>
 
       {/* Background Effects */}
