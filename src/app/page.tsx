@@ -1,4 +1,7 @@
 "use client";
+
+import { useEffect } from 'react';
+import { redirect } from 'next/navigation';
 import Navbar from "@/components/navbar";
 import ClientLogos from "@/components/clientslogo";
 import SmoothScroll from "@/components/scroll";
@@ -7,7 +10,7 @@ import Footer from "@/components/footer";
 import WhatsApp from "@/components/wpp";
 import WhatsAppButton from "@/components/whatsappbutton";
 import { motion, useInView } from 'framer-motion';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Typewriter } from 'react-simple-typewriter';
 
 // Para seções que aparecem no scroll
