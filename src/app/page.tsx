@@ -393,6 +393,18 @@ const setores = [
 export default function Home() {
   const [activeSetor, setActiveSetor] = useState(setores[0]);
 
+  // Verificação adicional para garantir redirecionamento no subdomínio NPS
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const hostname = window.location.hostname;
+      const pathname = window.location.pathname;
+      
+      if (hostname === 'nps.constemarketing.com.br' && pathname === '/') {
+        window.location.replace('/nps');
+      }
+    }
+  }, []);
+
   return (
     <>
       <SmoothScroll />
