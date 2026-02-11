@@ -84,7 +84,7 @@ const Navbar = () => {
                   </li>
                 </a>
               );
-            })}
+            })}            
           </ul>
 
           {/* Botão de Fechar (X) após os links */}

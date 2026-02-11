@@ -1,22 +1,61 @@
 import { createClient } from '@supabase/supabase-js';
-
-// Lazy public supabase client creation to avoid build-time errors when envs are missing
 import { SupabaseClient } from '@supabase/supabase-js';
 
-let _supabase: SupabaseClient | null = null;
-
-export function getSupabase() {
-  if (_supabase) return _supabase;
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !key) {
-    // eslint-disable-next-line no-console
-    console.warn('Supabase public env vars missing: NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY');
-    return null;
-  }
-  _supabase = createClient(url, key);
-  return _supabase;
+// Singleton instance - global para evitar múltiplas instâncias
+declare global {
+  var __supabaseInstance: SupabaseClient | undefined;
 }
 
-// Backwards-compatible export (may be null if envs not set)
-export const supabase = getSupabase();
+// Função para criar/obter a instância única do Supabase
+export function createSupabaseClient(): SupabaseClient {
+  // Verifica se já existe uma instância global
+  if (globalThis.__supabaseInstance) {
+    return globalThis.__supabaseInstance;
+  }
+
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  
+  if (!url || !key) {
+    throw new Error('Missing Supabase environment variables: NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY');
+  }
+
+  // Cria a instância única e armazena globalmente
+  const supabaseClient = createClient(url, key, {
+    auth: {
+      autoRefreshToken: true,
+      persistSession: true,
+      detectSessionInUrl: true,
+      // Usa uma chave única para evitar conflitos
+      storageKey: 'conste-auth-token',
+      // Desabilita debug para evitar logs duplicados
+      debug: false,
+    },
+  });
+
+  // Armazena a instância globalmente
+  globalThis.__supabaseInstance = supabaseClient;
+
+  return supabaseClient;
+}
+
+// Função de compatibilidade (deprecated - use createSupabaseClient)
+export function getSupabase(): SupabaseClient | null {
+  try {
+    return createSupabaseClient();
+  } catch (error) {
+    console.warn('Supabase client creation failed:', error);
+    return null;
+  }
+}
+
+// Função para resetar a instância (útil para testes ou debugging)
+export function resetSupabaseInstance(): void {
+  globalThis.__supabaseInstance = undefined;
+}
+
+// Função de compatibilidade com código legado
+export const getSupabaseInstance = () => createSupabaseClient();
+
+// Export padrão que sempre retorna a mesma instância
+export const supabase = createSupabaseClient();

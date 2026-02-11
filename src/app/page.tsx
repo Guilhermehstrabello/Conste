@@ -1,12 +1,16 @@
 "use client";
+
+import { useEffect } from 'react';
+import { redirect } from 'next/navigation';
 import Navbar from "@/components/navbar";
 import ClientLogos from "@/components/clientslogo";
 import SmoothScroll from "@/components/scroll";
 import Image from "next/image";
 import Footer from "@/components/footer";
 import WhatsApp from "@/components/wpp";
+import WhatsAppButton from "@/components/whatsappbutton";
 import { motion, useInView } from 'framer-motion';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Typewriter } from 'react-simple-typewriter';
 
 // Para seções que aparecem no scroll
@@ -389,6 +393,18 @@ const setores = [
 export default function Home() {
   const [activeSetor, setActiveSetor] = useState(setores[0]);
 
+  // Verificação adicional para garantir redirecionamento no subdomínio NPS
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const hostname = window.location.hostname;
+      const pathname = window.location.pathname;
+      
+      if (hostname === 'nps.constemarketing.com.br' && pathname === '/') {
+        window.location.replace('/nps');
+      }
+    }
+  }, []);
+
   return (
     <>
       <SmoothScroll />
@@ -412,7 +428,7 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5, ease: 'easeOut' }}
           whileHover={{ scale: 1.05 }}
-          className="text-[#e7e7e7] bg-[#200843d0] p-2 rounded-[8px]"
+          className="text-[#e7e7e7] bg-[#310276] p-2 rounded-[100px]"
         >
           Bem-vindo à Conste.
           <motion.picture
@@ -549,17 +565,16 @@ export default function Home() {
           />
         </motion.p>
 
-        <motion.a
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 4.5, duration: 1.2, ease: 'easeInOut' }}
-          href="https://wa.me/5519989276583?text=Vim%20do%20site%20e%20gostaria%20de%20iniciar%20um%20projeto%20com%20a%20Conste"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-[#310276] hover:bg-[#40009E] duration-200 text-white px-5 py-4 my-12 rounded-[6px] transition"
+          className="my-12"
         >
-          Eleve seus resultados
-        </motion.a>
+          <WhatsAppButton>
+            Eleve seus resultados
+          </WhatsAppButton>
+        </motion.div>
 
         <motion.iframe
           initial={{ opacity: 0 }}
@@ -707,19 +722,16 @@ export default function Home() {
           <StatCard icon="/icon2.svg" number="+130" text="Clientes Atendidos" delay={0.2} />
           <StatCard icon="/icon3.svg" number="+8M" text="em Vendas" delay={0.3} />
         </div>
-        <motion.a
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
-          whileHover={{ scale: 1.05 }}
-          href="https://wa.me/5519989276583?text=Vim%20do%20site%20e%20gostaria%20de%20iniciar%20um%20projeto%20com%20a%20Conste"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-[#310276] hover:bg-[#40009E] duration-200 text-white px-6 py-5 rounded-[6px] transition"
         >
-          Quero elevar meus resultados
-        </motion.a>
+          <WhatsAppButton>
+            Quero elevar meus resultados
+          </WhatsAppButton>
+        </motion.div>
       </section>
 
       <section className="flex flex-col lg:w-full items-center justify-center py-20 mx-auto" id="setores">
@@ -777,15 +789,10 @@ export default function Home() {
             </ul>
           </div>
         </motion.div>
-        <div className="flex flex-col items-center justify-center">
-          <a
-            href="https://wa.me/5519989276583?text=Vim%20do%20site%20e%20gostaria%20de%20iniciar%20um%20projeto%20com%20a%20Conste"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-[#310276] hover:bg-[#40009E] duration-200 text-white px-6 py-5 mt-6 rounded-[6px] transition"
-          >
+        <div className="flex flex-col items-center justify-center mt-6">
+          <WhatsAppButton>
             Quero elevar meus resultados
-          </a>
+          </WhatsAppButton>
         </div>
       </section>
 
@@ -825,15 +832,10 @@ export default function Home() {
             <p className="text-center text-lg">Concorrência com práticas de preços baixos, gerando menos valor para os clientes</p>
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center">
-          <a
-            href="https://wa.me/5519989276583?text=Vim%20do%20site%20e%20gostaria%20de%20iniciar%20um%20projeto%20com%20a%20Conste"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-[#310276] hover:bg-[#40009E] duration-200 text-white px-6 py-5 mt-6 rounded-[6px] transition"
-          >
+        <div className="flex flex-col items-center justify-center mt-6">
+          <WhatsAppButton>
             Quero elevar meus resultados
-          </a>
+          </WhatsAppButton>
         </div>
       </section>
 

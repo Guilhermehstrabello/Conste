@@ -4,6 +4,7 @@ import { GoogleTagManager } from '@next/third-parties/google';
 import { Analytics } from "@vercel/analytics/next"
 import Script from "next/script";
 import SmoothScroll from "@/components/scroll";
+import { AuthProvider } from "../contexts/AuthContext";
 
 export const metadata: Metadata = {
   title: "Conste",
@@ -44,9 +45,11 @@ export default function RootLayout({
         </Script>
         <Analytics />
         <GoogleTagManager gtmId="GTM-TVRWH47F" />
-        <SmoothScroll>
-          {children}
-        </SmoothScroll>
+        <AuthProvider>
+          <SmoothScroll>
+            {children}
+          </SmoothScroll>
+        </AuthProvider>
       </body>
     </html>
   );
