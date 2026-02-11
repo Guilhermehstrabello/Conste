@@ -213,54 +213,27 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
 
   return (
     <div className="flex items-center h-fit">
-      <button
-<<<<<<< HEAD
-      onClick={() => setIsOpen(true)}
-      className="relative inline-block p-px font-semibold leading-6 text-white bg-neutral-900 shadow-2xl cursor-pointer rounded-2xl shadow-emerald-900 transition-all duration-300 ease-in-out hover:scale-105 active:scale-95 hover:shadow-emerald-600"
-    >
-      <span
-        className="absolute inset-0 rounded-2xl bg-gradient-to-r from-emerald-500 via-cyan-500 to-sky-600 p-[2px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-      ></span>
-      <span className="relative z-10 block px-6 py-3 rounded-2xl bg-neutral-950">
-        <div className="relative z-10 flex items-center space-x-3">
-          <span
-            className="transition-all duration-500 group-hover:translate-x-1.5 group-hover:text-emerald-300"
-            >{buttonText}</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="w-7 h-7 transition-all duration-500 group-hover:translate-x-1.5 group-hover:text-emerald-300"
-          >
-            <path
-              d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
-            ></path>
-          </svg>
-        </div>
+<button
+  onClick={() => setIsOpen(true)}
+  className="group relative inline-block p-px font-semibold leading-6 text-white bg-[#310276] shadow-2xl cursor-pointer rounded-[100px] shadow-[#310276] transition-all duration-300 ease-in-out hover:scale-105 active:scale-95 hover:shadow-orange-500 z-10 my-2 lg:my-8"
+>
+  <span className="absolute inset-0 rounded-[100px] bg-gradient-to-r from-[#310276] via-orange-500 to-orange-600 p-[2px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"></span>
+  <span className="relative z-10 block px-4 py-3 rounded-[100px] bg-neutral-950 ">
+    <div className="relative z-10 flex items-center space-x-3">
+      <span className="transition-all duration-500 group-hover:translate-x-1.5 group-hover:text-orange-300 text-sm md:text-base lg:text-base whitespace-pre-wrap">
+        {buttonText}
       </span>
-    </button>
-=======
-        onClick={() => setIsOpen(true)}
-        className="group relative inline-block p-px font-semibold leading-6 text-white bg-[#310276] shadow-2xl cursor-pointer rounded-[100px] shadow-[#310276] transition-all duration-300 ease-in-out hover:scale-105 active:scale-95 hover:shadow-orange-500 z-10 my-2 lg:my-8"
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className="w-6 h-6 transition-all duration-500 group-hover:translate-x-1.5 group-hover:text-orange-300"
       >
-        <span className="absolute inset-0 rounded-[100px] bg-gradient-to-r from-[#310276] via-orange-500 to-orange-600 p-[2px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"></span>
-        <span className="relative z-10 block px-4 py-3 rounded-[100px] bg-neutral-950 ">
-          <div className="relative z-10 flex items-center space-x-3">
-            <span className="transition-all duration-500 group-hover:translate-x-1.5 group-hover:text-orange-300 text-sm md:text-base lg:text-base whitespace-pre-wrap">
-              {buttonText}
-            </span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              className="w-6 h-6 transition-all duration-500 group-hover:translate-x-1.5 group-hover:text-orange-300"
-            >
-              <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"></path>
-            </svg>
-          </div>
-        </span>
-      </button>
->>>>>>> 641c55a856589bbd4a8a48fdc64afd6046803b50
+        <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"></path>
+      </svg>
+    </div>
+  </span>
+</button>
       {mounted && isOpen && createPortal(modalContent, document.body)}
 
         
