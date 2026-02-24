@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center gap-[46px] w-full">
           {/* Logo e Redes Sociais */}
           <div className="flex flex-col items-center gap-3 w-[120px]">
-            <img src="/Logo Conste.png" alt="Logo Conste" className="w-[120px] h-[32px]" />
+            <Image src="/Logo Conste.png" alt="Logo Conste" width={120} height={120} />
             <div className="flex gap-3">
               {/* Instagram */}
               <div className="flex justify-center items-center relative">
@@ -37,7 +37,7 @@ export default function Footer() {
           {/* Contato */}
           <div className="flex flex-col md:items-end items-center gap-4 w-[354px] text-white md:text-right text-center">
             <a href="https://www.google.com/maps/place/Conste+%7C+Ag%C3%AAncia+de+Marketing+Digital/data=!4m2!3m1!1s0x0:0xec8fb32d57dcef1b?sa=X&ved=1t:2428&ictx=111" target="_blank" rel="noopener noreferrer">
-              <p className="hover:text-[#9151f1] duration-300 text-base hover:scale-105 leading-8">R. Haiti, 327 - Sala 1 - Parque Boa Esperança, Indaiatuba - SP, 13339-240</p>
+              <p className="hover:text-[#9151f1] duration-300 text-base hover:scale-105 leading-8">R. Haiti, 327 - Sala 4 - Parque Boa Esperança, Indaiatuba - SP, 13339-240</p>
             </a>
             <a target="_blank" href="https://api.whatsapp.com/send/?phone=5519989276583&text=Vim+do+site+e+gostaria+de+iniciar+um+projeto+com+a+Conste&type=phone_number&app_absent=0">
               <p className="hover:text-[#9151f1] duration-300 text-base hover:scale-105 leading-8">(19) 98927-6583</p>

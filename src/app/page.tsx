@@ -1,16 +1,13 @@
 "use client";
-
-import { useEffect } from 'react';
-import { redirect } from 'next/navigation';
 import Navbar from "@/components/navbar";
 import ClientLogos from "@/components/clientslogo";
 import SmoothScroll from "@/components/scroll";
+import FormModal from "@/components/formbutton";
 import Image from "next/image";
+import GlassCard from "@/components/glasscard";
 import Footer from "@/components/footer";
-import WhatsApp from "@/components/wpp";
-import WhatsAppButton from "@/components/whatsappbutton";
 import { motion, useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Typewriter } from 'react-simple-typewriter';
 
 // Para seções que aparecem no scroll
@@ -326,11 +323,46 @@ const ProcessStep = ({ number, title, description, index }: ProcessStepProps) =>
         >
           {description}
         </motion.p>
+
+
       </div>
     </motion.div>
   );
 };
 
+interface ParallaxSectionProps {
+  children: React.ReactNode;
+  speed?: number;
+}
+
+const ParallaxSection = ({ children, speed = 0.5 }: ParallaxSectionProps) => {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [offset, setOffset] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (ref.current) {
+        const rect = ref.current.getBoundingClientRect();
+        const scrolled = window.pageYOffset;
+        const rate = scrolled * speed;
+        setOffset(rate);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [speed]);
+
+  return (
+    <motion.div
+      ref={ref}
+      style={{ y: offset }}
+      className="relative"
+    >
+      {children}
+    </motion.div>
+  );
+};
 
 const setores = [
   {
@@ -391,25 +423,47 @@ const setores = [
 ];
 
 export default function Home() {
+  const [isStickyVisible, setIsStickyVisible] = useState(false);
+  const [isNearFooter, setIsNearFooter] = useState(false);
+  const heroRef = useRef<HTMLElement>(null);
+  const stickyCtaRef = useRef<HTMLDivElement>(null);
   const [activeSetor, setActiveSetor] = useState(setores[0]);
 
-  // Verificação adicional para garantir redirecionamento no subdomínio NPS
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const hostname = window.location.hostname;
-      const pathname = window.location.pathname;
-      
-      if (hostname === 'nps.constemarketing.com.br' && pathname === '/') {
-        window.location.replace('/nps');
+    const handleScroll = () => {
+      if (heroRef.current) {
+        const heroBottom = heroRef.current.offsetTop + heroRef.current.offsetHeight;
+        const scrollPosition = window.scrollY + window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+        const offset = 100; // Offset para melhor timing
+        const footerOffset = 200; // Distância do footer para ativar modo estático
+
+        // Mostra o CTA sticky quando passa da seção hero
+        if (scrollPosition > heroBottom + offset) {
+          setIsStickyVisible(true);
+        } else {
+          setIsStickyVisible(false);
+        }
+
+        // Verifica se está perto do footer para ativar modo estático
+        if (window.scrollY + window.innerHeight >= documentHeight - footerOffset) {
+          setIsNearFooter(true);
+        } else {
+          setIsNearFooter(false);
+        }
       }
-    }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Executa uma vez para definir o estado inicial
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <>
       <SmoothScroll />
       <Navbar />
-      <section className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-hero_bg bg-cover bg-center gap-y-3 px-4 text-center">
+      <section ref={heroRef} className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-hero_bg bg-cover bg-center gap-y-3 px-4 text-center">
         {/* Background particles effect */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -428,7 +482,7 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5, ease: 'easeOut' }}
           whileHover={{ scale: 1.05 }}
-          className="text-[#e7e7e7] bg-[#310276] p-2 rounded-[100px]"
+          className="text-[#e7e7e7] bg-[#200843d0] p-2 rounded-[8px]"
         >
           Bem-vindo à Conste.
           <motion.picture
@@ -568,22 +622,20 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 4.5, duration: 1.2, ease: 'easeInOut' }}
-          className="my-12"
+          transition={{ delay: 4.5, duration: 1.2, ease: 'easeOut' }}
         >
-          <WhatsAppButton>
-            Eleve seus resultados
-          </WhatsAppButton>
+          <FormModal buttonText="Eleve seus resultados" />
         </motion.div>
 
         <motion.iframe
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 4, duration: .5 }}
+          transition={{ delay: 4, duration: 1 }}
           className="w-[80px] h-[80px]"
           src="https://lottie.host/embed/29c0b424-f966-42a9-8d57-a09a9f3b4fdf/gfVQpr5NXz.lottie"
         ></motion.iframe>
       </section>
+
 
       <section id="quem-somos" className="flex flex-col items-center justify-center p-0">
         <motion.h2
@@ -722,77 +774,67 @@ export default function Home() {
           <StatCard icon="/icon2.svg" number="+130" text="Clientes Atendidos" delay={0.2} />
           <StatCard icon="/icon3.svg" number="+8M" text="em Vendas" delay={0.3} />
         </div>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
-        >
-          <WhatsAppButton>
-            Quero elevar meus resultados
-          </WhatsAppButton>
-        </motion.div>
+        <FormModal buttonText="Quero Elevar meus resultados" />
       </section>
 
       <section className="flex flex-col lg:w-full items-center justify-center py-20 mx-auto" id="setores">
-        <h2 className="md:text-4xl text-3xl text-white font-bold mb-6 text-center md:w-full max-w-[780px] w-[320px]">
-          Serviços que farão sua empresa se <span className="text-[#FF8500]">destacar</span> no digital
-        </h2>
-        <p className="text-[#BABABA] text-lg mb-10 text-center max-w-[600px] md:w-full w-[320px]">
-          Conheça como a Conste vai te ajudar a se posicionar no digital e se diferenciar dos concorrentes.
-        </p>
-        <div className="flex overflow-x-auto gap-4 justify-start mb-10 w-full px-2 md:justify-center md:flex-wrap md:overflow-visible">
-          {setores.map((setor) => (
-            <button
-              key={setor.key}
-              onClick={() => setActiveSetor(setor)}
-              className={`flex-shrink-0 p-5 rounded-xl border-2 transition duration-200 font-bold text-white md:w-[204px] w-[180px] text-sm
-          ${activeSetor.key === setor.key
-            ? "border-none bg-gradient-to-l from-[#310276] to-[#6C63FF]"
-            : "border-[#310276] hover:bg-gradient-to-l from-[#310276] to-[#6C63FF] hover:border-none"}`}
-              style={{ minWidth: 150 }}
-            >
-              {setor.label}
-            </button>
-          ))}
-        </div>
-        <motion.div
-          key={activeSetor.key}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="flex flex-col md:flex-row items-center justify-center gap-10 border border-[#310276] rounded-xl p-8 w-[320px] md:w-full md:max-w-[1080px] md:h-[400px] h-[600px] bg-[#0e0e0e]"
-        >
-          <div className="flex-shrink-0 mb-6 md:mb-0">
-            <Image
-              src={activeSetor.image}
-              alt={activeSetor.title}
-              width={540}
-              height={400}
-              className="rounded-xl shadow-lg"
-            />
-          </div>
-          <div className="text-left">
-            <h3 className="text-white font-bold md:text-2xl text-xl mb-4">{activeSetor.title}</h3>
-            <ul className="text-[#BABABA] md:text-lg textg-base space-y-2">
-              {activeSetor.description.map((desc, i) => (
-                <li key={i} className="flex items-start gap-2">
+              <h2 className="md:text-4xl text-3xl text-white font-bold mb-6 text-center md:w-full max-w-[780px] w-[320px]">
+                Serviços que farão sua empresa se <span className="text-[#FF8500]">destacar</span> no digital
+              </h2>
+              <p className="text-[#BABABA] text-lg mb-10 text-center max-w-[600px] md:w-full w-[320px]">
+                Conheça como a Conste vai te ajudar a se posicionar no digital e se diferenciar dos concorrentes.
+              </p>
+              <div className="flex overflow-x-auto gap-4 justify-start mb-10 w-full px-2 md:justify-center md:flex-wrap md:overflow-visible">
+                {setores.map((setor) => (
+                  <button
+                    key={setor.key}
+                    onClick={() => setActiveSetor(setor)}
+                    className={`flex-shrink-0 p-5 rounded-xl border-2 transition duration-200 font-bold text-white md:w-[204px] w-[180px] text-sm
+                ${activeSetor.key === setor.key
+                  ? "border-none bg-gradient-to-l from-[#310276] to-[#6C63FF]"
+                  : "border-[#310276] hover:bg-gradient-to-l from-[#310276] to-[#6C63FF] hover:border-none"}`}
+                    style={{ minWidth: 150 }}
+                  >
+                    {setor.label}
+                  </button>
+                ))}
+              </div>
+              <motion.div
+                key={activeSetor.key}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="flex flex-col md:flex-row items-center justify-center gap-10 border border-[#310276] rounded-xl p-8 w-[320px] md:w-full md:max-w-[1080px] md:h-[400px] h-[600px] bg-[#0e0e0e]"
+              >
+                <div className="flex-shrink-0 mb-6 md:mb-0">
                   <Image
-                    src="/infinite-icon.svg"
-                    width={24}
-                    height={24}
-                    alt="Conste Infinite Icone"
+                    src={activeSetor.image}
+                    alt={activeSetor.title}
+                    width={540}
+                    height={400}
+                    className="rounded-xl shadow-lg"
                   />
-                  {desc}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </motion.div>
-        <div className="flex flex-col items-center justify-center mt-6">
-          <WhatsAppButton>
-            Quero elevar meus resultados
-          </WhatsAppButton>
+                </div>
+                <div className="text-left">
+                  <h3 className="text-white font-bold md:text-2xl text-xl mb-4">{activeSetor.title}</h3>
+                  <ul className="text-[#BABABA] md:text-lg textg-base space-y-2">
+                    {activeSetor.description.map((desc, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <Image
+                          src="/infinite-icon.svg"
+                          width={24}
+                          height={24}
+                          alt="Conste Infinite Icone"
+                        />
+                        {desc}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+
+        <div className="flex flex-col items-center justify-center">
+          <FormModal buttonText="Quero Elevar meus resultados" />
         </div>
       </section>
 
@@ -832,10 +874,8 @@ export default function Home() {
             <p className="text-center text-lg">Concorrência com práticas de preços baixos, gerando menos valor para os clientes</p>
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center mt-6">
-          <WhatsAppButton>
-            Quero elevar meus resultados
-          </WhatsAppButton>
+        <div className="flex flex-col items-center justify-center">
+          <FormModal buttonText="Quero Elevar meus resultados" />
         </div>
       </section>
 
@@ -998,10 +1038,57 @@ export default function Home() {
         </div>
       </section>
 
-      
+      {/* CTA Sticky Container */}
+      <div className="relative" ref={stickyCtaRef}>
+        {/* Spacer para manter o layout - só quando não está perto do footer */}
+        {!isNearFooter && <div className="lg:h-[104px] h-[70px] w-full"></div>}
 
+        {/* CTA Sticky */}
+        <motion.div
+          id="sticky-cta"
+          className={`${isNearFooter ? 'relative' : 'fixed bottom-10'} left-0 right-0 z-50`}
+          initial={{ y: "100%", opacity: 0 }}
+          animate={{
+            y: isStickyVisible ? "0%" : "100%",
+            opacity: isStickyVisible ? 1 : 0
+          }}
+          transition={{
+            duration: 0.5,
+            ease: "easeOut",
+            type: "spring",
+            stiffness: 100,
+            damping: 20
+          }}
+        >
+          <div className="lg:h-[104px] h-[70px] lg:w-[800px] w-[95%] flex lg:flex-row flex-row items-center justify-between mx-auto bg-[#2900677c] gap-x-2 lg:gap-x-3 gap-y-0 p-3 lg:p-5 rounded-[4px] shadow-2xl backdrop-blur-sm border border-[#310276]/20 lg:mx-auto">
+            <motion.h3
+              initial={{ opacity: 0, x: -30 }}
+              animate={isStickyVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-white text-sm lg:text-xl text-left flex-shrink-0 leading-tight max-w-[200px] lg:max-w-none"
+            >
+              Faça sua empresa crescer com{" "}
+              <motion.span
+                className="font-bold"
+                animate={isStickyVisible ? {
+                  scale: [1, 1.05, 1],
+                  color: ["#ffffff", "#FF8500", "#ffffff"]
+                } : {}}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  repeatDelay: 3,
+                  ease: "easeInOut"
+                }}
+              >
+                constância.
+              </motion.span>
+            </motion.h3>
+            <FormModal buttonText="Elevar minha empresa agora" />
+          </div>
+        </motion.div>
+      </div>
       <Footer />
-      <WhatsApp />
     </>
   );
 }
