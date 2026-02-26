@@ -770,9 +770,9 @@ export default function Home() {
 
       <section className="flex flex-col items-center justify-center my-8 gap-y-20 py-10">
         <div className="flex flex-col md:flex-row items-center justify-center gap-x-11 gap-y-10">
-          <StatCard icon="/icon1.svg" number="+5 Anos" text="de Experiência" delay={0.1} />
-          <StatCard icon="/icon2.svg" number="+130" text="Clientes Atendidos" delay={0.2} />
-          <StatCard icon="/icon3.svg" number="+8M" text="em Vendas" delay={0.3} />
+          <StatCard icon="/icon1.svg" number="+6 Anos" text="de Experiência" delay={0.1} />
+          <StatCard icon="/icon2.svg" number="+150" text="Clientes Atendidos" delay={0.2} />
+          <StatCard icon="/icon3.svg" number="+13M" text="em Vendas" delay={0.3} />
         </div>
         <FormModal buttonText="Quero Elevar meus resultados" />
       </section>
