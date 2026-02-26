@@ -8,27 +8,34 @@ export default function Footer() {
         {/* Top Section */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-[46px] w-full">
           {/* Logo e Redes Sociais */}
-          <div className="flex flex-col items-center gap-3 w-[120px]">
+          <div className="flex flex-col items-center gap-3 w-[160px]">
             <Image src="/Logo Conste.png" alt="Logo Conste" width={120} height={120} />
             <div className="flex gap-3">
               {/* Instagram */}
               <div className="flex justify-center items-center relative">
                 <a href="https://www.instagram.com/constemarketing/" target="_blank" rel="noopener noreferrer">
-                  <Image src="/Instagram.svg" alt="Instagram" width={92} height={92} className="hover:scale-125 duration-200" />
+                  <Image src="/instagram_icon.svg" alt="Instagram" width={120} height={120} className="hover:scale-125 duration-200" />
+                </a>
+              </div>
+
+              {/* Youtube */}
+              <div className="flex justify-center items-center relative">
+                <a href="https://www.youtube.com/@ConsteMarketing" target="_blank" rel="noopener noreferrer">
+                  <Image src="/youtube_icon.svg" alt="Youtube" width={120} height={120} className="hover:scale-125 duration-200" />
                 </a>
               </div>
 
               {/* Facebook */}
               <div className="flex justify-center items-center relative">
                 <a href="https://www.facebook.com/profile.php?id=61555449532582" target="_blank" rel="noopener noreferrer">
-                  <Image src="/Facebook.svg" alt="Facebook" width={92} height={92} className="hover:scale-125 duration-200" />
+                  <Image src="/facebook_icon.svg" alt="Facebook" width={120} height={120} className="hover:scale-125 duration-200" />
                 </a>
               </div>
 
               {/* Linkedin */}
               <div className="flex justify-center items-center relative">
                 <a href="https://www.linkedin.com/company/conste-marketing?trk=public_profile_topcard-current-company" target="_blank" rel="noopener noreferrer">
-                  <Image src="/Linkedin.svg" alt="Linkedin" width={92} height={92} className="hover:scale-125 duration-200" />
+                  <Image src="/linkedin_icon.svg" alt="Linkedin" width={120} height={120} className="hover:scale-125 duration-200" />
                 </a>
               </div>
             </div>
@@ -54,7 +61,7 @@ export default function Footer() {
         {/* Direitos Autorais */}
         <div className="flex justify-center items-center text-center w-full">
           <p className="text-base text-white">
-            © 2025 Conste Marketing - Todos os direitos reservados
+            © 2026 Conste Marketing - Todos os direitos reservados
           </p>
         </div>
       </div>
