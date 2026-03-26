@@ -10,6 +10,7 @@ import { motion, useInView } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
 import { Typewriter } from 'react-simple-typewriter';
 import SuccessCases from "@/components/success-cases";
+import TestimonialsCarousel from "@/components/testimonials-carousel";
 
 // Para seções que aparecem no scroll
 interface SectionAnimationProps {
@@ -705,19 +706,7 @@ export default function Home() {
 
       <SuccessCases />
 
-      <section className="py-8 flex flex-col items-center justify-center text-center gap-12 max-w-[1200px] mx-auto w-full" id="depoimentos">
-        <div className="gap-y-3 flex flex-col">
-          <p className="text-[#FF8500]">Depoimentos</p>
-          <h2 className="font-bold text-white text-4xl w-full">
-            O que falam sobre nós?
-          </h2>
-        </div>
-        <div className="flex md:flex-row flex-col items-center justify-center gap-4">
-          <TestimonialCard name="Jefferson Frizarin" text="Ótimos profissionais ,dedicados no atendimento ao cliente , entregam um excelente trabalho!" index={0} />
-          <TestimonialCard name="Lilia Aparecida Xavier de Lili" text="A equipe da conste superou nossas expectativas em marketing. As campanhas foram criativas e trouxeram ótimos resultados. Super indico 👏🏻👏🏻!!!" index={1} />
-          <TestimonialCard name="Domus Residencial" text="Muito bom o trabalho. Muitos clientes que não chegavam até mim estão me consultando agora!" index={2} />
-        </div>
-      </section>
+      <TestimonialsCarousel />
 
       <section id="nossos-processos" className="flex flex-col items-center justify-center w-full py-10 md:py-20 px-3 md:px-6 gap-10 md:gap-20 relative overflow-hidden">
         {/* Partículas flutuantes de fundo */}
