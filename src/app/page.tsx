@@ -9,6 +9,7 @@ import Footer from "@/components/footer";
 import { motion, useInView } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
 import { Typewriter } from 'react-simple-typewriter';
+import SuccessCases from "@/components/success-cases";
 
 // Para seções que aparecem no scroll
 interface SectionAnimationProps {
@@ -482,7 +483,7 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5, ease: 'easeOut' }}
           whileHover={{ scale: 1.05 }}
-          className="text-[#e7e7e7] bg-[#200843d0] p-2 rounded-[8px]"
+          className="text-[#e7e7e7] bg-[#791DFF] py-1 px-3 rounded-3xl"
         >
           Bem-vindo à Conste.
           <motion.picture
@@ -636,299 +637,73 @@ export default function Home() {
         ></motion.iframe>
       </section>
 
-
-      <section id="quem-somos" className="flex flex-col items-center justify-center p-0">
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-white font-bold text-4xl"
-        >
-          Quem Somos
-        </motion.h2>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8, y: 50 }}
-          whileInView={{ opacity: 1, scale: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{
-            duration: 1.2,
-            ease: "easeOut",
-            type: "spring",
-            stiffness: 50,
-            damping: 15
-          }}
-          whileHover={{
-            scale: 1.02,
-            transition: { duration: 0.3 }
-          }}
-          className="relative overflow-hidden rounded-lg"
-        >
-          {/* Partículas flutuantes */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 1, delay: 0.8 }}
-            className="absolute inset-0 pointer-events-none z-10"
-          >
-            <motion.div
-              animate={{
-                y: [0, -10, 0],
-                x: [0, 5, 0],
-                rotate: [0, 5, 0]
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-              className="absolute top-4 left-4 w-2 h-2 bg-[#FF8500] rounded-full opacity-60"
-            />
-            <motion.div
-              animate={{
-                y: [0, 15, 0],
-                x: [0, -8, 0],
-                rotate: [0, -3, 0]
-              }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 1
-              }}
-              className="absolute bottom-6 right-6 w-1 h-1 bg-[#310276] rounded-full opacity-80"
-            />
-            <motion.div
-              animate={{
-                y: [0, -8, 0],
-                x: [0, 12, 0],
-                scale: [1, 1.2, 1]
-              }}
-              transition={{
-                duration: 6,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 2
-              }}
-              className="absolute top-1/2 right-4 w-1.5 h-1.5 bg-[#FF8500] rounded-full opacity-70"
-            />
-          </motion.div>
-          <motion.div
-            initial={{ scale: 1.1 }}
-            whileInView={{ scale: 1 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 1.5, ease: "easeOut" }}
-            className="relative"
-          >
-            <Image
-              src="/Equipe.png"
-              alt="Imagem da Equipe"
-              width={674}
-              height={370}
-              className="rounded-lg shadow-2xl"
-            />
-            {/* Overlay sutil para dar mais profundidade */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 1, delay: 0.5 }}
-              className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-lg"
-            />
-          </motion.div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-          className="space-y-3 flex flex-col items-center justify-center text-base"
-        >
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
-            className="text-[#9A9A9A] md:w-[600px] w-[280px] text-center"
-          >
-            A Conste atua em soluções digitais, dedicada a impulsionar a captação de clientes para empresas por meio de estratégias de marketing digital.
-          </motion.p>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6, delay: 0.7, ease: "easeOut" }}
-            className="text-[#9A9A9A] md:w-[480px] w-[280px] text-center"
-          >
-            Somos especialistas em gestão de performance e vendas por meio de estratégias inteligentes, inovadoras e criativas.
-          </motion.p>
-        </motion.div>
-      </section>
-
       <section className="flex flex-col lg:w-full items-center justify-center py-20 mx-auto" id="setores">
-              <h2 className="md:text-4xl text-3xl text-white font-bold mb-6 text-center md:w-full max-w-[780px] w-[320px]">
-                Serviços que farão sua empresa se <span className="text-[#FF8500]">destacar</span> no digital
-              </h2>
-              <p className="text-[#BABABA] text-lg mb-10 text-center max-w-[600px] md:w-full w-[320px]">
-                Conheça como a Conste vai te ajudar a se posicionar no digital e se diferenciar dos concorrentes.
-              </p>
-              <div className="flex overflow-x-auto gap-4 justify-start mb-10 w-full px-2 md:justify-center md:flex-wrap md:overflow-visible">
-                {setores.map((setor) => (
-                  <button
-                    key={setor.key}
-                    onClick={() => setActiveSetor(setor)}
-                    className={`flex-shrink-0 p-5 rounded-xl border-2 transition duration-200 font-bold text-white md:w-[204px] w-[180px] text-sm
+        <h2 className="md:text-4xl text-3xl text-white font-bold mb-6 text-center md:w-full max-w-[780px] w-[320px]">
+          Serviços que farão sua empresa se <span className="text-[#FF8500]">destacar</span> no digital
+        </h2>
+        <p className="text-[#BABABA] text-lg mb-10 text-center max-w-[600px] md:w-full w-[320px]">
+          Conheça como a Conste vai te ajudar a se posicionar no digital e se diferenciar dos concorrentes.
+        </p>
+        <div className="flex overflow-x-auto gap-4 justify-start mb-10 w-full px-2 md:justify-center md:flex-wrap md:overflow-visible">
+          {setores.map((setor) => (
+            <button
+              key={setor.key}
+              onClick={() => setActiveSetor(setor)}
+              className={`flex-shrink-0 p-5 rounded-xl border-2 transition duration-200 font-bold text-white md:w-[204px] w-[180px] text-sm
                 ${activeSetor.key === setor.key
                   ? "border-none bg-gradient-to-l from-[#310276] to-[#6C63FF]"
                   : "border-[#310276] hover:bg-gradient-to-l from-[#310276] to-[#6C63FF] hover:border-none"}`}
-                    style={{ minWidth: 150 }}
-                  >
-                    {setor.label}
-                  </button>
-                ))}
-              </div>
-              <motion.div
-                key={activeSetor.key}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                className="flex flex-col md:flex-row items-center justify-center gap-10 border border-[#310276] rounded-xl p-8 w-[320px] md:w-full md:max-w-[1080px] md:h-[400px] h-[600px] bg-[#0e0e0e]"
-              >
-                <div className="flex-shrink-0 mb-6 md:mb-0">
+              style={{ minWidth: 150 }}
+            >
+              {setor.label}
+            </button>
+          ))}
+        </div>
+        <motion.div
+          key={activeSetor.key}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="flex flex-col md:flex-row items-center justify-center gap-10 border border-[#310276] rounded-xl p-8 w-[320px] md:w-full md:max-w-[1080px] md:h-[400px] h-[600px] bg-[#0e0e0e]"
+        >
+          <div className="flex-shrink-0 mb-6 md:mb-0">
+            <Image
+              src={activeSetor.image}
+              alt={activeSetor.title}
+              width={540}
+              height={400}
+              className="rounded-xl shadow-lg"
+            />
+          </div>
+          <div className="text-left">
+            <h3 className="text-white font-bold md:text-2xl text-xl mb-4">{activeSetor.title}</h3>
+            <ul className="text-[#BABABA] md:text-lg textg-base space-y-2">
+              {activeSetor.description.map((desc, i) => (
+                <li key={i} className="flex items-start gap-2">
                   <Image
-                    src={activeSetor.image}
-                    alt={activeSetor.title}
-                    width={540}
-                    height={400}
-                    className="rounded-xl shadow-lg"
+                    src="/infinite-icon.svg"
+                    width={24}
+                    height={24}
+                    alt="Conste Infinite Icone"
                   />
-                </div>
-                <div className="text-left">
-                  <h3 className="text-white font-bold md:text-2xl text-xl mb-4">{activeSetor.title}</h3>
-                  <ul className="text-[#BABABA] md:text-lg textg-base space-y-2">
-                    {activeSetor.description.map((desc, i) => (
-                      <li key={i} className="flex items-start gap-2">
-                        <Image
-                          src="/infinite-icon.svg"
-                          width={24}
-                          height={24}
-                          alt="Conste Infinite Icone"
-                        />
-                        {desc}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </motion.div>
+                  {desc}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </motion.div>
 
         <div className="flex flex-col items-center justify-center">
           <FormModal buttonText="Quero Elevar meus resultados" />
         </div>
       </section>
 
-      <div className="flex flex-col items-center justify-center">
-        <h2 className="text-4xl text-white text-center font-bold py-16">Empresas que confiam no nosso trabalho</h2>
+      <div className="flex flex-col py-20 items-center justify-center">
+        <h2 className="text-4xl text-white text-center font-bold">Empresas que confiam no nosso trabalho</h2>
         <ClientLogos />
       </div>
 
-      <section className="bg-white py-16 flex flex-col justify-center items-center gap-10">
-        <div className="gap-y-3 flex flex-col items-center justify-center text-center">
-          <p className="text-[#FF8500]">Desafios Comuns</p>
-          <h2 className="font-bold text-black text-4xl md:w-[650px] w-fit text-center">
-            Você passa ou já passou por algum desses <span className="text-[#FF8500]">desafios?</span>
-          </h2>
-        </div>
-        <div className="flex flex-col md:flex-row items-center justify-center gap-x-10 gap-y-10">
-          <div className="flex flex-col justify-center items-center p-2 gap-3 w-[330px] h-[200px] border border-[#6C63FF] hover:bg-[#6b63ff18] duration-200 rounded-[4px]">
-            <Image className="mb-3" src="/icon4.svg" width={40} height={40} alt="icone de parceria" />
-            <p className="text-center text-lg">Atração de novos clientes somente através de indicações.</p>
-          </div>
-          <div className="flex flex-col justify-center items-center p-2 gap-3 w-[330px] h-[200px] border border-[#6C63FF] hover:bg-[#6b63ff18] duration-200 rounded-[4px]">
-            <Image className="mb-3" src="/icon5.svg" width={40} height={40} alt="icone de clientes" />
-            <p className="text-center text-lg">Dificuldade na hora de atrair novos clientes e fechar negócios.</p>
-          </div>
-          <div className="flex flex-col justify-center items-center p-2 gap-3 w-[330px] h-[200px] border border-[#6C63FF] hover:bg-[#6b63ff18] duration-200 rounded-[4px]">
-            <Image className="mb-3" src="/icon6.svg" width={40} height={40} alt="icone globo digital" />
-            <p className="text-center text-lg">Ausência de presença digital, gerando menos oportunidades.</p>
-          </div>
-        </div>
-        <div className="flex flex-col md:flex-row items-center justify-center gap-x-10 gap-y-10">
-          <div className="flex flex-col justify-center items-center p-2 gap-3 w-[330px] h-[200px] border border-[#6C63FF] hover:bg-[#6b63ff18] duration-200 rounded-[4px]">
-            <Image className="mb-3" src="/icon7.svg" width={40} height={40} alt="icone de megafone" />
-            <p className="text-center text-lg">Falta de um plano de marketing e percas de oportunidades.</p>
-          </div>
-          <div className="flex flex-col justify-center items-center p-2 gap-3 w-[330px] h-[200px] border border-[#6C63FF] hover:bg-[#6b63ff18] duration-20033333333333333333333333333333333333333 rounded-[4px]">
-            <Image className="mb-3" src="/icon8.svg" width={40} height={40} alt="icone de gráfico" />
-            <p className="text-center text-lg">Concorrência com práticas de preços baixos, gerando menos valor para os clientes</p>
-          </div>
-        </div>
-        <div className="flex flex-col items-center justify-center">
-          <FormModal buttonText="Quero Elevar meus resultados" />
-        </div>
-      </section>
-
-      <section className="py-12 px-4 md:px-10 flex flex-col gap-12" id="cases">
-        <div className="gap-y-3 flex flex-col justify-center items-center text-center">
-          <p className="text-[#FF8500] font-semibold">Parcerias que evoluem:</p>
-          <h2 className="font-bold text-white text-3xl md:text-6xl md:leading-tight md:max-w-[900px]">
-            Confira os <span className="text-[#FF8500]">cases</span> que mostram nosso compromisso com o seu crescimento.
-          </h2>
-        </div>
-
-        <div className="w-full max-w-[1000px] mx-auto flex flex-wrap items-center justify-center gap-4">
-          <button className="w-[160px] h-[80px] md:w-[180px] md:h-[86px] rounded-xl bg-gradient-to-r from-[#6257FF] to-[#5b6cff] border border-[#7a74ff] flex items-center justify-center">
-            <Image src="/11.png" width={120} height={48} alt="Cliente 11" className="object-contain" />
-          </button>
-          <button className="w-[160px] h-[80px] md:w-[180px] md:h-[86px] rounded-xl bg-[#1b0a3f] border border-[#3a1f79] flex items-center justify-center">
-            <Image src="/15.png" width={120} height={48} alt="Cliente 15" className="object-contain" />
-          </button>
-          <button className="w-[160px] h-[80px] md:w-[180px] md:h-[86px] rounded-xl bg-[#1b0a3f] border border-[#3a1f79] flex items-center justify-center">
-            <Image src="/19.png" width={120} height={48} alt="Cliente 19" className="object-contain" />
-          </button>
-          <button className="w-[160px] h-[80px] md:w-[180px] md:h-[86px] rounded-xl bg-[#1b0a3f] border border-[#3a1f79] flex items-center justify-center">
-            <Image src="/24.png" width={120} height={48} alt="Cliente 24" className="object-contain" />
-          </button>
-          <button className="w-[160px] h-[80px] md:w-[180px] md:h-[86px] rounded-xl bg-[#1b0a3f] border border-[#3a1f79] flex items-center justify-center">
-            <Image src="/34.png" width={120} height={48} alt="Cliente 34" className="object-contain" />
-          </button>
-        </div>
-
-        <div className="w-full max-w-[1020px] mx-auto grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-4 md:gap-6">
-          <div className="rounded-2xl p-6 md:p-8 min-h-[260px] bg-gradient-to-r from-[#655dff] to-[#5f66ff] border border-[#7b75ff]">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-black/25">
-                <Image src="/lilia.png" width={56} height={56} alt="Lillia Aparecida" className="w-full h-full object-cover" />
-              </div>
-            </div>
-            <h3 className="text-white font-bold text-3xl md:text-5xl leading-none mb-4">Lillia Aparecida</h3>
-            <p className="text-white/95 text-lg md:text-[32px] md:leading-[1.2] font-medium max-w-[95%]">
-              A equipe da Conste superou nossas expectativas em marketing. As campanhas foram criativas e trouxeram
-              ótimos resultados. Recomendo a todos que buscam profissionalismo e resultados efetivos! Super indico!
-            </p>
-          </div>
-
-          <div className="grid grid-rows-2 gap-4 md:gap-6">
-            <div className="rounded-2xl border border-[#5b46a8] p-6 md:p-8 flex items-center justify-center text-center bg-[radial-gradient(circle_at_20%_0%,rgba(255,255,255,0.28)_0%,rgba(255,255,255,0.06)_18%,rgba(33,16,63,0.9)_55%,rgba(25,9,49,1)_100%)]">
-              <div>
-                <p className="text-white text-4xl md:text-6xl font-bold leading-none">1º nas buscas</p>
-                <p className="text-white/90 text-lg md:text-4xl mt-2">no Google</p>
-              </div>
-            </div>
-
-            <div className="rounded-2xl border border-[#5b46a8] p-6 md:p-8 flex items-center justify-center text-center bg-[radial-gradient(circle_at_20%_0%,rgba(255,255,255,0.28)_0%,rgba(255,255,255,0.06)_18%,rgba(33,16,63,0.9)_55%,rgba(25,9,49,1)_100%)]">
-              <div>
-                <p className="text-white text-5xl md:text-7xl font-bold leading-none">ROI 13</p>
-                <p className="text-white/90 text-lg md:text-3xl mt-2">
-                  retorno sobre o investimento em <span className="font-bold">6 meses</span>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <SuccessCases />
 
       <section className="py-8 flex flex-col items-center justify-center text-center gap-12 max-w-[1200px] mx-auto w-full" id="depoimentos">
         <div className="gap-y-3 flex flex-col">
@@ -1009,6 +784,137 @@ export default function Home() {
             className="absolute bottom-20 right-1/3 w-1 h-1 bg-[#310276] rounded-full opacity-60"
           />
         </motion.div>
+
+        <section id="quem-somos" className="flex flex-col items-center justify-center p-0">
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="text-white font-bold text-4xl"
+          >
+            Quem Somos
+          </motion.h2>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8, y: 50 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{
+              duration: 1.2,
+              ease: "easeOut",
+              type: "spring",
+              stiffness: 50,
+              damping: 15
+            }}
+            whileHover={{
+              scale: 1.02,
+              transition: { duration: 0.3 }
+            }}
+            className="relative overflow-hidden rounded-lg"
+          >
+            {/* Partículas flutuantes */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 1, delay: 0.8 }}
+              className="absolute inset-0 pointer-events-none z-10"
+            >
+              <motion.div
+                animate={{
+                  y: [0, -10, 0],
+                  x: [0, 5, 0],
+                  rotate: [0, 5, 0]
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+                className="absolute top-4 left-4 w-2 h-2 bg-[#FF8500] rounded-full opacity-60"
+              />
+              <motion.div
+                animate={{
+                  y: [0, 15, 0],
+                  x: [0, -8, 0],
+                  rotate: [0, -3, 0]
+                }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 1
+                }}
+                className="absolute bottom-6 right-6 w-1 h-1 bg-[#310276] rounded-full opacity-80"
+              />
+              <motion.div
+                animate={{
+                  y: [0, -8, 0],
+                  x: [0, 12, 0],
+                  scale: [1, 1.2, 1]
+                }}
+                transition={{
+                  duration: 6,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 2
+                }}
+                className="absolute top-1/2 right-4 w-1.5 h-1.5 bg-[#FF8500] rounded-full opacity-70"
+              />
+            </motion.div>
+            <motion.div
+              initial={{ scale: 1.1 }}
+              whileInView={{ scale: 1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 1.5, ease: "easeOut" }}
+              className="relative"
+            >
+              <Image
+                src="/Equipe.png"
+                alt="Imagem da Equipe"
+                width={674}
+                height={370}
+                className="rounded-lg shadow-2xl"
+              />
+              {/* Overlay sutil para dar mais profundidade */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 1, delay: 0.5 }}
+                className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-lg"
+              />
+            </motion.div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+            className="space-y-3 flex flex-col items-center justify-center text-base"
+          >
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
+              className="text-[#9A9A9A] md:w-[600px] w-[280px] text-center"
+            >
+              A Conste atua em soluções digitais, dedicada a impulsionar a captação de clientes para empresas por meio de estratégias de marketing digital.
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: 0.7, ease: "easeOut" }}
+              className="text-[#9A9A9A] md:w-[480px] w-[280px] text-center"
+            >
+              Somos especialistas em gestão de performance e vendas por meio de estratégias inteligentes, inovadoras e criativas.
+            </motion.p>
+          </motion.div>
+        </section>
 
         <div className="relative max-w-[1440px] w-full h-auto min-h-[400px]">
           {/* Background Blur com animação */}
