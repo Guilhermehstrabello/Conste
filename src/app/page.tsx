@@ -952,19 +952,19 @@ export default function Home() {
 
             <div className="w-full flex flex-col md:flex-row justify-between items-center gap-6 md:gap-10">
               <div className="rounded-[30px] gap-y-2 border border-[#FF8500] w-[80%] md:w-[260px] h-[260px] bg-[linear-gradient(180deg,#FF8500_0%,#0A0A0A_56%)] flex flex-col items-center justify-center text-center px-6">
-                  <Image src="/icon1.svg" width={40} height={40} alt="Anos de experiencia" />
+                <Image src="/icon1.svg" width={40} height={40} alt="Anos de experiencia" />
                 <h3 className="text-white font-bold text-2xl md:text-4xl leading-none">+6 Anos</h3>
                 <p className="text-[#CCCCCC] text-lg md:text-xl mt-3">de Experiência</p>
               </div>
 
               <div className="rounded-[30px] gap-y-2 border border-[#FF8500] w-[80%] md:w-[260px] h-[260px] bg-[linear-gradient(180deg,#FF8500_0%,#0A0A0A_56%)] flex flex-col items-center justify-center text-center px-6">
-                  <Image src="/icon2.svg" width={40} height={40} alt="Clientes atendidos" />
+                <Image src="/icon2.svg" width={40} height={40} alt="Clientes atendidos" />
                 <h3 className="text-white font-bold text-2xl md:text-4xl leading-none">+150</h3>
                 <p className="text-[#CCCCCC] text-lg md:text-xl mt-3">Clientes Atendidos</p>
               </div>
 
               <div className="rounded-[30px] gap-y-2 border border-[#FF8500] w-[80%] md:w-[260px] h-[260px] bg-[linear-gradient(180deg,#FF8500_0%,#0A0A0A_56%)] flex flex-col items-center justify-center text-center px-6">
-                  <Image src="/icon3.svg" width={40} height={40} alt="Vendas geradas" />
+                <Image src="/icon3.svg" width={40} height={40} alt="Vendas geradas" />
                 <h3 className="text-white font-bold text-2xl md:text-4xl leading-none">+R$13M</h3>
                 <p className="text-[#CCCCCC] text-lg md:text-xl mt-3">em Vendas</p>
               </div>
@@ -1073,7 +1073,7 @@ export default function Home() {
         </div>
       </section>
 
-    <FAQ />
+      <FAQ />
 
       {/* CTA Sticky Container */}
       <div className="relative" ref={stickyCtaRef}>
@@ -1097,12 +1097,12 @@ export default function Home() {
             damping: 20
           }}
         >
-          <div className="lg:h-[104px] h-[70px] lg:w-[800px] w-[80%] flex lg:flex-row flex-row items-center justify-between mx-auto bg-[#2900677c] gap-x-2 lg:gap-x-3 gap-y-0 p-3 lg:p-5 rounded-[4px] shadow-2xl backdrop-blur-sm border border-[#310276]/20 lg:mx-auto">
+          <div className="lg:h-[104px] h-[64px] lg:w-[800px] w-[90%] flex flex-row items-center justify-between mx-auto bg-[#2900677c] gap-x-2 lg:gap-x-3 p-3 lg:p-5 rounded-[4px] shadow-2xl backdrop-blur-sm border border-[#310276]/20">
             <motion.h3
               initial={{ opacity: 0, x: -30 }}
               animate={isStickyVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-white text-sm lg:text-xl text-left flex-shrink-0 leading-tight max-w-[200px] lg:max-w-none"
+              className="text-white text-xs lg:text-xl text-left flex-shrink-0 leading-tight max-w-[160px] lg:max-w-none"
             >
               Faça sua empresa crescer com{" "}
               <motion.span
@@ -1111,12 +1111,7 @@ export default function Home() {
                   scale: [1, 1.05, 1],
                   color: ["#ffffff", "#FF8500", "#ffffff"]
                 } : {}}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  repeatDelay: 3,
-                  ease: "easeInOut"
-                }}
+                transition={{ duration: 2, repeat: Infinity, repeatDelay: 3, ease: "easeInOut" }}
               >
                 constância.
               </motion.span>

@@ -101,7 +101,7 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
   const modalContent = (
     <AnimatePresence>
       {isOpen && (
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -110,7 +110,7 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
           onClick={() => setIsOpen(false)}
           style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
         >
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.8, y: 50 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 50 }}
@@ -213,23 +213,24 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
 
   return (
     <div className="flex items-center h-fit">
-<button
-  onClick={() => setIsOpen(true)}
-  className="group relative inline-block p-px font-semibold leading-6 text-white bg-[#310276] shadow-2xl cursor-pointer rounded-lg shadow-[#310276] transition-all duration-300 ease-in-out hover:scale-105 active:scale-95 hover:shadow-orange-500 z-10 my-2 lg:my-8"
->
-  <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#310276] via-orange-500 to-orange-600 p-[2px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"></span>
-  <span className="relative z-10 block px-4 py-3 rounded-lg bg-neutral-950 ">
-    <div className="relative z-10 flex items-center space-x-3">
-      <span className="transition-all duration-500 group-hover:translate-x-1.5 group-hover:text-orange-300 text-xs md:text-base whitespace-pre-wrap">
-        {buttonText}
-      </span>
-    </div>
-  </span>
-</button>
+      <button
+        onClick={() => setIsOpen(true)}
+        className="group relative inline-block p-px font-semibold leading-6 text-white bg-[#310276] shadow-2xl cursor-pointer rounded-lg shadow-[#310276] transition-all duration-300 ease-in-out hover:scale-105 active:scale-95 hover:shadow-orange-500 z-10 my-1 lg:my-8"
+      >
+        <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#310276] via-orange-500 to-orange-600 p-[2px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"></span>
+        <span className="relative z-10 block px-3 py-2 lg:px-4 lg:py-3 rounded-lg bg-neutral-950">
+          <div className="relative z-10 flex items-center space-x-3">
+            <span className="transition-all duration-500 group-hover:translate-x-1.5 group-hover:text-orange-300 text-xs lg:text-base whitespace-nowrap">
+              <span className="lg:hidden">Quero crescer</span>
+              <span className="hidden lg:inline">Quero crescer minha empresa</span>
+            </span>
+          </div>
+        </span>
+      </button>
       {mounted && isOpen && createPortal(modalContent, document.body)}
 
-        
-  
+
+
     </div>
   );
 };
