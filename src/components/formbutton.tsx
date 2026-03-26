@@ -220,17 +220,9 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
   <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#310276] via-orange-500 to-orange-600 p-[2px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"></span>
   <span className="relative z-10 block px-4 py-3 rounded-lg bg-neutral-950 ">
     <div className="relative z-10 flex items-center space-x-3">
-      <span className="transition-all duration-500 group-hover:translate-x-1.5 group-hover:text-orange-300 text-sm md:text-base lg:text-base whitespace-pre-wrap">
+      <span className="transition-all duration-500 group-hover:translate-x-1.5 group-hover:text-orange-300 text-xs md:text-base whitespace-pre-wrap">
         {buttonText}
       </span>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className="w-6 h-6 transition-all duration-500 group-hover:translate-x-1.5 group-hover:text-orange-300"
-      >
-        <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"></path>
-      </svg>
     </div>
   </span>
 </button>

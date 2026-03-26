@@ -11,6 +11,7 @@ import { useRef, useEffect, useState } from 'react';
 import { Typewriter } from 'react-simple-typewriter';
 import SuccessCases from "@/components/success-cases";
 import TestimonialsCarousel from "@/components/testimonials-carousel";
+import FAQ from "@/components/faq";
 
 // Para seções que aparecem no scroll
 interface SectionAnimationProps {
@@ -422,6 +423,44 @@ const setores = [
       "Vídeos institucionais e promocionais"
     ]
   }
+];
+
+const methodologySteps = [
+  {
+    title: "Onboarding:",
+    subtitle: "Captação da essência",
+    desktopClass: "left-[6%] top-[16%]",
+    dotClass: "left-[6%] top-[58%]",
+    lineClass: "left-[6%] top-[26%] h-[100px]",
+  },
+  {
+    title: "Análise",
+    subtitle: "comercial",
+    desktopClass: "left-[27%] top-[66%]",
+    dotClass: "left-[27%] top-[48%]",
+    lineClass: "left-[27%] top-[54%] h-[80px]",
+  },
+  {
+    title: "Criação da",
+    subtitle: "estratégia",
+    desktopClass: "left-[48%] top-[16%]",
+    dotClass: "left-[48%] top-[52%]",
+    lineClass: "left-[48%] top-[26%] h-[100px]",
+  },
+  {
+    title: "Implementação:",
+    subtitle: "Ação estratégica",
+    desktopClass: "left-[69%] top-[66%]",
+    dotClass: "left-[69%] top-[54%]",
+    lineClass: "left-[69%] top-[54%] h-[60px]",
+  },
+  {
+    title: "ESCALA",
+    subtitle: "",
+    desktopClass: "left-[90%] top-[16%]",
+    dotClass: "left-[90%] top-[47%]",
+    lineClass: "left-[90%] top-[26%] h-[90px]",
+  },
 ];
 
 export default function Home() {
@@ -857,14 +896,14 @@ export default function Home() {
               whileInView={{ scale: 1 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 1.5, ease: "easeOut" }}
-              className="relative"
+              className="relative mb-8"
             >
               <Image
                 src="/Equipe.png"
                 alt="Imagem da Equipe"
                 width={674}
                 height={370}
-                className="rounded-lg shadow-2xl"
+                className="rounded-lg"
               />
               {/* Overlay sutil para dar mais profundidade */}
               <motion.div
@@ -872,7 +911,7 @@ export default function Home() {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 1, delay: 0.5 }}
-                className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-lg"
+                className="absolute inset-0 rounded-lg"
               />
             </motion.div>
           </motion.div>
@@ -905,70 +944,136 @@ export default function Home() {
           </motion.div>
         </section>
 
-        <div className="relative max-w-[1440px] w-full h-auto min-h-[400px]">
-          {/* Background Blur com animação */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: "-200px" }}
-            transition={{ duration: 2, ease: "easeOut" }}
-            className="absolute rounded-full w-[70%] md:w-[80%] max-w-[1200px] h-[40%] md:h-[70%] max-h-[800px] md:max-h-[1200px] left-1/2 top-1/3 md:top-1/4 -translate-x-1/2 -translate-y-1/2 
-           bg-gradient-to-b from-[rgba(49,2,118,0.3)] to-[rgba(255,133,0,0.3)] md:from-[rgba(49,2,118,0.5)] md:to-[rgba(255,133,0,0.5)] blur-[30px] md:blur-[80px] -z-10"
-          >
-          </motion.div>
+        <section className="w-full py-16 md:py-24 px-4">
+          <div className="max-w-[1400px] mx-auto flex flex-col items-center gap-10 md:gap-16">
+            <h2 className="text-white font-bold text-3xl md:text-4xl text-center">
+              Números da nossa agência
+            </h2>
 
-          {/* Título com animação melhorada */}
+            <div className="w-full flex flex-col md:flex-row justify-between items-center gap-6 md:gap-10">
+              <div className="rounded-[30px] gap-y-2 border border-[#FF8500] w-[80%] md:w-[260px] h-[260px] bg-[linear-gradient(180deg,#FF8500_0%,#0A0A0A_56%)] flex flex-col items-center justify-center text-center px-6">
+                  <Image src="/icon1.svg" width={40} height={40} alt="Anos de experiencia" />
+                <h3 className="text-white font-bold text-2xl md:text-4xl leading-none">+6 Anos</h3>
+                <p className="text-[#CCCCCC] text-lg md:text-xl mt-3">de Experiência</p>
+              </div>
+
+              <div className="rounded-[30px] gap-y-2 border border-[#FF8500] w-[80%] md:w-[260px] h-[260px] bg-[linear-gradient(180deg,#FF8500_0%,#0A0A0A_56%)] flex flex-col items-center justify-center text-center px-6">
+                  <Image src="/icon2.svg" width={40} height={40} alt="Clientes atendidos" />
+                <h3 className="text-white font-bold text-2xl md:text-4xl leading-none">+150</h3>
+                <p className="text-[#CCCCCC] text-lg md:text-xl mt-3">Clientes Atendidos</p>
+              </div>
+
+              <div className="rounded-[30px] gap-y-2 border border-[#FF8500] w-[80%] md:w-[260px] h-[260px] bg-[linear-gradient(180deg,#FF8500_0%,#0A0A0A_56%)] flex flex-col items-center justify-center text-center px-6">
+                  <Image src="/icon3.svg" width={40} height={40} alt="Vendas geradas" />
+                <h3 className="text-white font-bold text-2xl md:text-4xl leading-none">+R$13M</h3>
+                <p className="text-[#CCCCCC] text-lg md:text-xl mt-3">em Vendas</p>
+              </div>
+            </div>
+
+            <FormModal buttonText="Quero elevar meus resultados" />
+          </div>
+        </section>
+
+        <div className="relative max-w-[1440px] w-full min-h-[400px] overflow-hidden px-4 py-14 md:px-10 md:py-20">
+
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="w-full flex flex-col items-center text-center gap-4 mb-20 md:mb-40"
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="relative z-10 mb-12 md:mb-16 text-center"
           >
-            <motion.p
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 100 }}
-              className="text-[#FF8500] font-neue-montreal text-lg md:text-xl"
-            >
-              Nossos processos
-            </motion.p>
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
-              className="text-white font-montserrat font-bold text-2xl md:text-4xl lg:text-5xl"
-            >
-              Como nós alavancamos o seu negócio!
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-              className="text-[#BABABA] font-montserrat font-medium text-base md:text-xl max-w-[800px] mt-4 px-4 md:px-0"
-            >
-              Aqui na Conste, cada projeto é uma história que queremos contar junto com você!
-            </motion.p>
+            <h2 className="text-[#FF8500] font-montserrat text-2xl md:text-4xl font-medium uppercase tracking-[0.02em]">
+              Seu crescimento dentro da nossa <span className="font-bold">metodologia</span>
+            </h2>
           </motion.div>
 
-          {/* Etapas com animação progressiva */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="flex flex-col gap-10 md:gap-20 w-full max-w-[1200px] mx-auto mb-20 md:mb-28 px-2 md:px-0"
-          >
-            <ProcessStep number="1" title="Alinhamento de expectativas" description="Entendemos seu negócio, público e objetivos. É aqui que começa a mágica." index={0} />
-            <ProcessStep number="2" title="Pesquisa e planejamento" description="Analisamos o mercado, seus concorrentes e as melhores estratégias para você." index={1} />
-            <ProcessStep number="3" title="Implementação e lançamento" description="Colocamos tudo em prática e garantimos que cada detalhe esteja perfeito." index={2} />
-            <ProcessStep number="4" title="Análise e evolução contínua" description="Monitoramos os resultados e ajustamos o que for necessário para crescer juntos." index={3} />
-          </motion.div>
+          <div className="relative z-10 hidden md:block h-[520px]">
+            <svg viewBox="0 0 1200 320" className="absolute left-0 top-[150px] z-0 w-full overflow-visible">
+              <motion.path
+                d="M70 136 C104 140, 146 120, 168 115 C240 90, 304 78, 360 94 C430 112, 505 126, 564 110 C625 94, 683 88, 732 102 C860 138, 980 114, 1092 79"
+                fill="none"
+                stroke="#310276"
+                strokeWidth="5"
+                strokeLinecap="round"
+                initial={{ pathLength: 0, opacity: 0.5 }}
+                whileInView={{ pathLength: 1, opacity: 1 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 4, ease: "easeInOut" }}
+              />
+            </svg>
+
+            {methodologySteps.map((step, index) => (
+              <div key={`${step.title}-${step.subtitle}`}>
+                <motion.div
+                  className={`absolute w-px bg-white/40 origin-top ${step.lineClass}`}
+                  initial={{ scaleY: 0, opacity: 0 }}
+                  whileInView={{ scaleY: 1, opacity: 1 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.45, delay: 0.2 + index * 0.12, ease: "easeOut" }}
+                />
+                <div className={`absolute h-5 w-5 -translate-x-1/2 -translate-y-1/2 ${step.dotClass}`}>
+                  <motion.div
+                    className="absolute inset-0 rounded-full bg-[#FF7A00]/35"
+                    animate={{ scale: [1, 1.8, 1], opacity: [0.45, 0, 0.45] }}
+                    transition={{ duration: 2.4, repeat: Infinity, repeatDelay: 0.8, delay: index * 0.15 }}
+                  />
+                  <motion.div
+                    className="relative h-5 w-5 rounded-full border-[3px] border-[#171717] bg-[#FF7A00]"
+                    initial={{ scale: 0, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.35, delay: 0.35 + index * 0.12, type: "spring", stiffness: 180 }}
+                    whileHover={{ scale: 1.2, boxShadow: "0 0 24px rgba(255,122,0,0.55)" }}
+                  />
+                </div>
+                <motion.div
+                  className={`absolute max-w-[180px] -translate-x-1/2 text-center text-white ${step.desktopClass}`}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.45, delay: 0.45 + index * 0.12, ease: "easeOut" }}
+                  whileHover={{ y: -4 }}
+                >
+                  <p className="text-[14px] font-semibold leading-tight">{step.title}</p>
+                  {step.subtitle ? (
+                    <p className="text-[14px] leading-tight text-white/90">{step.subtitle}</p>
+                  ) : null}
+                </motion.div>
+              </div>
+            ))}
+          </div>
+
+          <div className="relative z-10 flex flex-col gap-5 md:hidden">
+            {methodologySteps.map((step, index) => (
+              <motion.div
+                key={`${step.title}-${index}`}
+                className="flex gap-4 rounded-2xl border border-white/10 bg-white/[0.03] p-4"
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.35, delay: index * 0.08, ease: "easeOut" }}
+                whileHover={{ y: -2, borderColor: "rgba(255,122,0,0.35)" }}
+              >
+                <div className="flex flex-col items-center">
+                  <motion.div
+                    className={`mt-1 h-4 w-4 rounded-full ${index === 0 ? "bg-white" : "bg-[#FF7A00]"}`}
+                    animate={{ scale: [1, 1.08, 1] }}
+                    transition={{ duration: 1.8, repeat: Infinity, repeatDelay: 0.6, delay: index * 0.1 }}
+                  />
+                  {index < methodologySteps.length - 1 ? <div className="mt-2 h-full w-px bg-white/20" /> : null}
+                </div>
+                <div>
+                  <p className="text-white font-semibold leading-tight">{step.title}</p>
+                  {step.subtitle ? <p className="text-white/75 leading-tight">{step.subtitle}</p> : null}
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
+
+    <FAQ />
 
       {/* CTA Sticky Container */}
       <div className="relative" ref={stickyCtaRef}>
@@ -992,7 +1097,7 @@ export default function Home() {
             damping: 20
           }}
         >
-          <div className="lg:h-[104px] h-[70px] lg:w-[800px] w-[95%] flex lg:flex-row flex-row items-center justify-between mx-auto bg-[#2900677c] gap-x-2 lg:gap-x-3 gap-y-0 p-3 lg:p-5 rounded-[4px] shadow-2xl backdrop-blur-sm border border-[#310276]/20 lg:mx-auto">
+          <div className="lg:h-[104px] h-[70px] lg:w-[800px] w-[80%] flex lg:flex-row flex-row items-center justify-between mx-auto bg-[#2900677c] gap-x-2 lg:gap-x-3 gap-y-0 p-3 lg:p-5 rounded-[4px] shadow-2xl backdrop-blur-sm border border-[#310276]/20 lg:mx-auto">
             <motion.h3
               initial={{ opacity: 0, x: -30 }}
               animate={isStickyVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
@@ -1016,7 +1121,7 @@ export default function Home() {
                 constância.
               </motion.span>
             </motion.h3>
-            <FormModal buttonText="Elevar minha empresa agora" />
+            <FormModal buttonText="Quero crescer minha empresa" />
           </div>
         </motion.div>
       </div>

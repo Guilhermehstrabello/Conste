@@ -118,7 +118,7 @@ const Navbar = () => {
                   onClick={(e) => handleSmoothScroll(e, id)}
                   className="block"
                 >
-                  <li className="hover:scale-110 duration-300 p-4 hover:bg-[#310276] rounded-md cursor-pointer">
+                  <li className="hover:scale-110 duration-300 py-2 px-4 hover:bg-[#310276] rounded-md cursor-pointer">
                     {item}
                   </li>
                 </a>
