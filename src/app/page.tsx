@@ -535,7 +535,7 @@ export default function Home() {
               <Image src="/meta-ads.svg" width={36} height={36} alt="Meta" className="md:w-[56px] md:h-[56px] w-[36px] h-[36px]" />
             </motion.div>
           </motion.div>
-          {/* Framer */}
+          {/* LinkedIn */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -546,7 +546,7 @@ export default function Home() {
               animate={{ y: [0, -20, 0], x: [0, 20, 0] }}
               transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
             >
-              <Image src="/framer.svg" width={36} height={36} alt="Framer" className="md:w-[56px] md:h-[56px] w-[36px] h-[36px]" />
+              <Image src="/Linkedin.svg" width={36} height={36} alt="LinkedIn" className="md:w-[56px] md:h-[56px] w-[36px] h-[36px]" />
             </motion.div>
           </motion.div>
           {/* Instagram */}
