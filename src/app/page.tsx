@@ -768,15 +768,6 @@ export default function Home() {
         </motion.div>
       </section>
 
-      <section className="flex flex-col items-center justify-center my-8 gap-y-20 py-10">
-        <div className="flex flex-col md:flex-row items-center justify-center gap-x-11 gap-y-10">
-          <StatCard icon="/icon1.svg" number="+6 Anos" text="de Experiência" delay={0.1} />
-          <StatCard icon="/icon2.svg" number="+150" text="Clientes Atendidos" delay={0.2} />
-          <StatCard icon="/icon3.svg" number="+13M" text="em Vendas" delay={0.3} />
-        </div>
-        <FormModal buttonText="Quero Elevar meus resultados" />
-      </section>
-
       <section className="flex flex-col lg:w-full items-center justify-center py-20 mx-auto" id="setores">
               <h2 className="md:text-4xl text-3xl text-white font-bold mb-6 text-center md:w-full max-w-[780px] w-[320px]">
                 Serviços que farão sua empresa se <span className="text-[#FF8500]">destacar</span> no digital
@@ -879,17 +870,63 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-12 px-10 flex flex-col gap-12" id="cases">
+      <section className="py-12 px-4 md:px-10 flex flex-col gap-12" id="cases">
         <div className="gap-y-3 flex flex-col justify-center items-center text-center">
-          <p className="text-[#FF8500]">Parcerias que evoluem:</p>
-          <h2 className="font-bold text-white text-4xl md:w-[800px] w-fit">
-            Confira os  <span className="text-[#FF8500]"> cases</span> que mostram nosso compromisso com o seu crescimento.
+          <p className="text-[#FF8500] font-semibold">Parcerias que evoluem:</p>
+          <h2 className="font-bold text-white text-3xl md:text-6xl md:leading-tight md:max-w-[900px]">
+            Confira os <span className="text-[#FF8500]">cases</span> que mostram nosso compromisso com o seu crescimento.
           </h2>
         </div>
-        <div className="flex md:flex-row flex-col items-center justify-center gap-x-10 gap-y-10">
-          <CaseCard logo="/JE-Polimetal.png" stats={[{ value: "+12.000", label: "Visualizações" }, { value: "+140 Leads", label: "qualificados" }, { value: "+R$ 750.000", label: "Em oportunidade de vendas" }]} index={0} />
-          <CaseCard logo="/Agrotuba.png" stats={[{ value: "+20%", label: "De faturamento" }, { value: "+200%", label: "Crescimento nas midias" }, { value: "Retorno 12x", label: "Sobre o investimento" }]} index={1} />
-          <CaseCard logo="/LeluhKids.png" stats={[{ value: "+R$50.000", label: "De vendas em 3 meses" }, { value: "1° nas buscas", label: "No Google" }, { value: "Retorno 13x", label: "Sobre o investimento" }]} index={2} />
+
+        <div className="w-full max-w-[1000px] mx-auto flex flex-wrap items-center justify-center gap-4">
+          <button className="w-[160px] h-[80px] md:w-[180px] md:h-[86px] rounded-xl bg-gradient-to-r from-[#6257FF] to-[#5b6cff] border border-[#7a74ff] flex items-center justify-center">
+            <Image src="/11.png" width={120} height={48} alt="Cliente 11" className="object-contain" />
+          </button>
+          <button className="w-[160px] h-[80px] md:w-[180px] md:h-[86px] rounded-xl bg-[#1b0a3f] border border-[#3a1f79] flex items-center justify-center">
+            <Image src="/15.png" width={120} height={48} alt="Cliente 15" className="object-contain" />
+          </button>
+          <button className="w-[160px] h-[80px] md:w-[180px] md:h-[86px] rounded-xl bg-[#1b0a3f] border border-[#3a1f79] flex items-center justify-center">
+            <Image src="/19.png" width={120} height={48} alt="Cliente 19" className="object-contain" />
+          </button>
+          <button className="w-[160px] h-[80px] md:w-[180px] md:h-[86px] rounded-xl bg-[#1b0a3f] border border-[#3a1f79] flex items-center justify-center">
+            <Image src="/24.png" width={120} height={48} alt="Cliente 24" className="object-contain" />
+          </button>
+          <button className="w-[160px] h-[80px] md:w-[180px] md:h-[86px] rounded-xl bg-[#1b0a3f] border border-[#3a1f79] flex items-center justify-center">
+            <Image src="/34.png" width={120} height={48} alt="Cliente 34" className="object-contain" />
+          </button>
+        </div>
+
+        <div className="w-full max-w-[1020px] mx-auto grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-4 md:gap-6">
+          <div className="rounded-2xl p-6 md:p-8 min-h-[260px] bg-gradient-to-r from-[#655dff] to-[#5f66ff] border border-[#7b75ff]">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-black/25">
+                <Image src="/lilia.png" width={56} height={56} alt="Lillia Aparecida" className="w-full h-full object-cover" />
+              </div>
+            </div>
+            <h3 className="text-white font-bold text-3xl md:text-5xl leading-none mb-4">Lillia Aparecida</h3>
+            <p className="text-white/95 text-lg md:text-[32px] md:leading-[1.2] font-medium max-w-[95%]">
+              A equipe da Conste superou nossas expectativas em marketing. As campanhas foram criativas e trouxeram
+              ótimos resultados. Recomendo a todos que buscam profissionalismo e resultados efetivos! Super indico!
+            </p>
+          </div>
+
+          <div className="grid grid-rows-2 gap-4 md:gap-6">
+            <div className="rounded-2xl border border-[#5b46a8] p-6 md:p-8 flex items-center justify-center text-center bg-[radial-gradient(circle_at_20%_0%,rgba(255,255,255,0.28)_0%,rgba(255,255,255,0.06)_18%,rgba(33,16,63,0.9)_55%,rgba(25,9,49,1)_100%)]">
+              <div>
+                <p className="text-white text-4xl md:text-6xl font-bold leading-none">1º nas buscas</p>
+                <p className="text-white/90 text-lg md:text-4xl mt-2">no Google</p>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-[#5b46a8] p-6 md:p-8 flex items-center justify-center text-center bg-[radial-gradient(circle_at_20%_0%,rgba(255,255,255,0.28)_0%,rgba(255,255,255,0.06)_18%,rgba(33,16,63,0.9)_55%,rgba(25,9,49,1)_100%)]">
+              <div>
+                <p className="text-white text-5xl md:text-7xl font-bold leading-none">ROI 13</p>
+                <p className="text-white/90 text-lg md:text-3xl mt-2">
+                  retorno sobre o investimento em <span className="font-bold">6 meses</span>
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
