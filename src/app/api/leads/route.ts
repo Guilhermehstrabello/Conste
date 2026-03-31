@@ -5,7 +5,7 @@ export const runtime = 'nodejs';
 
 function getSupabaseAdmin() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY;
   if (!url || !key) return null;
   return createClient(url, key);
 }
@@ -26,10 +26,10 @@ export async function POST(req: Request) {
 
     // Diagnostic checks for env vars
     const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY;
     if (!url || !key) {
-      console.error('Supabase admin client not configured. NEXT_PUBLIC_SUPABASE_URL present:', Boolean(url), 'SUPABASE_SERVICE_ROLE_KEY present:', Boolean(key));
-      return new Response(JSON.stringify({ error: 'Supabase not configured', details: { hasUrl: Boolean(url), hasServiceKey: Boolean(key) } }), { status: 500 });
+      console.error('Supabase admin client not configured. NEXT_PUBLIC_SUPABASE_URL present:', Boolean(url), 'NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY present:', Boolean(key));
+      return new Response(JSON.stringify({ error: 'Supabase not configured', details: { hasUrl: Boolean(url), hasPublishableKey: Boolean(key) } }), { status: 500 });
     }
     const keyTrim = key.trim();
     if (keyTrim.length !== key.length || /^['"].*['"]$/.test(keyTrim)) {
