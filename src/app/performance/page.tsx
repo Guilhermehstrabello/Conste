@@ -778,9 +778,7 @@ export default function Home() {
             </div>
           </div>
 
-          <button className="flex h-12 w-full max-w-[371px] items-center justify-center rounded-lg border-2 border-[#310276] bg-[#0A0A0A] px-4 text-center font-montserrat text-base font-semibold text-white transition hover:border-[#7047BD]">
-            Fale com um de nossos especialistas
-          </button>
+          <FormModal buttonText="Quero crescer minha empresa"/>
         </div>
       </section>
 
