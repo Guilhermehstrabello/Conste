@@ -11,6 +11,7 @@ import { useRef, useEffect, useState } from 'react';
 import SuccessCases from "@/components/success-cases";
 import TestimonialsCarousel from "@/components/testimonials-carousel";
 import FAQ from "@/components/faq";
+import Setores from "@/components/entrega";
 
 // Para seções que aparecem no scroll
 interface SectionAnimationProps {
@@ -777,11 +778,11 @@ export default function Home() {
             </div>
           </div>
 
-          <button className="flex h-12 w-full max-w-[371px] items-center justify-center rounded-lg border-2 border-[#310276] bg-[#0A0A0A] px-4 text-center font-montserrat text-base font-semibold text-white transition hover:border-[#7047BD]">
-            Fale com um de nossos especialistas
-          </button>
+          <FormModal buttonText="Quero crescer minha empresa"/>
         </div>
       </section>
+
+      <Setores/>
 
       <section className="flex flex-col lg:w-full items-center justify-center py-20 mx-auto" id="setores">
         <h2 className="md:text-4xl text-3xl text-white font-bold mb-6 text-center md:w-full max-w-[780px] w-[320px]">
@@ -1056,7 +1057,7 @@ export default function Home() {
               Números da nossa agência
             </h2>
 
-            <div className="w-full flex flex-col md:flex-row justify-between items-center gap-6 md:gap-10">
+            <div className="w-full flex flex-col md:flex-row justify-center items-center gap-6 md:gap-10">
               <div className="rounded-[30px] gap-y-2 border border-[#FF8500] w-[80%] md:w-[260px] h-[260px] bg-[linear-gradient(180deg,#FF8500_0%,#0A0A0A_56%)] flex flex-col items-center justify-center text-center px-6">
                 <Image src="/icon1.svg" width={40} height={40} alt="Anos de experiencia" />
                 <h3 className="text-white font-bold text-2xl md:text-4xl leading-none">+6 Anos</h3>
@@ -1071,7 +1072,7 @@ export default function Home() {
 
               <div className="rounded-[30px] gap-y-2 border border-[#FF8500] w-[80%] md:w-[260px] h-[260px] bg-[linear-gradient(180deg,#FF8500_0%,#0A0A0A_56%)] flex flex-col items-center justify-center text-center px-6">
                 <Image src="/icon3.svg" width={40} height={40} alt="Vendas geradas" />
-                <h3 className="text-white font-bold text-2xl md:text-4xl leading-none">+R$13M</h3>
+                <h3 className="text-white font-bold text-2xl md:text-4xl leading-none">+R$14M</h3>
                 <p className="text-[#CCCCCC] text-lg md:text-xl mt-3">em Vendas</p>
               </div>
             </div>
