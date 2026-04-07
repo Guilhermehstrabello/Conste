@@ -66,6 +66,21 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ message: "Acesso não autorizado." }, { status: 401 });
   }
 
+  const allowedEmails = (process.env.BLOG_ALLOWED_EMAILS || process.env.NEXT_PUBLIC_BLOG_ALLOWED_EMAILS || '')
+    .split(',')
+    .map((item) => item.trim().toLowerCase())
+    .filter(Boolean);
+
+  const userEmail = userData.user.email?.toLowerCase() || '';
+  const emailAllowed =
+    allowedEmails.length === 0 ||
+    allowedEmails.includes(userEmail) ||
+    allowedEmails.some((allowed) => allowed.startsWith('@') && userEmail.endsWith(allowed));
+
+  if (!emailAllowed) {
+    return NextResponse.json({ message: 'Email não autorizado para criar posts.' }, { status: 401 });
+  }
+
   const body = await request.json();
   const { title, author, excerpt, content, slug } = body;
 

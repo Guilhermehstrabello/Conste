@@ -6,6 +6,20 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 
+const allowedBlogEmails = (process.env.NEXT_PUBLIC_BLOG_ALLOWED_EMAILS || '')
+  .split(',')
+  .map((item) => item.trim().toLowerCase())
+  .filter(Boolean);
+
+function isAllowedEmail(email: string) {
+  const normalized = email.trim().toLowerCase();
+  if (allowedBlogEmails.length === 0) return true;
+  return (
+    allowedBlogEmails.includes(normalized) ||
+    allowedBlogEmails.some((allowed) => allowed.startsWith('@') && normalized.endsWith(allowed))
+  );
+}
+
 export default function LoginClient() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -17,6 +31,13 @@ export default function LoginClient() {
   const handleMagicLink = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
+
+    const normalized = email.trim().toLowerCase();
+    if (!isAllowedEmail(normalized)) {
+      setMessage('Email não autorizado. Use um email permitido para o blog.');
+      setIsSuccess(false);
+      return;
+    }
 
     setMessage('');
 

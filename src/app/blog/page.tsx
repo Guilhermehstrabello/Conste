@@ -18,15 +18,6 @@ export default async function BlogPage() {
               Artigos, guias e estudos de caso pensados para quem precisa tomar decisões de marketing sem depender de programação.
             </p>
           </div>
-          <div className="flex flex-col gap-3 sm:items-end">
-            <p className="text-sm text-slate-400">Quer publicar um novo artigo?</p>
-            <a
-              href="/blog/login?redirectTo=/blog/criar"
-              className="inline-flex items-center justify-center rounded-full bg-violet-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-violet-400"
-            >
-              Login do blog
-            </a>
-          </div>
         </div>
       </section>
 
