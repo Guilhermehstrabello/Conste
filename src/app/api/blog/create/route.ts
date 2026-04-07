@@ -2,21 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient as createSanityClient } from "@sanity/client";
 import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 
-const projectId = process.env.SANITY_PROJECT_ID || process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "";
-const dataset = process.env.SANITY_DATASET || process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
-const token = process.env.SANITY_API_TOKEN || "";
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY || "";
-
-const sanity = createSanityClient({
-  projectId,
-  dataset,
-  apiVersion: "2024-01-01",
-  useCdn: false,
-  token,
-});
-
-const supabase = createSupabaseClient(supabaseUrl, supabaseKey);
 
 const slugify = (value: string) =>
   value
@@ -24,9 +11,42 @@ const slugify = (value: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 
-export async function POST(request: NextRequest) {
+function getSanityClient() {
+  const projectId = process.env.SANITY_PROJECT_ID || "";
+  const dataset = process.env.SANITY_DATASET || "production";
+  const token = process.env.SANITY_API_TOKEN || "";
+
   if (!projectId || !token) {
-    return NextResponse.json({ message: "Sanity não está configurado." }, { status: 500 });
+    throw new Error("Sanity não está configurado: faltando SANITY_PROJECT_ID ou SANITY_API_TOKEN.");
+  }
+
+  return createSanityClient({
+    projectId,
+    dataset,
+    apiVersion: "2024-01-01",
+    useCdn: false,
+    token,
+  });
+}
+
+function getSupabaseClient() {
+  if (!supabaseUrl || !supabaseKey) {
+    throw new Error("Supabase não está configurado: faltando NEXT_PUBLIC_SUPABASE_URL ou NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY.");
+  }
+
+  return createSupabaseClient(supabaseUrl, supabaseKey);
+}
+
+export async function POST(request: NextRequest) {
+  let sanity;
+
+  try {
+    sanity = getSanityClient();
+  } catch (error) {
+    return NextResponse.json(
+      { message: error instanceof Error ? error.message : "Sanity não está configurado." },
+      { status: 500 }
+    );
   }
 
   if (!supabaseUrl || !supabaseKey) {
@@ -40,6 +60,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ message: "Acesso não autorizado." }, { status: 401 });
   }
 
+  const supabase = getSupabaseClient();
   const { data: userData, error: userError } = await supabase.auth.getUser(accessToken);
   if (userError || !userData?.user) {
     return NextResponse.json({ message: "Acesso não autorizado." }, { status: 401 });
