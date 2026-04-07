@@ -23,5 +23,5 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/scroll.tsx", "src/app/lib/firebase.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "sanity"]
 }

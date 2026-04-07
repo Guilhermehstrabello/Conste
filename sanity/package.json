@@ -1,0 +1,24 @@
+{
+  "name": "conste-sanity-studio",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "sanity dev --port 3334",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "start": "sanity start"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "sanity": "^5.14.1",
+    "styled-components": "^6.3.12"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.6",
+    "@types/react": "^18.2.45",
+    "dotenv": "^16.4.1",
+    "typescript": "^5.3.3"
+  }
+}

@@ -8,7 +8,7 @@ interface AuthContextType {
   user: User | null;
   session: Session | null;
   loading: boolean;
-  signIn: (email: string) => Promise<{ error: any }>;
+  signIn: (email: string, redirectTo?: string) => Promise<{ error: any }>;
   signOut: () => Promise<{ error: any }>;
 }
 
@@ -55,19 +55,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return () => subscription.unsubscribe();
   }, [supabase]);
 
-  const signIn = async (email: string) => {
-    // Debug
+  const signIn = async (email: string, redirectTo?: string) => {
     console.log('Tentando fazer login com:', email);
     console.log('Supabase client criado:', !!supabase);
-    
+
     try {
+      const emailRedirectTo = redirectTo
+        ? `${window.location.origin}/auth/callback?redirectTo=${encodeURIComponent(redirectTo)}`
+        : `${window.location.origin}/auth/callback`;
+
       const { error } = await supabase.auth.signInWithOtp({
         email,
         options: {
-          emailRedirectTo: `${window.location.origin}/dashboard`,
+          emailRedirectTo,
         },
       });
-      
+
       console.log('Resultado do signIn:', { error });
       return { error };
     } catch (err) {

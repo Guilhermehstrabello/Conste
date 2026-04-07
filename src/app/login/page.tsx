@@ -5,11 +5,14 @@ import { motion } from 'framer-motion';
 import { useAuth } from '../../contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
     const [isSuccess, setIsSuccess] = useState(false);
+    const searchParams = useSearchParams();
+    const redirectTo = searchParams.get('redirectTo') || '/dashboard';
     const { signIn, loading } = useAuth();
     const router = useRouter();
 
@@ -24,7 +27,7 @@ const LoginPage = () => {
         console.log('NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY existe:', !!process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY);
 
         try {
-            const { error } = await signIn(email);
+            const { error } = await signIn(email, redirectTo);
 
             if (error) {
                 console.error('Erro detalhado:', error);
