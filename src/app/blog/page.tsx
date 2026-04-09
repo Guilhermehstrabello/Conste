@@ -12,10 +12,12 @@ export default async function BlogPage() {
       <section className="mb-12">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-sm uppercase tracking-[0.35em] text-violet-400">Blog</p>
-            <h1 className="mt-4 text-4xl font-bold sm:text-5xl">Conteúdo para quem quer crescer com constância</h1>
-            <p className="mt-4 max-w-3xl text-lg text-slate-300">
-              Artigos, guias e estudos de caso pensados para quem precisa tomar decisões de marketing sem depender de programação.
+            <div className="p-4 w-fit bg-violet-800 rounded-full">
+              <p className="text-sm uppercase tracking-[0.35em] text-violet-200">Blog</p>
+            </div>
+            <h1 className="mt-4 text-2xl font-bold md:text-4xl">Conteúdo para quem quer crescer com constância</h1>
+            <p className="mt-4 max-w-3xl text-base text-slate-300">
+              Artigos, guias e estudos de case pensados para quem precisa tomar decisões de marketing estratégicas para o seu negócio.
             </p>
           </div>
         </div>
@@ -59,6 +61,7 @@ export default async function BlogPage() {
                   </div>
                   <h2 className="text-2xl font-bold text-white">{post.title}</h2>
                   <p className="text-slate-300">{post.excerpt ?? "Leia o artigo completo no blog."}</p>
+                  <button className="p-4 bg-violet-600 rounded-lg text-violet-200 underline">Ler artigo completo</button>
                 </div>
               </Link>
             );
