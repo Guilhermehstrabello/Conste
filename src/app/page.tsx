@@ -636,7 +636,7 @@ export default function Home() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 1 }}
-          className="z-10 text-white font-bold font-montserrat text-4xl md:text-6xl max-w-[960px] min-h-[130px]" // min-h evita pulos visuais durante digitação
+          className="z-10 text-white font-bold font-montserrat text-4xl md:text-6xl max-w-[840px] min-h-[130px]" // min-h evita pulos visuais durante digitação
         >
           <Typewriter
             words={['Transformamos estratégias em crescimento constante para o seu negócio.']}

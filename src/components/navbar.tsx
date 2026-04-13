@@ -21,6 +21,7 @@ const NAV_ITEMS = [
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   return (
     <nav className="bg-[#0E0E0E] sticky top-0 z-50">
@@ -111,10 +112,15 @@ const Navbar = () => {
             {NAV_ITEMS.map((item) => {
               if (item.subitems) {
                 return (
-                  <li key={item.label} className="relative group">
+                  <li
+                    key={item.label}
+                    className="relative"
+                    onMouseEnter={() => setOpenDropdown(item.label)}
+                    onMouseLeave={() => setOpenDropdown(null)}
+                  >
                     <button
                       type="button"
-                      className="flex items-center gap-2 py-3 px-5 rounded-full text-sm font-semibold text-white transition-all duration-200 hover:bg-[#310276]/15"
+                      className="flex items-center gap-2 py-4 px-5 rounded-full text-sm font-semibold text-white transition-all duration-200 hover:bg-[#310276]/15"
                     >
                       {item.label}
                       <svg
@@ -128,7 +134,7 @@ const Navbar = () => {
                       </svg>
                     </button>
 
-                    <div className="absolute left-0 top-full mt-1 hidden min-w-[260px] rounded-3xl border border-[#310276]/30 bg-[#200740] p-4 shadow-[0_20px_60px_rgba(49,2,118,0.25)] group-hover:block hover:block">
+                    <div className={`absolute left-0 top-full mt-1 min-w-[260px] rounded-3xl border border-[#310276]/30 bg-[#200740] p-4 shadow-[0_20px_60px_rgba(49,2,118,0.25)] transition-opacity duration-200 ${openDropdown === item.label ? "opacity-100 visible" : "opacity-0 invisible"}`}>
                       <div className="grid gap-2">
                         {item.subitems.map((sub) => (
                           <Link
