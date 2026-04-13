@@ -14,7 +14,7 @@ export default {
         'hero_bg': "url('/hero_bg.png')",
       },
       fontFamily: {
-        montserrat: ["Montserrat", "sans-serif"],
+        montserrat: ["Figtree", "sans-serif"],
       },
       animation: {
         'infinite-scroll': 'infinite-scroll 50s linear infinite',

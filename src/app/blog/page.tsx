@@ -1,5 +1,7 @@
+
 import Image from "next/image";
 import Link from "next/link";
+import Navbar from "@/components/navbar";
 import { getAllPosts, urlFor } from "@/app/lib/sanity";
 
 export const revalidate = 60;
@@ -8,9 +10,11 @@ export default async function BlogPage() {
   const posts = await getAllPosts();
 
   return (
-    <main className="relative overflow-hidden mx-auto px-40 py-12 text-white bg-[#05060d]">
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute left-[-10%] top-[-10%] h-[420px] w-[420px] rounded-full bg-[#ff8500]/30 blur-3xl opacity-90 animate-blogBlob1" />
+    <>
+      <Navbar />
+      <main className="relative overflow-hidden mx-auto px-40 py-12 text-white bg-[#0E0E0E]">
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute left-[-10%] top-[14%] h-[420px] w-[420px] rounded-full bg-[#ff8500]/30 blur-3xl opacity-90 animate-blogBlob1 z-60" />
         <div className="absolute right-[-10%] top-1/4 h-[520px] w-[520px] rounded-full bg-[#310276]/30 blur-3xl opacity-90 animate-blogBlob2" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.05),_transparent_35%)]" />
       </div>
@@ -74,5 +78,6 @@ export default async function BlogPage() {
         )}
       </div>
     </main>
+    </>
   );
 }
