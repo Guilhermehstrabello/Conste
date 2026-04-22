@@ -7,13 +7,13 @@ const FornecedoresForm = () => {
   const [isOfferingServices, setIsOfferingServices] = useState(false);
 
   return (
-    <section className="border-t border-white/10 px-6 py-20 lg:px-12" id="contato">
-      <div className="mx-auto max-w-6xl rounded-[2.5rem] p-10 shadow-[0_40px_120px_rgba(0,0,0,0.3)]">
-        <div className="relative overflow-hidden rounded-[2rem] bg-[#0e0e0e] px-8 py-12 text-center">
-          <Image src="/blur_top.svg" alt="Blur colorido" className="absolute top-0 left-1/2 right-1/2 -translate-x-1/2 object-cover w-[490px] h-[200px]" width={300} height={200} />
+    <section className="border-t border-white/10 px-4 py-10 lg:px-12" id="contato">
+      <div className="mx-auto max-w-6xl rounded-[2.5rem] p-2 shadow-[0_40px_120px_rgba(0,0,0,0.3)]">
+        <div className="relative overflow-hidden rounded-[2rem] bg-[#0e0e0e] px-4 py-8 text-center">
+          <Image src="/blur_top.svg" alt="Blur colorido" className="absolute top-0 left-1/2 right-1/2 -translate-x-1/2 object-cover md:w-[490px] md:h-[200px]" width={300} height={200} />
           <div className="relative z-10 mx-auto space-y-10">
             <div className="space-y-4">
-              <h2 className="text-4xl font-bold text-[#f2f2f2] sm:text-5xl lg:text-6xl">
+              <h2 className="md:text-4xl text-3xl font-bold text-[#f2f2f2] lg:text-6xl">
                 Está buscando fornecedores ou pretende entrar na nossa rede?
               </h2>
               <p className="mt-4 text-base leading-7 text-[#A3A3A3] sm:text-lg">

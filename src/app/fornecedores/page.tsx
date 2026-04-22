@@ -73,25 +73,19 @@ const categoryCards = [
 export default function FornecedoresPage() {
   return (
     <main className="min-h-screen bg-[#0E0E0E] text-white">
-      <section className="relative overflow-hidden px-6 py-20 lg:px-12">
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute left-[10%] top-20 h-[260px] w-[260px] rounded-full bg-[#8B6DFF]/20 blur-3xl" />
-          <div className="absolute right-[10%] top-10 h-[320px] w-[320px] rounded-full bg-[#74D4FF]/20 blur-3xl" />
-          <div className="absolute left-[50%] top-36 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-[#9B7BFF]/15 blur-3xl" />
-        </div>
-
+      <section className="relative overflow-hidden px-4 py-10 lg:px-12">
         <div className="relative mx-auto flex max-w-7xl flex-col items-center justify-center text-center">
           <div className="text-3xl mb-10 font-bold hover:scale-110 duration-200">
             <Image src="/Logo Conste.png" alt="Logo Conste" width={200} height={200} />
           </div>
 
-          <div className="flex flex-row mb-12 gap-12 [&:has(a:hover)>a]:scale-100 [&:has(a:hover)>a:hover]:scale-110 [&>a]:duration-100 [&>a]:inline-block">
+          <div className="flex flex-row mb-16 gap-12 [&:has(a:hover)>a]:scale-100 [&:has(a:hover)>a:hover]:scale-110 [&>a]:duration-100 [&>a]:inline-block">
             <a href="#comofunciona">Como funciona</a>
             <a href="#categorias">Categorias</a>
             <a href="#contato">Contato</a>
           </div>
 
-          <h1 className="max-w-4xl text-4xl font-bold leading-[120%] text-[#F2F2F2] md:text-6xl">
+          <h1 className="md:max-w-4xl max-w-3xl text-3xl font-bold leading-[120%] text-[#F2F2F2] md:text-6xl">
             Conecte seu projeto com os fornecedores certos
           </h1>
 
@@ -99,24 +93,24 @@ export default function FornecedoresPage() {
             Acesso gratuito a uma rede curada de fornecedores verificados. Preencha o formulário e nossa equipe faz a conexão.
           </p>
 
-          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <div className="mt-10 flex flex-row items-center justify-center gap-4">
             <Link
               href="#contato"
-              className="inline-flex min-w-[220px] items-center justify-center rounded-lg bg-[#8B6DFF] px-8 py-4 text-base font-semibold text-[#F2F2F2] transition hover:bg-[#7A5EEC]"
+              className="inline-flex md:min-w-[220px] w-fit items-center justify-center rounded-lg bg-[#8B6DFF] md:px-8 md:py-4 p-3 md:text-base text-sm font-semibold text-[#F2F2F2] transition hover:bg-[#7A5EEC]"
             >
               Estou buscando fornecedores
             </Link>
             <Link
               href="#contato"
-              className="inline-flex min-w-[220px] items-center justify-center rounded-lg border border-white/15 bg-[#7047BD]/50 px-8 py-4 text-base font-semibold text-[#E8E3FF] transition hover:border-[#8B6DFF] hover:bg-[#2A2340]"
+              className="inline-flex md:min-w-[220px] w-fit items-center justify-center rounded-lg border border-white/15 bg-[#7047BD]/50 md:px-8 md:py-4 p-3 md:text-base text-sm font-semibold text-[#E8E3FF] transition hover:border-[#8B6DFF] hover:bg-[#2A2340]"
             >
               Quero ser um fornecedor
             </Link>
           </div>
 
-          <div className="mt-16 w-full max-w-5xl rounded-[2rem] p-8">
-            <p className="text-5xl font-semibold text-[#F2F2F2]">Empresas que fazem parte</p>
-            <div className="mt-8 grid gap-4 sm:grid-cols-3 lg:grid-cols-4">
+          <div className="mt-20 w-full max-w-5xl rounded-[2rem] mx-auto p-8">
+            <p className="md:text-5xl text-4xl font-semibold text-[#F2F2F2]">Empresas que fazem parte</p>
+            <div className="mt-8 grid gap-4 self-center grid-cols-4">
               {partnerLogos.map((logo) => (
                 <Image
                   key={logo.alt}
@@ -132,10 +126,10 @@ export default function FornecedoresPage() {
         </div>
       </section>
 
-      <section id="comofunciona" className="border-t border-white/10 bg-[#0E0E0E] px-6 py-20 lg:px-12">
+      <section id="comofunciona" className="border-t border-white/10 bg-[#0E0E0E] px-4 py-10 lg:px-12">
         <div className="mx-auto max-w-full">
           <div className="mb-12 text-center">
-            <h2 className="text-5xl font-bold text-white sm:text-6xl">Como funciona</h2>
+            <h2 className="md:text-5xl text-4xl font-bold text-white">Como funciona</h2>
           </div>
 
           <div className="grid max-w-[1334px] mx-auto gap-6 lg:grid-cols-3">
@@ -190,11 +184,11 @@ export default function FornecedoresPage() {
         </div>
       </section>
 
-      <section className="bg-[#0E0E0E] px-6 py-20 lg:px-12">
+      <section className="bg-[#0E0E0E] px-4 py-10 lg:px-12">
         <div className="mx-auto max-w-full">
           <div className="flex flex-row items-center flex-wrap justify-center gap-4 lg:items-center">
 
-            <div className="w-full md:max-w-[660px] h-[480px] overflow-hidden">
+            <div className="w-full md:max-w-[660px] md:h-[480px] overflow-hidden">
               <Image
                 src="/global-connection.png"
                 alt="Fornecedores Conste"
@@ -204,9 +198,9 @@ export default function FornecedoresPage() {
               />
             </div>
 
-            <div className="w-full md:max-w-[660px] h-[480px] rounded-2xl border border-[#9747FF] p-8 flex flex-col justify-center">
+            <div className="w-full md:max-w-[660px] md:h-[480px] rounded-2xl border border-[#9747FF] p-8 flex flex-col justify-center">
               <h3 className="text-2xl font-semibold text-[#f2f2f2]">Curadoria de empresas que realmente entregam qualidade</h3>
-              <ul className="mt-10 space-y-6 text-lg text-[#f2f2f2]">
+              <ul className="mt-10 space-y-6 md:text-lg text-base text-[#f2f2f2]">
                 <li className="flex items-center gap-4">
                   <span className="mt-1 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#9747FF] text-sm font-semibold text-white">✓</span>
                   Respostas em até 48 horas;
@@ -230,10 +224,10 @@ export default function FornecedoresPage() {
         </div>
       </section>
 
-      <section id="categorias" className="bg-[#0e0e0e] px-6 py-20 lg:px-12">
+      <section id="categorias" className="bg-[#0e0e0e] px-4 py-10 lg:px-12">
         <div className="mx-auto max-w-full">
           <div className="mb-12 text-center">
-            <h2 className="text-5xl font-bold text-white sm:text-6xl">Categorias disponíveis</h2>
+            <h2 className="md:text-5xl text-4xl font-bold text-white">Categorias disponíveis</h2>
           </div>
 
           <div className="grid max-w-[1334px] mx-auto gap-6 sm:grid-cols-2 xl:grid-cols-3">
@@ -265,7 +259,7 @@ export default function FornecedoresPage() {
 
       <FornecedoresForm />
 
-      <footer className="bg-[#0e0e0e] px-6 py-12 lg:px-12">
+      <footer className="bg-[#0e0e0e] px-4 py-8 lg:px-12">
         <div className="mx-auto max-w-full">
 
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-around">
