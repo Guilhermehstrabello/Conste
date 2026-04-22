@@ -87,8 +87,8 @@ export default function FornecedoresPage() {
 
           <div className="flex flex-row mb-12 gap-12 [&:has(a:hover)>a]:scale-100 [&:has(a:hover)>a:hover]:scale-110 [&>a]:duration-100 [&>a]:inline-block">
             <a href="#comofunciona">Como funciona</a>
-            <a href="#fornecedores">Fornecedores</a>
             <a href="#categorias">Categorias</a>
+            <a href="#contato">Contato</a>
           </div>
 
           <h1 className="max-w-4xl text-4xl font-bold leading-[120%] text-[#F2F2F2] md:text-6xl">
@@ -230,7 +230,7 @@ export default function FornecedoresPage() {
         </div>
       </section>
 
-      <section className="bg-[#0e0e0e] px-6 py-20 lg:px-12">
+      <section id="categorias" className="bg-[#0e0e0e] px-6 py-20 lg:px-12">
         <div className="mx-auto max-w-full">
           <div className="mb-12 text-center">
             <h2 className="text-5xl font-bold text-white sm:text-6xl">Categorias disponíveis</h2>
@@ -265,6 +265,57 @@ export default function FornecedoresPage() {
 
       <FornecedoresForm />
 
+      <footer className="bg-[#0e0e0e] px-6 py-12 lg:px-12">
+        <div className="mx-auto max-w-full">
+
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-around">
+            <div className="flex flex-col gap-3">
+              <div className="flex items-center gap-2">
+                <img src="/Logo Conste.png" alt="Conste" className="h-7 w-auto" />
+              </div>
+            </div>
+            <div className="flex flex-col gap-2">
+              <span className="text-[20px] font-semibold leading-5 text-[#F2F2F2]">Seções</span>
+              <a href="#comofunciona" className="text-sm leading-5 text-[#F2F2F2] hover:opacity-70 transition-opacity">Como funciona</a>
+              <a href="#categorias" className="text-sm leading-5 text-[#F2F2F2] hover:opacity-70 transition-opacity">Categorias</a>
+              <a href="#contato" className="text-sm leading-5 text-[#F2F2F2] hover:opacity-70 transition-opacity">Contato</a>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <span className="text-[20px] font-semibold leading-5 text-[#F2F2F2]">Redes sociais</span>
+              <div className="flex items-center gap-3">
+                <a href="#" aria-label="Instagram" className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 hover:border-white/30 transition-colors">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.336 3.608 1.311.975.975 1.249 2.242 1.311 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.336 2.633-1.311 3.608-.975.975-2.242 1.249-3.608 1.311-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.336-3.608-1.311-.975-.975-1.249-2.242-1.311-3.608C2.175 15.584 2.163 15.204 2.163 12s.012-3.584.07-4.85c.062-1.366.336-2.633 1.311-3.608.975-.975 2.242-1.249 3.608-1.311C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.333.014 7.053.072 5.197.157 3.355.635 2.014 1.976.635 3.355.157 5.197.072 7.053.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.085 1.856.563 3.698 1.904 5.039 1.341 1.341 3.183 1.819 5.039 1.904C8.333 23.986 8.741 24 12 24s3.667-.014 4.947-.072c1.856-.085 3.698-.563 5.039-1.904 1.341-1.341 1.819-3.183 1.904-5.039.058-1.28.072-1.689.072-4.948s-.014-3.667-.072-4.947c-.085-1.856-.563-3.698-1.904-5.039C20.645.635 18.803.157 16.947.072 15.667.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" />
+                  </svg>
+                </a>
+                <a href="#" aria-label="Facebook" className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 hover:border-white/30 transition-colors">
+                  <svg width="10" height="14" viewBox="0 0 10 18" fill="white" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 1H6.5C5.4 1 4 2 4 3.5V6H1V9H4V17H7V9H9.5L10 6H7V3.5C7 3.2 7.3 3 7.5 3H9V1Z" />
+                  </svg>
+                </a>
+                <a href="#" aria-label="LinkedIn" className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 hover:border-white/30 transition-colors">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4.98 3.5C4.98 4.881 3.87 6 2.5 6S.02 4.881.02 3.5C.02 2.12 1.13 1 2.5 1s2.48 1.12 2.48 2.5zM5 8H0v16h5V8zm7.982 0H8.014v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0V24H24V13.869c0-7.88-8.922-7.593-11.018-3.714V8z" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Bottom row */}
+          <div className="mt-10 border-t border-white/10 pt-6 z-20">
+            <p className="text-sm leading-5 text-center text-[#F2F2F2]/60">
+              © {new Date().getFullYear()} Conste Conecta. Todos os direitos reservados.
+            </p>
+          </div>
+
+        </div>
+
+        <Image src="/blur_footer_bg.svg" alt="Blur colorido" className="object-cover w-full mx-auto left-0 -z-0 absolute" width={200} height={200} />
+
+      </footer>
     </main>
   );
 }
