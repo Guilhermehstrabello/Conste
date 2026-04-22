@@ -1,5 +1,7 @@
+
 import Image from "next/image";
 import Link from "next/link";
+import Navbar from "@/components/navbar";
 import { getAllPosts, urlFor } from "@/app/lib/sanity";
 
 export const revalidate = 60;
@@ -8,14 +10,23 @@ export default async function BlogPage() {
   const posts = await getAllPosts();
 
   return (
-    <main className="mx-auto max-w-6xl px-6 py-12 text-white">
-      <section className="mb-12">
+    <>
+      <Navbar />
+      <main className="relative overflow-hidden mx-auto px-40 py-12 text-white bg-[#0E0E0E]">
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute left-[-10%] top-[14%] h-[420px] w-[420px] rounded-full bg-[#ff8500]/30 blur-3xl opacity-90 animate-blogBlob1 z-60" />
+        <div className="absolute right-[-10%] top-1/4 h-[520px] w-[520px] rounded-full bg-[#310276]/30 blur-3xl opacity-90 animate-blogBlob2" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.05),_transparent_35%)]" />
+      </div>
+      <section className="relative mb-12">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-sm uppercase tracking-[0.35em] text-violet-400">Blog</p>
-            <h1 className="mt-4 text-4xl font-bold sm:text-5xl">Conteúdo para quem quer crescer com constância</h1>
-            <p className="mt-4 max-w-3xl text-lg text-slate-300">
-              Artigos, guias e estudos de caso pensados para quem precisa tomar decisões de marketing sem depender de programação.
+            <div className="p-4 w-fit bg-violet-800 rounded-full">
+              <p className="text-sm uppercase tracking-[0.35em] text-violet-200">Blog</p>
+            </div>
+            <h1 className="mt-4 text-2xl font-bold md:text-4xl">Conteúdo para quem quer crescer com constância</h1>
+            <p className="mt-4 max-w-3xl text-base text-slate-300">
+              Artigos, guias e estudos de case pensados para quem precisa tomar decisões de marketing estratégicas para o seu negócio.
             </p>
           </div>
         </div>
@@ -59,6 +70,7 @@ export default async function BlogPage() {
                   </div>
                   <h2 className="text-2xl font-bold text-white">{post.title}</h2>
                   <p className="text-slate-300">{post.excerpt ?? "Leia o artigo completo no blog."}</p>
+                  <button className="p-4 bg-violet-600 rounded-lg text-violet-200 underline">Ler artigo completo</button>
                 </div>
               </Link>
             );
@@ -66,5 +78,6 @@ export default async function BlogPage() {
         )}
       </div>
     </main>
+    </>
   );
 }

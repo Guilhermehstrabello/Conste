@@ -34,7 +34,6 @@
     "react-simple-typewriter": "^5.0.1",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
-    "@portabletext/react": "^2.5.0",
     "@portabletext/react": "^4.0.3",
     "@sanity/client": "^7.20.0",
     "@sanity/image-url": "^2.1.1"
