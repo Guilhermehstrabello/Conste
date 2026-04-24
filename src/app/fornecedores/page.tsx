@@ -73,52 +73,67 @@ const categoryCards = [
 export default function FornecedoresPage() {
   return (
     <main className="min-h-screen bg-[#0E0E0E] text-white">
-      <section className="relative overflow-hidden px-4 py-10 lg:px-12">
-        <div className="relative mx-auto flex max-w-7xl flex-col items-center justify-center text-center">
-          <div className="text-3xl mb-10 font-bold hover:scale-110 duration-200">
+      <section className="relative isolate overflow-hidden px-4 pb-12 pt-10 sm:pt-14 lg:px-12 lg:pb-16">
+        <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-center">
+          <Image
+            src="/bg_blur_hero.png"
+            alt="Background roxo desfocado"
+            width={1400}
+            height={760}
+            priority
+            className="md:max-h-screen h-screen w-full md:object-fill object-cover opacity-100"
+          />
+        </div>
+
+
+        <div className="relative mx-auto flex w-full max-w-6xl flex-col items-center text-center">
+          <div className="mb-8 text-3xl font-bold transition duration-200 hover:scale-110 sm:mb-10">
             <Image src="/Logo Conste.png" alt="Logo Conste" width={200} height={200} />
           </div>
 
-          <div className="flex flex-row mb-16 gap-12 [&:has(a:hover)>a]:scale-100 [&:has(a:hover)>a:hover]:scale-110 [&>a]:duration-100 [&>a]:inline-block">
+          <div className="mb-12 flex flex-wrap items-center justify-center gap-6 text-sm sm:mb-16 sm:gap-12 sm:text-base [&:has(a:hover)>a]:scale-100 [&:has(a:hover)>a:hover]:scale-110 [&>a]:inline-block [&>a]:duration-100">
             <a href="#comofunciona">Como funciona</a>
             <a href="#categorias">Categorias</a>
             <a href="#contato">Contato</a>
           </div>
 
-          <h1 className="md:max-w-4xl max-w-3xl text-3xl font-bold leading-[120%] text-[#F2F2F2] md:text-6xl">
+          <h1 className="max-w-[920px] text-4xl font-bold leading-[1.12] text-[#F2F2F2] lg:text-5xl">
             Conecte seu projeto com os fornecedores certos
           </h1>
 
-          <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-[#D7D7D7] sm:text-lg">
-            Acesso gratuito a uma rede curada de fornecedores verificados. Preencha o formulário e nossa equipe faz a conexão.
+          <p className="mx-auto mt-5 max-w-3xl text-base leading-7 text-[#D7D7D7] sm:text-lg sm:leading-8">
+            Acesso gratuito a uma rede curada de fornecedores verificados.
+            <br className="hidden sm:block" /> Preencha o formulário e nossa equipe faz a conexão.
           </p>
 
-          <div className="mt-10 flex flex-row items-center justify-center gap-4">
+          <div className="mt-8 flex w-full max-w-2xl flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
             <Link
               href="#contato"
-              className="inline-flex md:min-w-[220px] w-fit items-center justify-center rounded-lg bg-[#8B6DFF] md:px-8 md:py-4 p-3 md:text-base text-sm font-semibold text-[#F2F2F2] transition hover:bg-[#7A5EEC]"
+              className="inline-flex w-full items-center justify-center rounded-lg bg-[#8B6DFF] px-6 py-3 text-sm font-semibold text-[#F2F2F2] transition hover:bg-[#7A5EEC] sm:w-auto sm:min-w-[240px] sm:px-8 sm:py-4 sm:text-base"
             >
               Estou buscando fornecedores
             </Link>
             <Link
               href="#contato"
-              className="inline-flex md:min-w-[220px] w-fit items-center justify-center rounded-lg border border-white/15 bg-[#7047BD]/50 md:px-8 md:py-4 p-3 md:text-base text-sm font-semibold text-[#E8E3FF] transition hover:border-[#8B6DFF] hover:bg-[#2A2340]"
+              className="inline-flex w-full items-center justify-center rounded-lg border border-white/15 bg-[#7047BD]/50 px-6 py-3 text-sm font-semibold text-[#E8E3FF] transition hover:border-[#8B6DFF] hover:bg-[#2A2340] sm:w-auto sm:min-w-[240px] sm:px-8 sm:py-4 sm:text-base"
             >
               Quero ser um fornecedor
             </Link>
           </div>
 
-          <div className="mt-20 w-full max-w-5xl rounded-[2rem] mx-auto p-8">
-            <p className="md:text-5xl text-4xl font-semibold text-[#F2F2F2]">Empresas que fazem parte</p>
-            <div className="mt-8 grid gap-4 self-center grid-cols-4">
+          <div className="mt-14 w-full max-w-5xl rounded-[2rem] px-2 py-4 sm:mt-20 sm:px-6">
+            <p className="text-3xl font-semibold text-[#F2F2F2] sm:text-4xl lg:text-6xl">
+              Empresas que fazem parte
+            </p>
+            <div className="mx-auto mt-7 grid max-w-4xl grid-cols-2 gap-x-4 gap-y-6 lg:grid-cols-4">
               {partnerLogos.map((logo) => (
                 <Image
-                  key={logo.alt}
+                  key={logo.src}
                   src={logo.src}
                   alt={logo.alt}
-                  width={120}
-                  height={40}
-                  className="object-contain"
+                  width={200}
+                  height={200}
+                  className="h-30 w-40 object-cover"
                 />
               ))}
             </div>
