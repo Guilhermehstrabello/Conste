@@ -382,7 +382,7 @@ const setores = [
   {
     key: "social",
     label: "Gestão de mídias sociais",
-    image: "/midias.png",
+    image: "/Entregáveis redes sociais.png",
     title: "Gestão de Mídias Sociais",
     description: [
       "Planejamento e produção de conteúdo estratégico",
@@ -404,7 +404,7 @@ const setores = [
   {
     key: "dev",
     label: "Desenvolvimento de Sites",
-    image: "/dev.png",
+    image: "/Entregáveis site.png",
     title: "Desenvolvimento de Sites",
     description: [
       "Sites institucionais, landing pages e e-commerce",
@@ -678,7 +678,7 @@ export default function Home() {
       </section>
 
       <section className="flex flex-col lg:w-full items-center justify-center py-20 mx-auto" id="setores">
-        <h2 className="md:text-4xl text-3xl text-white font-bold mb-6 text-center md:w-full max-w-[780px] w-[320px]">
+        <h2 className="md:text-5xl text-3xl text-white font-bold mb-6 text-center md:w-full max-w-[780px] w-[320px]">
           Serviços que farão sua empresa se <span className="text-[#FF8500]">destacar</span> no digital
         </h2>
         <p className="text-[#BABABA] text-lg mb-10 text-center max-w-[600px] md:w-full w-[320px]">

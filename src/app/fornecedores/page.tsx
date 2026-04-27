@@ -2,6 +2,18 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import FornecedoresForm from "./FornecedoresForm";
 import Image from "next/image";
+import {
+  Layers,           // Telhas metálicas, Bobinas metálicas
+  HeartPulse,       // Saúde
+  Cpu,              // Centro de Usinagem
+  Bot,              // Automação Industrial
+  Wrench,           // Ferramentas para Usinagem
+  Globe,            // Comércio Exterior
+  Scale,            // Escritório de advocacia
+  Frame,           // Esquadria de Alumínio
+  Tag,             // Letra caixa, adesivos
+  Printer,          // Papelaria personalizada
+} from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Fornecedores | Conste",
@@ -28,14 +40,15 @@ const benefits = [
 ];
 
 const partnerLogos = [
-  { src: "/1.png", alt: "TechCorp" },
-  { src: "/2.png", alt: "TechCorp" },
-  { src: "/3.png", alt: "TechCorp" },
-  { src: "/4.png", alt: "TechCorp" },
-  { src: "/5.png", alt: "FinServe" },
-  { src: "/6.png", alt: "FinServe" },
-  { src: "/7.png", alt: "TechCorp" },
-  { src: "/8.png", alt: "TechCorp" },
+  { src: "/17.png", alt: "Comercial Bandeirantes logo" },
+  { src: "/15.png", alt: "J.E. Polimetal logo" },
+  { src: "/14.png", alt: "Alumifine logo" },
+  { src: "/10.png", alt: "JMEX logo" },
+  { src: "/30.png", alt: "M Mill logo" },
+  { src: "/20.png", alt: "Q Ajuste logo" },
+  { src: "/32.png", alt: "Blaselbauer & Constant logo" },
+  { src: "/36.png", alt: "LD Consult logo" },
+  { src: "/35.png", alt: "Amplia Logo" },
 ];
 
 const processSteps = [
@@ -61,13 +74,17 @@ const processSteps = [
   },
 ];
 
-const categoryCards = [
-  { title: "Contabilidade", subtitle: "3 fornecedores" },
-  { title: "Fotografia e Vídeo", subtitle: "3 fornecedores" },
-  { title: "Tecnologia e Desenvolvimento", subtitle: "3 fornecedores" },
-  { title: "Design e Branding", subtitle: "3 fornecedores" },
-  { title: "Eventos e Estrutura", subtitle: "3 fornecedores" },
-  { title: "Logística e Distribuição", subtitle: "3 fornecedores" },
+const categories = [
+  { title: "Telhas e bobinas metálicas", subtitle: "1 fornecedor", icon: Layers },
+  { title: "Saúde", subtitle: "1 fornecedor", icon: HeartPulse },
+  { title: "Centro de Usinagem", subtitle: "1 fornecedor", icon: Cpu },
+  { title: "Automação Industrial", subtitle: "1 fornecedor", icon: Bot },
+  { title: "Ferramentas para Usinagem", subtitle: "1 fornecedor", icon: Wrench },
+  { title: "Comércio Exterior", subtitle: "1 fornecedor", icon: Globe },
+  { title: "Escritório de advocacia", subtitle: "1 fornecedor", icon: Scale },
+  { title: "Esquadria de Alumínio", subtitle: "1 fornecedor", icon: Frame },
+  { title: "Letra caixa, adesivos", subtitle: "1 fornecedor", icon: Tag },
+  { title: "Papelaria personalizada", subtitle: "1 fornecedor", icon: Printer },
 ];
 
 export default function FornecedoresPage() {
@@ -121,11 +138,11 @@ export default function FornecedoresPage() {
             </Link>
           </div>
 
-          <div className="mt-14 w-full max-w-5xl rounded-[2rem] px-2 py-4 sm:mt-20 sm:px-6">
-            <p className="text-3xl font-semibold text-[#F2F2F2] sm:text-4xl lg:text-6xl">
+          <div className="mt-14 w-full mx-auto rounded-[2rem] px-2 py-4 sm:mt-20 sm:px-6">
+            <p className="text-3xl font-semibold text-[#F2F2F2] lg:text-6xl">
               Empresas que fazem parte
             </p>
-            <div className="mx-auto mt-7 grid max-w-4xl grid-cols-2 gap-x-4 gap-y-6 lg:grid-cols-4">
+            <div className="mx-auto items-center justify-center mt-4 grid max-w-4xl grid-cols-2 gap-x-6 gap-y-6 lg:grid-cols-5">
               {partnerLogos.map((logo) => (
                 <Image
                   key={logo.src}
@@ -239,35 +256,36 @@ export default function FornecedoresPage() {
         </div>
       </section>
 
-      <section id="categorias" className="bg-[#0e0e0e] px-4 py-10 lg:px-12">
+      <section id="categorias" className="bg-[#0E0E0E] px-4 py-10 lg:px-12">
         <div className="mx-auto max-w-full">
           <div className="mb-12 text-center">
             <h2 className="md:text-5xl text-4xl font-bold text-white">Categorias disponíveis</h2>
           </div>
 
-          <div className="grid max-w-[1334px] mx-auto gap-6 sm:grid-cols-2 xl:grid-cols-3">
-            {categoryCards.map((category) => (
-              <div
-                key={category.title}
-                className="group relative overflow-hidden rounded-[2rem]"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-[#1d1135] via-[#2a184f] to-[#14091d] opacity-90" />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(108,86,247,0.24),_transparent_30%),radial-gradient(circle_at_bottom_right,_rgba(116,215,255,0.18),_transparent_25%)]" />
-                <div className="relative h-[260px] bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0)_60%)]">
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(120,95,255,0.18),transparent_25%),radial-gradient(circle_at_bottom_right,rgba(94,214,255,0.16),transparent_22%)]" />
-                </div>
-                <div className="relative flex flex-col justify-between p-6">
-                  <div>
-                    <p className="text-2xl font-semibold text-white">{category.title}</p>
+          <div className="max-w-[1080px] mx-auto columns-2 gap-4 space-y-4">
+            {categories.map((category) => {
+              const Icon = category.icon;
+              return (
+                <div
+                  key={category.title}
+                  className="group relative overflow-hidden rounded-md break-inside-avoid"
+                >
+                  <div className="relative flex flex-row items-center justify-between p-6 bg-[#9747FF]/10 hover:bg-[#9747FF]/20 transition-colors duration-200">
+                    <div className="flex items-center gap-3">
+                      <div className="flex items-center justify-center w-10 h-10 rounded-md bg-[#9747FF]/20 text-[#9747FF] shrink-0">
+                        <Icon size={20} />
+                      </div>
+                      <p className="text-xl font-semibold text-white">{category.title}</p>
+                    </div>
+                    <div className="flex items-center justify-between gap-4 ml-4">
+                      <span className="rounded-full border border-[#9747FF]/80 bg-[#9747FF]/60 px-4 py-2 text-sm font-semibold text-white whitespace-nowrap">
+                        {category.subtitle}
+                      </span>
+                    </div>
                   </div>
-                  <div className="mt-6 flex items-center justify-between gap-4">
-                    <span className="rounded-full border border-white/10 bg-[#6D4CFF] px-4 py-2 text-sm font-semibold text-white">
-                      {category.subtitle}
-                    </span>
-                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
