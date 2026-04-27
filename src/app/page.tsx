@@ -4,7 +4,6 @@ import ClientLogos from "@/components/clientslogo";
 import SmoothScroll from "@/components/scroll";
 import FormModal from "@/components/formbutton";
 import Image from "next/image";
-import GlassCard from "@/components/glasscard";
 import Footer from "@/components/footer";
 import { motion, useInView } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
@@ -393,7 +392,7 @@ const setores = [
   {
     key: "branding",
     label: "Identidade Visual e Branding",
-    image: "/id-visual.png",
+    image: "/Entregáveis logotipo.png",
     title: "Identidade Visual e Branding",
     description: [
       "Criação de logotipo e identidade visual",
@@ -415,7 +414,8 @@ const setores = [
   {
     key: "video",
     label: "Criação e edição de vídeos",
-    image: "/visual.png",
+    image: "",           // campo vazio para manter o tipo consistente
+    video: "/criação e edição de vídeos.mp4",
     title: "Criação e Edição de Vídeos",
     description: [
       "Captação e edição profissional de vídeos",
@@ -707,13 +707,26 @@ export default function Home() {
           className="flex flex-col md:flex-row items-center justify-center gap-10 border border-[#310276] rounded-xl p-8 w-[320px] md:w-full md:max-w-[1080px] md:h-[400px] h-[600px] bg-[#0e0e0e]"
         >
           <div className="flex-shrink-0 mb-6 md:mb-0">
-            <Image
-              src={activeSetor.image}
-              alt={activeSetor.title}
-              width={540}
-              height={400}
-              className="rounded-xl shadow-lg"
-            />
+            {"video" in activeSetor && activeSetor.video ? (
+              <video
+                src={activeSetor.video}
+                autoPlay
+                loop
+                muted
+                playsInline
+                width={600}
+                height={400}
+                className="rounded-xl"
+              />
+            ) : (
+              <Image
+                src={activeSetor.image}
+                alt={activeSetor.title}
+                width={600}
+                height={400}
+                className="rounded-xl"
+              />
+            )}
           </div>
           <div className="text-left">
             <h3 className="text-white font-bold md:text-2xl text-xl mb-4">{activeSetor.title}</h3>
