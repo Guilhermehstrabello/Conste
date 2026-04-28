@@ -5,6 +5,7 @@ import { shootConfetti } from "./confetti";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { createPortal } from "react-dom";
+import { X } from "lucide-react";
 
 interface FormModalProps {
   buttonText: string;
@@ -115,20 +116,30 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 50 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="bg-white p-6 shadow-2xl w-full max-w-[500px] relative rounded-[8px] max-h-[90vh] overflow-y-auto"
+            className="bg-[#1A0B2E] border border-[#40009E] p-6 shadow-2xl w-full max-w-[500px] relative rounded-[8px] max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
             style={{ position: 'relative' }}
           >
             <button
+              type="button"
               onClick={() => setIsOpen(false)}
-              className="absolute top-4 right-4 text-[#310276] hover:text-[#40009E] text-xl font-bold transition-colors duration-200"
-            >✖</button>
+              aria-label="Fechar modal"
+              className="absolute top-4 right-4 text-[#B9A3E3] hover:text-white transition-colors duration-200"
+            >
+              <X size={28} strokeWidth={2.5} />
+            </button>
 
-            <h2 className="text-lg font-bold mb-4">Preencha o formulário e fale com um especialista</h2>
+            <h2 className="text-lg font-bold mb-4 text-white">Preencha o formulário e fale com um especialista</h2>
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-              <div className="text-sm font-medium">
+              <div className="text-base font-medium text-[#E8E2F5]">
                 Passo {stepIndex + 1} de {steps.length}
+              </div>
+              <div className="h-2 w-full bg-[#382108] rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-[#ff8500] transition-all duration-300"
+                  style={{ width: `${((stepIndex + 1) / steps.length) * 100}%` }}
+                />
               </div>
 
               {currentStep === "name" && (
@@ -138,7 +149,7 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="border p-3 rounded w-full"
+                  className="w-full rounded-lg border border-[#310276]/60 bg-[#0E0E0E]/40 px-4 py-3 text-white outline-none transition focus:border-[#310276]"
                 />
               )}
               {currentStep === "company" && (
@@ -147,7 +158,7 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
                   placeholder="Nome da empresa"
                   value={formData.company}
                   onChange={handleChange}
-                  className="border p-3 rounded w-full"
+                  className="w-full rounded-lg border border-[#310276]/60 bg-[#0E0E0E]/40 px-4 py-3 text-white outline-none transition focus:border-[#310276]"
                 />
               )}
               {currentStep === "email" && (
@@ -158,7 +169,7 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="border p-3 rounded w-full"
+                  className="w-full rounded-lg border border-[#310276]/60 bg-[#0E0E0E]/40 px-4 py-3 text-white outline-none transition focus:border-[#310276]"
                 />
               )}
               {currentStep === "phone" && (
@@ -168,24 +179,24 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
                   value={formData.phone}
                   onChange={handlePhoneChange}
                   required
-                  className="border p-3 rounded w-full"
+                  className="w-full rounded-lg border border-[#310276]/60 bg-[#0E0E0E]/40 px-4 py-3 text-white outline-none transition focus:border-[#310276]"
                 />
               )}
 
-              <div className="flex justify-center gap-4 items-center mt-4">
-                {stepIndex > 0 && (
+              <div className="flex justify-start gap-4 items-center mt-4">
+                {stepIndex !== steps.length - 1 && (
                   <button
                     type="button"
                     onClick={handlePrev}
-                    className="text-sm text-[#310276] hover:underline"
+                    className="text-base text-[#f2f2f2] rounded-md py-2 px-4 font-bold border border-[#310276]/40 bg-[#0E0E0E]/40 hover:border-[#310276] hover:bg-[#0E0E0E] duration-200 outline-none transition focus:border-[#310276]"
                   >Voltar</button>
                 )}
 
-                {stepIndex < steps.length - 1 ? (
+                {stepIndex !== steps.length - 1 ? (
                   <button
                     type="button"
                     onClick={handleNext}
-                    className="bg-[#310276] hover:bg-[#40009E] text-white font-bold py-2 px-4 rounded"
+                    className="bg-[#310276] text-base hover:bg-[#40009E] duration-200 text-[#f2f2f2] font-bold py-2 px-4 rounded-md"
                   >Avançar</button>
                 ) : (
                   <button
@@ -198,12 +209,6 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
                 )}
               </div>
 
-              <div className="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-[#310276] transition-all duration-300"
-                  style={{ width: `${((stepIndex + 1) / steps.length) * 100}%` }}
-                />
-              </div>
             </form>
           </motion.div>
         </motion.div>
@@ -228,8 +233,6 @@ const FormModal: React.FC<FormModalProps> = ({ buttonText }) => {
         </span>
       </button>
       {mounted && isOpen && createPortal(modalContent, document.body)}
-
-
 
     </div>
   );
