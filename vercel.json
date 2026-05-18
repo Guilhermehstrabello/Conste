@@ -2,9 +2,6 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/nps",
-       }, {
-      "source": "/(.*)",
       "destination": "/construcao",
       "has": [
         {
@@ -12,7 +9,8 @@
           "value": "construcao.constemarketing.com.br"
         }
       ]
-    }, {
+    },
+    {
       "source": "/(.*)",
       "destination": "/nps",
       "has": [
