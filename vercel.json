@@ -1,75 +1,11 @@
 {
-  "rewrites": [
-    {
-      "source": "/",
-      "destination": "/construcao",
-      "has": [
-        {
-          "type": "host",
-          "value": "construcao.constemarketing.com.br"
-        }
-      ]
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/construcao/$1",
-      "has": [
-        {
-          "type": "host",
-          "value": "construcao.constemarketing.com.br"
-        }
-      ]
-    },
-    {
-      "source": "/",
-      "destination": "/nps",
-      "has": [
-        {
-          "type": "host",
-          "value": "nps.constemarketing.com.br"
-        }
-      ]
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/nps/$1",
-      "has": [
-        {
-          "type": "host",
-          "value": "nps.constemarketing.com.br"
-        }
-      ]
-    }
-  ],
-  "redirects": [
-    {
-      "source": "/nps",
-      "destination": "https://nps.constemarketing.com.br",
-      "permanent": true,
-      "has": [
-        {
-          "type": "host",
-          "value": "constemarketing.com.br"
-        }
-      ]
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
-        }
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-XSS-Protection", "value": "1; mode=block" }
       ]
     }
   ]
