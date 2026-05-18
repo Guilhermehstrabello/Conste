@@ -3,6 +3,18 @@
     {
       "source": "/(.*)",
       "destination": "/nps",
+       }, {
+      "source": "/(.*)",
+      "destination": "/construcao",
+      "has": [
+        {
+          "type": "host",
+          "value": "construcao.constemarketing.com.br"
+        }
+      ]
+    }, {
+      "source": "/(.*)",
+      "destination": "/nps",
       "has": [
         {
           "type": "host",
@@ -12,17 +24,6 @@
     }
   ],
   "redirects": [
-    {
-      "source": "/(.*)",
-      "destination": "https://constemarketing.com.br/construcao",
-      "permanent": false,
-      "has": [
-        {
-          "type": "host",
-          "value": "construcao.constemarketing.com.br"
-        }
-      ]
-    },
     {
       "source": "/nps",
       "destination": "https://nps.constemarketing.com.br",
