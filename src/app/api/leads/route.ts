@@ -81,10 +81,137 @@ export async function POST(req: Request) {
             auth: { user, pass },
           });
 
+          const htmlContent = `
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+            <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>Novo Lead - Conste Marketing</title>
+              <style>
+                body {
+                  font-family: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                  background: #f5f5f5;
+                  margin: 0;
+                  padding: 20px;
+                }
+                .container {
+                  max-width: 600px;
+                  margin: 0 auto;
+                  background: white;
+                  border-radius: 12px;
+                  overflow: hidden;
+                  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                }
+                .header {
+                  background: linear-gradient(135deg, #310276 0%, #40009E 100%);
+                  color: white;
+                  padding: 30px 20px;
+                  text-align: center;
+                }
+                .header h1 {
+                  margin: 0;
+                  font-size: 28px;
+                  font-weight: bold;
+                }
+                .header p {
+                  margin: 8px 0 0 0;
+                  font-size: 14px;
+                  opacity: 0.9;
+                }
+                .content {
+                  padding: 30px 20px;
+                }
+                .lead-info {
+                  background: #dbdbdb;
+                }
+                .lead-field {
+                  margin-bottom: 16px;
+                }
+                .lead-field:last-child {
+                  margin-bottom: 0;
+                }
+                .field-label {
+                  color: #310276;
+                  font-weight: 700;
+                  font-size: 14px;
+                  text-transform: uppercase;
+                  margin-bottom: 4px;
+                }
+                .field-value {
+                  color: #333;
+                  font-size: 16px;
+                  word-break: break-word;
+                }
+                .timestamp {
+                  text-align: center;
+                  color: #999;
+                  font-size: 12px;
+                  margin-top: 20px;
+                  padding-top: 20px;
+                  border-top: 1px solid #eee;
+                }
+                .footer {
+                  background: #0E0E0E;
+                  color: #B9A3E3;
+                  padding: 20px;
+                  text-align: center;
+                  font-size: 12px;
+                }
+                .footer p {
+                  margin: 5px 0;
+                }
+              </style>
+            </head>
+            <body>
+              <div class="container">
+                <div class="header">
+                  <h1>Novo Lead Recebido!</h1>
+                  <p>Um visitante interessado em crescer sua empresa entrou em contato</p>
+                </div>
+                
+                <div class="content">
+                  <div class="lead-info">
+                    <div class="lead-field">
+                      <div class="field-label">👤 Nome</div>
+                      <div class="field-value">${name ?? '-'}</div>
+                    </div>
+                    
+                    <div class="lead-field">
+                      <div class="field-label">🏢 Empresa</div>
+                      <div class="field-value">${company ?? '-'}</div>
+                    </div>
+                    
+                    <div class="lead-field">
+                      <div class="field-label">📧 Email</div>
+                      <div class="field-value"><a href="mailto:${email ?? '#'}" style="color: #310276; text-decoration: none;">${email ?? '-'}</a></div>
+                    </div>
+                    
+                    <div class="lead-field">
+                      <div class="field-label">📱 Telefone</div>
+                      <div class="field-value"><a href="tel:${phone?.replace(/\D/g, '') ?? '#'}" style="color: #310276; text-decoration: none;">${phone ?? '-'}</a></div>
+                    </div>
+                  </div>
+                  
+                  <div class="timestamp">
+                    📅 Recebido em ${new Date().toLocaleString('pt-BR')}
+                  </div>
+                </div>
+                
+                <div class="footer">
+                  <p>💼 Conste Marketing</p>
+                  <p>Transformando empresas através de marketing digital estratégico</p>
+                </div>
+              </div>
+            </body>
+            </html>
+          `;
+
           const mailOptions = {
-            from: `Conste site <${fromAddr}>`,
+            from: `Conste - Novo Lead <${fromAddr}>`,
             to: toList,
-            subject: 'Novo lead recebido!',
+            subject: `🚀 Novo Lead: ${name} - ${company}`,
+            html: htmlContent,
             text: `Nome: ${name ?? '-'}\nE-mail: ${email ?? '-'}\nTelefone: ${phone ?? '-'}\nEmpresa: ${company ?? '-'}`,
           } as const;
 

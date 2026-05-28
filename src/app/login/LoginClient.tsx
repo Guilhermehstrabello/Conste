@@ -10,10 +10,14 @@ export default function LoginClient() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
+  const [devMessage, setDevMessage] = useState('');
+  const [devLoading, setDevLoading] = useState(false);
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get('redirectTo') || '/dashboard';
   const { signIn, loading } = useAuth();
   const router = useRouter();
+  const localDevMode = process.env.NODE_ENV === 'development';
+  const devModeEnabled = localDevMode || process.env.NEXT_PUBLIC_DEV_MODE === 'true';
 
   const handleMagicLink = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,6 +40,33 @@ export default function LoginClient() {
       console.error('Erro capturado:', error);
       setMessage('Erro ao enviar link de login. Tente novamente.');
       setIsSuccess(false);
+    }
+  };
+
+  const handleDevLogin = async () => {
+    if (!email) return;
+    setDevMessage('');
+    setDevLoading(true);
+
+    try {
+      const res = await fetch('/api/dev-auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+
+      const payload = await res.json();
+      if (!res.ok) {
+        setDevMessage(payload.error || 'Não foi possível entrar no modo dev.');
+        return;
+      }
+
+      router.push('/dashboard/leads');
+    } catch (err) {
+      console.error('Erro dev login:', err);
+      setDevMessage('Erro ao entrar em modo dev. Tente novamente.');
+    } finally {
+      setDevLoading(false);
     }
   };
 
@@ -135,6 +166,30 @@ export default function LoginClient() {
                 </span>
               </motion.button>
             </motion.form>
+
+            {devModeEnabled && (
+              <div className="mt-6 p-4">
+                <div className="text-sm text-[#FFE0C0] font-semibold mb-3">
+                  Acesso local ao dashboard
+                </div>
+                <div className="text-[#B9A3E3] text-sm mb-4">
+                  Digite seu email e clique no botão abaixo para entrar rapidamente no dashboard enquanto estiver em desenvolvimento.
+                </div>
+                <button
+                  type="button"
+                  onClick={handleDevLogin}
+                  disabled={devLoading || !email}
+                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-[100px] bg-gradient-to-r from-[#ff8500] to-[#f2d16b] text-[#0E0E0E] font-semibold hover:brightness-95 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                >
+                  {devLoading ? 'Entrando...' : 'Entrar localmente'}
+                </button>
+                {devMessage && (
+                  <div className="text-center text-sm text-[#FFE0C0] mt-3">
+                    {devMessage}
+                  </div>
+                )}
+              </div>
+            )}
 
             {message && (
               <motion.div
