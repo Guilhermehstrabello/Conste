@@ -117,13 +117,13 @@ export async function POST(req: Request) {
                 .header p {
                   margin: 8px 0 0 0;
                   font-size: 14px;
-                  opacity: 0.9;
+                  color: white;
                 }
                 .content {
-                  padding: 30px 20px;
                 }
                 .lead-info {
                   background: #dbdbdb;
+                  padding: 20px;
                 }
                 .lead-field {
                   margin-bottom: 16px;

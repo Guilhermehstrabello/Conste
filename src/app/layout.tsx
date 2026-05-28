@@ -5,6 +5,8 @@ import { Analytics } from "@vercel/analytics/next"
 import Script from "next/script";
 import SmoothScroll from "@/components/scroll";
 import { AuthProvider } from "../contexts/AuthContext";
+import { Suspense } from "react";
+import MetaPixel from '@/components/MetaPixel'
 
 export const metadata: Metadata = {
   title: "Conste",
@@ -29,8 +31,12 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="font-montserrat">
-          {/* Script Microsoft Clarity */}
+      <body className="font-figtree">
+        {/* Script Microsoft Clarity */}
+
+        <Suspense fallback={null}>
+          <MetaPixel />
+        </Suspense>
         <Script
           id="microsoft-clarity-analytics"
           strategy="afterInteractive"

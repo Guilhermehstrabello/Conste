@@ -61,6 +61,14 @@ const FormPageClient: React.FC = () => {
 
   const handleNext = () => {
     if (stepIndex < steps.length - 1) {
+
+      // ✅ Registra o step que acabou de ser preenchido
+    window.fbq('trackCustom', 'FormStepCompleted', {
+      step: currentStep,
+      step_number: stepIndex + 1,
+    })
+
+    
       setStepIndex((prev) => prev + 1);
     }
   };
@@ -86,6 +94,12 @@ const FormPageClient: React.FC = () => {
         throw new Error(errBody?.error || `API error ${res.status}`);
       }
 
+      window.fbq('track', 'Lead', {
+      content_name: 'Form de Contato',
+      currency: 'BRL',
+      value: 0,
+    });
+
       setFormData({ name: "", email: "", phone: "", company: "" });
       shootConfetti();
       router.push("/obrigado");
@@ -107,7 +121,7 @@ const FormPageClient: React.FC = () => {
       >
         {/* Header com logo/branding */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl lg:text-5xl font-bold text-white mb-2">
+          <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">
             Vamos crescer juntos
           </h1>
           <p className="text-lg text-[#B9A3E3]">
@@ -218,7 +232,7 @@ const FormPageClient: React.FC = () => {
                 className="flex items-center gap-2 px-6 py-3 rounded-lg border border-[#310276]/40 bg-[#0E0E0E]/40 text-[#f2f2f2] hover:border-[#310276] hover:bg-[#0E0E0E] disabled:opacity-50 disabled:cursor-not-allowed duration-200 transition font-semibold"
               >
                 <ArrowLeft size={20} />
-                <span className="hidden sm:inline">Voltar</span>
+                <span className="">Voltar</span>
               </button>
 
               {stepIndex !== steps.length - 1 ? (
@@ -256,7 +270,7 @@ const FormPageClient: React.FC = () => {
         {/* Footer com confiança */}
         <div className="text-center mt-12 text-[#B9A3E3] text-sm">
           <p className="flex items-center justify-center gap-2">
-            ✓ Responderemos em até 24 horas
+          Responderemos em até 24 horas
           </p>
           <p className="mt-2">Seus dados são 100% seguros conosco</p>
         </div>
