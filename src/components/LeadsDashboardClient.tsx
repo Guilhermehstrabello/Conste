@@ -14,13 +14,51 @@ interface Lead {
   email: string;
   phone: string;
   company: string;
+  source?: string | null;
   created_at: string;
 }
+
+interface CustomCheckboxProps {
+  checked: boolean;
+  onChange: () => void;
+  ariaLabel: string;
+  className?: string;
+}
+
+const CustomCheckbox: React.FC<CustomCheckboxProps> = ({ checked, onChange, ariaLabel, className = '' }) => {
+  return (
+    <label className={`relative inline-flex items-center justify-center ${className}`}>
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={onChange}
+        aria-label={ariaLabel}
+        className="peer sr-only"
+      />
+      <span className="flex h-4 w-4 items-center justify-center rounded border-2 border-[#5C33A8] bg-transparent transition-colors peer-checked:bg-[#5C33A8] peer-checked:border-[#5C33A8]">
+        <svg
+          viewBox="0 0 20 20"
+          fill="none"
+          className={`h-4 w-4 text-[#F4A261] absolute pointer-events-none transition-opacity duration-150 ${checked ? 'opacity-100' : 'opacity-0'}`}
+        >
+          <path
+            d="M5 10.5L8.5 14L15 7"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </span>
+    </label>
+  );
+};
 
 const LeadsDashboardClient: React.FC = () => {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [contactMenu, setContactMenu] = useState<{ leadId: string; field: 'email' | 'phone' } | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [session, setSession] = useState<any>(null);
   const [editingLead, setEditingLead] = useState<Lead | null>(null);
@@ -29,9 +67,37 @@ const LeadsDashboardClient: React.FC = () => {
   const [isSaving, setIsSaving] = useState(false);
   const [actionError, setActionError] = useState<string | null>(null);
   const [copiedInfo, setCopiedInfo] = useState<{ id: string; field: "email" | "phone" } | null>(null);
+  const [selectedLeadIds, setSelectedLeadIds] = useState<string[]>([]);
+  const [isDeletingSelected, setIsDeletingSelected] = useState(false);
+  const [showBulkDeleteModal, setShowBulkDeleteModal] = useState(false);
   const copyTimeoutRef = useRef<number | null>(null);
+  const contactMenuCloseTimeoutRef = useRef<number | null>(null);
   const router = useRouter();
   const supabase = createSupabaseClient();
+
+  const formatLeadSource = (lead: Lead) => {
+    const source = (lead.source || '').trim();
+    if (!source) return 'Não informado';
+
+    const normalized = source.toLowerCase();
+    if (normalized.includes('google')) return 'Google';
+    if (normalized.includes('facebook') || normalized.includes('meta')) return 'Facebook';
+    if (normalized.includes('instagram')) return 'Instagram';
+    if (normalized.includes('utm')) return source;
+
+    return source;
+  };
+
+  const handleContactAction = (lead: Lead, field: 'email' | 'phone') => {
+    if (field === 'email') {
+      window.location.href = `mailto:${lead.email}`;
+      return;
+    }
+
+    const digits = lead.phone.replace(/\D/g, '');
+    const whatsappUrl = `https://wa.me/55${digits}`;
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+  };
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -176,23 +242,71 @@ const LeadsDashboardClient: React.FC = () => {
     setActionError(null);
 
     try {
-      const response = await fetch(`/api/admin/leads/${deletingLead.id}`, {
-        method: "DELETE",
-        headers: getAuthHeaders(),
-      });
-
-      if (!response.ok) {
-        const data = await response.json().catch(() => ({}));
-        throw new Error(data.error || `Erro ao remover lead: ${response.status}`);
-      }
+      await deleteLeadById(deletingLead.id);
 
       setLeads((current) => current.filter((currentLead) => currentLead.id !== deletingLead.id));
+      setSelectedLeadIds((current) => current.filter((leadId) => leadId !== deletingLead.id));
       closeDeleteModal();
     } catch (err) {
       console.error("Erro ao remover lead:", err);
       setActionError(err instanceof Error ? err.message : "Falha ao remover lead.");
     } finally {
       setIsSaving(false);
+    }
+  };
+
+  const openContactMenu = (leadId: string, field: "email" | "phone") => {
+    if (contactMenuCloseTimeoutRef.current) {
+      window.clearTimeout(contactMenuCloseTimeoutRef.current);
+      contactMenuCloseTimeoutRef.current = null;
+    }
+    setContactMenu({ leadId, field });
+  };
+
+  const closeContactMenu = () => {
+    if (contactMenuCloseTimeoutRef.current) {
+      window.clearTimeout(contactMenuCloseTimeoutRef.current);
+    }
+
+    contactMenuCloseTimeoutRef.current = window.setTimeout(() => {
+      setContactMenu(null);
+      contactMenuCloseTimeoutRef.current = null;
+    }, 150);
+  };
+
+  const cancelContactMenuClose = () => {
+    if (contactMenuCloseTimeoutRef.current) {
+      window.clearTimeout(contactMenuCloseTimeoutRef.current);
+      contactMenuCloseTimeoutRef.current = null;
+    }
+  };
+
+  const toggleLeadSelection = (leadId: string) => {
+    setSelectedLeadIds((current) =>
+      current.includes(leadId)
+        ? current.filter((selectedId) => selectedId !== leadId)
+        : [...current, leadId]
+    );
+  };
+
+  const toggleSelectAll = () => {
+    if (selectedLeadIds.length === leads.length) {
+      setSelectedLeadIds([]);
+      return;
+    }
+
+    setSelectedLeadIds(leads.map((lead) => lead.id));
+  };
+
+  const deleteLeadById = async (leadId: string) => {
+    const response = await fetch(`/api/admin/leads/${leadId}`, {
+      method: 'DELETE',
+      headers: getAuthHeaders(),
+    });
+
+    if (!response.ok) {
+      const data = await response.json().catch(() => ({}));
+      throw new Error(data.error || `Erro ao remover lead: ${response.status}`);
     }
   };
 
@@ -208,22 +322,62 @@ const LeadsDashboardClient: React.FC = () => {
     }, 2000);
   };
 
+  const closeBulkDeleteModal = () => {
+    setShowBulkDeleteModal(false);
+    setActionError(null);
+  };
+
+  const handleDeleteSelected = async () => {
+    if (selectedLeadIds.length === 0) return;
+
+    setIsDeletingSelected(true);
+    setActionError(null);
+
+    try {
+      const successfulDeletions: string[] = [];
+      const failedDeletions: string[] = [];
+
+      for (const leadId of selectedLeadIds) {
+        try {
+          await deleteLeadById(leadId);
+          successfulDeletions.push(leadId);
+        } catch {
+          failedDeletions.push(leadId);
+        }
+      }
+
+      setLeads((current) => current.filter((lead) => !successfulDeletions.includes(lead.id)));
+      setSelectedLeadIds((current) => current.filter((leadId) => !successfulDeletions.includes(leadId)));
+      setShowBulkDeleteModal(false);
+
+      if (failedDeletions.length > 0) {
+        setActionError(`Falha ao excluir ${failedDeletions.length} lead(s).`);
+      }
+    } finally {
+      setIsDeletingSelected(false);
+    }
+  };
+
   useEffect(() => {
     return () => {
       if (copyTimeoutRef.current) {
         window.clearTimeout(copyTimeoutRef.current);
+      }
+      if (contactMenuCloseTimeoutRef.current) {
+        window.clearTimeout(contactMenuCloseTimeoutRef.current);
       }
     };
   }, []);
 
   const exportCSV = () => {
     const csv = [
-      ["Nome", "Email", "Telefone", "Empresa", "Data"],
+      ["Nome", "Email", "Telefone", "Empresa", "Origem", "Data"],
       ...leads.map((lead) => [
         lead.name,
         lead.email,
         lead.phone,
         lead.company,
+        formatLeadSource(lead),
         new Date(lead.created_at).toLocaleDateString("pt-BR"),
       ]),
     ];
@@ -251,23 +405,32 @@ const LeadsDashboardClient: React.FC = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="max-w-7xl mx-auto"
+        className="max-w-screen mx-auto"
       >
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-4xl font-bold text-white mb-2">Dashboard de Leads</h1>
             <p className="text-[#B9A3E3]">
-              Visualize e gerencie todos os leads do seu formulário
+              Visualize e gerencie todos os leads do seu formulário.
             </p>
           </div>
-          <button
-            onClick={handleLogout}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-red-600/10 hover:bg-red-600/20 text-red-400 transition duration-200"
-          >
-            <LogOut size={20} />
-            <span className="hidden sm:inline">Sair</span>
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => router.push('/dashboard')}
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#310276] hover:bg-[#40009E] text-white transition duration-200"
+            >
+              Ir para NPS
+            </button>
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-red-600/10 hover:bg-red-600/20 text-red-400 transition duration-200"
+            >
+              <LogOut size={20} />
+              <span className="hidden sm:inline">Sair</span>
+            </button>
+          </div>
         </div>
 
         {/* Stats */}
@@ -314,12 +477,36 @@ const LeadsDashboardClient: React.FC = () => {
             </p>
           </div>
         ) : (
-          <div className="bg-[#1A0B2E] border border-[#40009E] rounded-lg overflow-hidden">
+          <div>
+            {selectedLeadIds.length > 0 && (
+              <div className="mb-4 flex items-center justify-between rounded-xl border border-[#40009E]/40 bg-[#120824] px-4 py-3">
+                <span className="text-sm text-[#B9A3E3]">
+                  {selectedLeadIds.length} lead(s) selecionado(s)
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setShowBulkDeleteModal(true)}
+                  disabled={isDeletingSelected}
+                  className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-800 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                >
+                  Excluir selecionados
+                </button>
+              </div>
+            )}
+
+            <div className="bg-[#1A0B2E] max-w-screen border border-[#40009E] rounded-lg overflow-hidden">
             {/* Desktop Table */}
             <div className="hidden md:block overflow-x-auto">
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-[#40009E] bg-[#0E0E0E]">
+                    <th className="px-4 py-4 text-left">
+                      <CustomCheckbox
+                        checked={leads.length > 0 && leads.every((lead) => selectedLeadIds.includes(lead.id))}
+                        onChange={toggleSelectAll}
+                        ariaLabel="Selecionar todos os leads"
+                      />
+                    </th>
                     <th className="text-left px-6 py-4 text-[#B9A3E3] font-semibold text-sm">
                       Nome
                     </th>
@@ -331,6 +518,9 @@ const LeadsDashboardClient: React.FC = () => {
                     </th>
                     <th className="text-left px-6 py-4 text-[#B9A3E3] font-semibold text-sm">
                       Empresa
+                    </th>
+                    <th className="text-left px-6 py-4 text-[#B9A3E3] font-semibold text-sm">
+                      Origem
                     </th>
                     <th className="text-left px-6 py-4 text-[#B9A3E3] font-semibold text-sm">
                       Data
@@ -349,14 +539,46 @@ const LeadsDashboardClient: React.FC = () => {
                       transition={{ delay: index * 0.05 }}
                       className="border-b border-[#40009E]/30 hover:bg-[#310276]/20 transition"
                     >
+                      <td className="px-4 py-4">
+                        <CustomCheckbox
+                          checked={selectedLeadIds.includes(lead.id)}
+                          onChange={() => toggleLeadSelection(lead.id)}
+                          ariaLabel={`Selecionar lead ${lead.name}`}
+                        />
+                      </td>
                       <td className="px-6 py-4 text-white font-medium">{lead.name}</td>
-                      <td
-                        className="px-6 py-4 text-[#B9A3E3] cursor-pointer hover:text-white transition"
-                        title="Clique para copiar email"
-                        onClick={() => copyToClipboard(lead.email, lead.id, 'email')}
-                      >
-                        <div className="relative inline-flex items-center">
-                          {lead.email}
+                      <td className="px-6 py-4 text-[#B9A3E3] align-top">
+                        <div
+                          className="relative inline-flex items-center"
+                          onMouseEnter={() => openContactMenu(lead.id, 'email')}
+                          onMouseLeave={closeContactMenu}
+                        >
+                          <span className="cursor-pointer hover:text-white transition">{lead.email}</span>
+                          {contactMenu?.leadId === lead.id && contactMenu.field === 'email' && (
+                            <motion.div
+                              initial={{ opacity: 0, y: -6 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              onMouseEnter={cancelContactMenuClose}
+                              onMouseLeave={closeContactMenu}
+                              className="absolute left-0 top-full z-20 mt-2 min-w-40 rounded-xl border border-[#5C33A8] bg-[#120824] p-2 shadow-lg shadow-black/40"
+                            >
+                              <div className="flex flex-col gap-1">
+                                <button
+                                  type="button"
+                                  onClick={() => copyToClipboard(lead.email, lead.id, 'email')}
+                                  className="rounded-lg px-2 py-1.5 text-left text-sm text-[#FFE0C0] hover:bg-[#310276]"
+                                >
+                                  Copiar email
+                                </button>
+                                <a
+                                  href={`mailto:${lead.email}`}
+                                  className="rounded-lg px-2 py-1.5 text-left text-sm text-[#FFE0C0] hover:bg-[#310276]"
+                                >
+                                  Abrir email
+                                </a>
+                              </div>
+                            </motion.div>
+                          )}
                           {copiedInfo?.id === lead.id && copiedInfo.field === 'email' && (
                             <motion.div
                               initial={{ opacity: 0, y: -6 }}
@@ -369,13 +591,40 @@ const LeadsDashboardClient: React.FC = () => {
                           )}
                         </div>
                       </td>
-                      <td
-                        className="px-6 py-4 text-[#B9A3E3] cursor-pointer hover:text-white transition"
-                        title="Clique para copiar telefone"
-                        onClick={() => copyToClipboard(lead.phone, lead.id, 'phone')}
-                      >
-                        <div className="relative inline-flex items-center">
-                          {lead.phone}
+                      <td className="px-6 py-4 text-[#B9A3E3] align-top">
+                        <div
+                          className="relative inline-flex items-center"
+                          onMouseEnter={() => openContactMenu(lead.id, 'phone')}
+                          onMouseLeave={closeContactMenu}
+                        >
+                          <span className="cursor-pointer hover:text-white transition">{lead.phone}</span>
+                          {contactMenu?.leadId === lead.id && contactMenu.field === 'phone' && (
+                            <motion.div
+                              initial={{ opacity: 0, y: -6 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              onMouseEnter={cancelContactMenuClose}
+                              onMouseLeave={closeContactMenu}
+                              className="absolute left-0 top-full z-20 mt-2 min-w-40 rounded-xl border border-[#5C33A8] bg-[#120824] p-2 shadow-lg shadow-black/40"
+                            >
+                              <div className="flex flex-col gap-1">
+                                <button
+                                  type="button"
+                                  onClick={() => copyToClipboard(lead.phone, lead.id, 'phone')}
+                                  className="rounded-lg px-2 py-1.5 text-left text-sm text-[#FFE0C0] hover:bg-[#310276]"
+                                >
+                                  Copiar telefone
+                                </button>
+                                <a
+                                  href={`https://wa.me/55${lead.phone.replace(/\D/g, '')}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="rounded-lg px-2 py-1.5 text-left text-sm text-[#FFE0C0] hover:bg-[#310276]"
+                                >
+                                  Abrir WhatsApp
+                                </a>
+                              </div>
+                            </motion.div>
+                          )}
                           {copiedInfo?.id === lead.id && copiedInfo.field === 'phone' && (
                             <motion.div
                               initial={{ opacity: 0, y: -6 }}
@@ -389,6 +638,11 @@ const LeadsDashboardClient: React.FC = () => {
                         </div>
                       </td>
                       <td className="px-6 py-4 text-[#B9A3E3]">{lead.company}</td>
+                      <td className="px-6 py-4 text-[#B9A3E3] text-sm">
+                        <span className="inline-flex rounded-full bg-[#310276]/80 p-2 text-xs font-semibold text-[#FFE0C0]">
+                          {formatLeadSource(lead)}
+                        </span>
+                      </td>
                       <td className="px-6 py-4 text-[#B9A3E3] text-sm">
                         {new Date(lead.created_at).toLocaleDateString("pt-BR")}
                       </td>
@@ -428,32 +682,70 @@ const LeadsDashboardClient: React.FC = () => {
                   transition={{ delay: index * 0.05 }}
                   className="bg-[#0E0E0E] border border-[#40009E]/30 rounded-lg p-4"
                 >
-                  <div className="flex items-start justify-between mb-3">
-                    <div>
-                      <h3 className="text-white font-semibold">{lead.name}</h3>
-                      <p className="text-[#B9A3E3] text-sm flex items-center gap-1 mt-1">
-                        <Building2 size={14} />
-                        {lead.company}
-                      </p>
+                  <div className="flex items-start gap-3 mb-3">
+                    <CustomCheckbox
+                      checked={selectedLeadIds.includes(lead.id)}
+                      onChange={() => toggleLeadSelection(lead.id)}
+                      ariaLabel={`Selecionar lead ${lead.name}`}
+                    />
+                    <div className="flex-1 flex items-start justify-between">
+                      <div>
+                        <h3 className="text-white font-semibold">{lead.name}</h3>
+                        <p className="text-[#B9A3E3] text-sm flex items-center gap-1 mt-1">
+                          <Building2 size={14} />
+                          {lead.company}
+                        </p>
+                      </div>
+                      <span className="text-[#B9A3E3] text-xs">
+                        {new Date(lead.created_at).toLocaleDateString("pt-BR")}
+                      </span>
                     </div>
-                    <span className="text-[#B9A3E3] text-xs">
-                      {new Date(lead.created_at).toLocaleDateString("pt-BR")}
-                    </span>
                   </div>
 
                   <div className="space-y-2 mb-4">
                     <div className="relative">
-                      <button
-                        type="button"
-                        onClick={() => copyToClipboard(lead.email, lead.id, 'email')}
-                        className="w-full text-left text-[#B9A3E3] hover:text-orange-500 transition text-sm"
-                        title="Clique para copiar email"
+                      <div
+                        className="relative w-full"
+                        onMouseEnter={() => openContactMenu(lead.id, 'email')}
+                        onMouseLeave={closeContactMenu}
                       >
-                        <span className="flex items-center gap-2">
-                          <Mail size={14} />
-                          {lead.email}
-                        </span>
-                      </button>
+                        <button
+                          type="button"
+                          onClick={() => copyToClipboard(lead.email, lead.id, 'email')}
+                          className="w-full text-left text-[#B9A3E3] hover:text-orange-500 transition text-sm"
+                          title="Clique para copiar email"
+                        >
+                          <span className="flex items-center gap-2">
+                            <Mail size={14} />
+                            {lead.email}
+                          </span>
+                        </button>
+                        {contactMenu?.leadId === lead.id && contactMenu.field === 'email' && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -6 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            onMouseEnter={cancelContactMenuClose}
+                            onMouseLeave={closeContactMenu}
+                            className="absolute left-0 top-full z-20 mt-2 min-w-40 rounded-xl border border-[#5C33A8] bg-[#120824] p-2 shadow-lg shadow-black/40"
+                          >
+                            <div className="flex flex-col gap-1">
+                              <button
+                                type="button"
+                                onClick={() => copyToClipboard(lead.email, lead.id, 'email')}
+                                className="rounded-lg px-2 py-1.5 text-left text-sm text-[#FFE0C0] hover:bg-[#310276]"
+                              >
+                                Copiar email
+                              </button>
+                              <a
+                                href={`mailto:${lead.email}`}
+                                className="rounded-lg px-2 py-1.5 text-left text-sm text-[#FFE0C0] hover:bg-[#310276]"
+                              >
+                                Abrir email
+                              </a>
+                            </div>
+                          </motion.div>
+                        )}
+                      </div>
                       {copiedInfo?.id === lead.id && copiedInfo.field === 'email' && (
                         <motion.div
                           initial={{ opacity: 0, y: -6 }}
@@ -466,17 +758,50 @@ const LeadsDashboardClient: React.FC = () => {
                       )}
                     </div>
                     <div className="relative">
-                      <button
-                        type="button"
-                        onClick={() => copyToClipboard(lead.phone, lead.id, 'phone')}
-                        className="w-full text-left text-[#B9A3E3] hover:text-orange-500 transition text-sm"
-                        title="Clique para copiar telefone"
+                      <div
+                        className="relative w-full"
+                        onMouseEnter={() => openContactMenu(lead.id, 'phone')}
+                        onMouseLeave={closeContactMenu}
                       >
-                        <span className="flex items-center gap-2">
-                          <Phone size={14} />
-                          {lead.phone}
-                        </span>
-                      </button>
+                        <button
+                          type="button"
+                          onClick={() => copyToClipboard(lead.phone, lead.id, 'phone')}
+                          className="w-full text-left text-[#B9A3E3] hover:text-orange-500 transition text-sm"
+                          title="Clique para copiar telefone"
+                        >
+                          <span className="flex items-center gap-2">
+                            <Phone size={14} />
+                            {lead.phone}
+                          </span>
+                        </button>
+                        {contactMenu?.leadId === lead.id && contactMenu.field === 'phone' && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -6 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            onMouseEnter={cancelContactMenuClose}
+                            onMouseLeave={closeContactMenu}
+                            className="absolute left-0 top-full z-20 mt-2 min-w-40 rounded-xl border border-[#5C33A8] bg-[#120824] p-2 shadow-lg shadow-black/40"
+                          >
+                            <div className="flex flex-col gap-1">
+                              <button
+                                type="button"
+                                onClick={() => copyToClipboard(lead.phone, lead.id, 'phone')}
+                                className="rounded-lg px-2 py-1.5 text-left text-sm text-[#FFE0C0] hover:bg-[#310276]"
+                              >
+                                Copiar telefone
+                              </button>
+                              <a
+                                href={`https://wa.me/55${lead.phone.replace(/\D/g, '')}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="rounded-lg px-2 py-1.5 text-left text-sm text-[#FFE0C0] hover:bg-[#310276]"
+                              >
+                                Abrir WhatsApp
+                              </a>
+                            </div>
+                          </motion.div>
+                        )}
+                      </div>
                       {copiedInfo?.id === lead.id && copiedInfo.field === 'phone' && (
                         <motion.div
                           initial={{ opacity: 0, y: -6 }}
@@ -487,6 +812,12 @@ const LeadsDashboardClient: React.FC = () => {
                           Copiado
                         </motion.div>
                       )}
+                    </div>
+                    <div className="rounded-xl bg-[#120824] px-3 py-2 text-sm">
+                      <div className="text-[#B9A3E3] text-xs uppercase mb-1">Origem</div>
+                      <span className="inline-flex px-2 py-1 text-[10px] font-semibold uppercase text-[#FFE0C0]">
+                        {formatLeadSource(lead)}
+                      </span>
                     </div>
                   </div>
                   <div className="flex flex-wrap gap-3">
@@ -509,6 +840,57 @@ const LeadsDashboardClient: React.FC = () => {
                   </div>
                 </motion.div>
               ))}
+            </div>
+          </div>
+        </div>
+        )}
+
+        {showBulkDeleteModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+            <div className="w-full max-w-md rounded-3xl border border-red-500/30 bg-[#0D0B18] p-6 shadow-2xl">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.3em] text-red-300/80">Confirmar exclusão em lote</p>
+                  <h3 className="mt-2 text-2xl font-semibold text-white">Excluir leads selecionados</h3>
+                </div>
+                <button
+                  type="button"
+                  onClick={closeBulkDeleteModal}
+                  className="rounded-full p-2 text-red-300 hover:bg-red-500/10 transition"
+                  aria-label="Fechar confirmação em lote"
+                >
+                  <HugeiconsIcon icon={CircleXIcon} size={20} color="currentColor" />
+                </button>
+              </div>
+
+              <p className="text-sm leading-6 text-[#D1C4F6]">
+                Você está prestes a excluir <span className="font-semibold text-white">{selectedLeadIds.length}</span> lead(s) selecionado(s).
+                Esta ação é permanente e não pode ser desfeita.
+              </p>
+
+              {actionError && (
+                <div className="mt-4 rounded-2xl bg-red-600/10 border border-red-600/50 p-4 text-sm text-red-300">
+                  {actionError}
+                </div>
+              )}
+
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-start">
+                <button
+                  type="button"
+                  onClick={closeBulkDeleteModal}
+                  className="rounded-2xl border border-[#5C33A8] px-5 py-3 text-sm text-[#B9A3E3] hover:bg-[#1f0b42] transition"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="button"
+                  onClick={handleDeleteSelected}
+                  disabled={isDeletingSelected}
+                  className="rounded-2xl bg-red-600 px-5 py-3 text-sm font-semibold text-white hover:bg-red-800 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                >
+                  {isDeletingSelected ? 'Excluindo...' : 'Excluir permanentemente'}
+                </button>
+              </div>
             </div>
           </div>
         )}
@@ -611,7 +993,7 @@ const LeadsDashboardClient: React.FC = () => {
                 <button
                   type="button"
                   onClick={closeDeleteModal}
-                  className="rounded-full border border-red-500/50 bg-[#14071f] p-2 text-red-300 hover:bg-red-500/10 transition"
+                  className="rounded-full p-2 text-red-300 hover:bg-red-500/10 transition"
                   aria-label="Fechar confirmação de exclusão"
                 >
                   <HugeiconsIcon icon={CircleXIcon} size={20} color="currentColor" />

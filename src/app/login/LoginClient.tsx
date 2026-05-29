@@ -1,10 +1,27 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../../contexts/AuthContext';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
+
+type AccessType = 'nps' | 'form';
+
+const accessOptions: Record<AccessType, { label: string; title: string; description: string; redirectTo: string }> = {
+  nps: {
+    label: 'NPS',
+    title: 'NPS',
+    description: 'Acesse o painel com os dados do NPS.',
+    redirectTo: '/dashboard',
+  },
+  form: {
+    label: 'Formulário',
+    title: 'Formulário',
+    description: 'Acesse o painel com os dados do formulário.',
+    redirectTo: '/dashboard/leads',
+  },
+};
 
 export default function LoginClient() {
   const [email, setEmail] = useState('');
@@ -12,12 +29,29 @@ export default function LoginClient() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [devMessage, setDevMessage] = useState('');
   const [devLoading, setDevLoading] = useState(false);
+  const [selectedAccess, setSelectedAccess] = useState<AccessType>('nps');
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get('redirectTo') || '/dashboard';
   const { signIn, loading } = useAuth();
   const router = useRouter();
   const localDevMode = process.env.NODE_ENV === 'development';
   const devModeEnabled = localDevMode || process.env.NEXT_PUBLIC_DEV_MODE === 'true';
+
+  useEffect(() => {
+    setSelectedAccess(redirectTo === '/dashboard/leads' ? 'form' : 'nps');
+  }, [redirectTo]);
+
+  const activeAccess = accessOptions[selectedAccess];
+
+  const handleAccessChange = (access: AccessType) => {
+    setSelectedAccess(access);
+    setMessage('');
+    setIsSuccess(false);
+    setDevMessage('');
+
+    const targetRedirectTo = accessOptions[access].redirectTo;
+    router.replace(`/login?redirectTo=${encodeURIComponent(targetRedirectTo)}`);
+  };
 
   const handleMagicLink = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,7 +60,7 @@ export default function LoginClient() {
     setMessage('');
 
     try {
-      const { error } = await signIn(email, redirectTo);
+      const { error } = await signIn(email, activeAccess.redirectTo);
 
       if (error) {
         console.error('Erro detalhado:', error);
@@ -61,7 +95,7 @@ export default function LoginClient() {
         return;
       }
 
-      router.push('/dashboard/leads');
+      router.push(activeAccess.redirectTo);
     } catch (err) {
       console.error('Erro dev login:', err);
       setDevMessage('Erro ao entrar em modo dev. Tente novamente.');
@@ -95,13 +129,34 @@ export default function LoginClient() {
               />
             </motion.div>
 
+            <div className="grid grid-cols-2 gap-2 p-1 rounded-full bg-[#220b4d] border border-[#7047BD] mb-6">
+              {(Object.keys(accessOptions) as AccessType[]).map((access) => {
+                const option = accessOptions[access];
+                const isActive = selectedAccess === access;
+
+                return (
+                  <button
+                    key={access}
+                    type="button"
+                    onClick={() => handleAccessChange(access)}
+                    className={`px-3 py-2 rounded-full text-sm font-semibold transition-all ${isActive
+                      ? 'bg-[#FFE0C0] text-[#0E0E0E] shadow-lg'
+                      : 'text-[#FFE0C0] hover:bg-[#310276]'
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                );
+              })}
+            </div>
+
             <motion.h1
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
               className="text-xl md:text-2xl font-bold text-white text-center mb-2"
             >
-              Acessar nosso NPS
+              Acessar dados do {activeAccess.title}
             </motion.h1>
 
             <motion.p
@@ -110,7 +165,7 @@ export default function LoginClient() {
               transition={{ delay: 0.3, duration: 0.5 }}
               className="text-[#BABABA] text-center mb-6 text-sm"
             >
-              Enviaremos um link com login ao NPS para o seu email
+              {activeAccess.description}
             </motion.p>
 
             <motion.form
@@ -131,7 +186,7 @@ export default function LoginClient() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="seuemail@email.com"
                   required
-                  className="w-full px-4 py-3 bg-[#310276] border border-[#7047BD] rounded-[100px] text-[#FFE0C0] placeholder-[#FFE0C0] focus:outline-none focus:border-[#FFE0C0] focus:ring-1 focus:ring-[#FFE0C0] transition-all"
+                  className="w-full px-4 py-3 bg-[#310276] border border-[#7047BD] rounded-[100px] text-[#FFE0C0] placeholder-[#FFE0C0]/40 focus:outline-none focus:border-[#FFE0C0] focus:ring-1 focus:ring-[#FFE0C0] transition-all"
                 />
               </div>
 

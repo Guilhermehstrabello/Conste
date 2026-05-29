@@ -1,23 +1,53 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../../contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { LogOut } from 'lucide-react';
 import { useNPSData, getNPSCategory, formatNPSScore, formatDate, formatMonth } from '../../hooks/useNPSData';
 
 const DashboardPage = () => {
   const { user, loading, signOut } = useAuth();
   const router = useRouter();
+  const [isDevAuthenticated, setIsDevAuthenticated] = useState(false);
+  const [authCheckLoading, setAuthCheckLoading] = useState(true);
   const [filters, setFilters] = useState<{
     limit: number;
     offset: number;
     score?: number | 'all';
     dateFrom?: string;
-      dateTo?: string;
+    dateTo?: string;
   }>({ limit: 50, offset: 0 });
   const { data: npsData, loading: npsLoading, error: npsError, refetch } = useNPSData(filters);
+
+  useEffect(() => {
+    const checkDevAuth = async () => {
+      if (user) {
+        setIsDevAuthenticated(true);
+        setAuthCheckLoading(false);
+        return;
+      }
+
+      try {
+        const verifyRes = await fetch('/api/dev-auth', {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        });
+
+        if (verifyRes.ok) {
+          setIsDevAuthenticated(true);
+        }
+      } catch (err) {
+        console.error('Falha ao validar auth de desenvolvimento:', err);
+      } finally {
+        setAuthCheckLoading(false);
+      }
+    };
+
+    checkDevAuth();
+  }, [user]);
 
   const handleLogout = async () => {
     const { error } = await signOut();
@@ -28,7 +58,7 @@ const DashboardPage = () => {
     }
   };
 
-  if (loading) {
+  if (loading || authCheckLoading) {
     return (
       <div className="min-h-screen bg-[#0E0E0E] flex items-center justify-center">
         <motion.div
@@ -43,79 +73,46 @@ const DashboardPage = () => {
     );
   }
 
-  if (!user) {
-    return null; // O useEffect vai redirecionar
+  if (!user && !isDevAuthenticated) {
+    return null;
   }
 
   return (
     <div className="min-h-screen bg-[#0E0E0E]">
       <div className="absolute inset-0 bg-hero_bg bg-cover bg-center opacity-10"></div>
-      
-      {/* Header */}
-      <motion.header
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="relative z-10 backdrop-blur-sm border-b border-[#310276]"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            {/* Logo */}
-            <div className="flex items-center">
-              <Image
-                src="/Logo Conste.png"
-                alt="Conste Logo"
-                width={100}
-                height={50}
-                className="object-contain"
-              />
-            </div>
 
-            {/* User Info & Logout */}
-            <div className="flex items-center space-x-4">
-              <div className="text-white">
-                <p className="text-sm text-[#BABABA]">Bem-vindo,</p>
-                <p className="font-medium">{user.email}</p>
-              </div>
-              
-              <motion.button
-                onClick={handleLogout}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="group relative inline-block p-px font-semibold leading-6 text-white bg-red-600 shadow-2xl cursor-pointer rounded-[100px] shadow-red-600 transition-all duration-300 ease-in-out hover:scale-105 active:scale-95"
-              >
-                <span className="absolute inset-0 rounded-[100px] bg-gradient-to-r from-red-600 via-red-500 to-red-400 p-[2px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"></span>
-                <span className="relative z-10 block px-4 py-2 rounded-[100px] bg-neutral-950">
-                  <div className="relative z-10 flex items-center space-x-2">
-                    <span className="transition-all duration-500 group-hover:text-red-300 text-sm">
-                      Sair
-                    </span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="w-4 h-4 transition-all duration-500 group-hover:translate-x-1 group-hover:text-red-300"
-                    >
-                      <path d="M16 17v-3H9v-4h7V7l5 5-5 5M14 2a2 2 0 012 2v2h-2V4H5v16h9v-2h2v2a2 2 0 01-2 2H5a2 2 0 01-2-2V4a2 2 0 012-2h9z"/>
-                    </svg>
-                  </div>
-                </span>
-              </motion.button>
-            </div>
-          </div>
-        </div>
-      </motion.header>
-
-      {/* Main Content */}
-      <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Simple Header */}
+      <main className="relative z-10 max-w-screen mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.5 }}
           className="mb-8"
         >
-          <h1 className="text-2xl font-bold text-white mb-6">Conste NPS Dashboard</h1>
+          <div className="flex flex-col lg:flex-row justify-between items-start gap-4">
+            <div>
+              <h1 className="text-4xl font-bold text-white mb-2">Conste NPS Dashboard</h1>
+              <p className="text-[#B9A3E3]">
+                Visualize e gerencie as respostas NPS para acompanhar a performance dos seus clientes.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => router.push('/dashboard/leads')}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#310276] hover:bg-[#40009E] text-white transition duration-200"
+              >
+                Ir para dashboard de leads
+              </button>
+              <button
+                onClick={handleLogout}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-red-600/10 hover:bg-red-600/20 text-red-400 transition duration-200"
+              >
+                <LogOut size={20} />
+                <span className="hidden sm:inline">Sair</span>
+              </button>
+            </div>
+          </div>
         </motion.div>
 
         {npsLoading ? (
@@ -154,7 +151,7 @@ const DashboardPage = () => {
               className="mb-8"
             >
               <h2 className="text-white text-xl font-semibold mb-6">Principais métricas</h2>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:h-[200px] h-auto">
                 {/* Média geral */}
                 <div className="bg-[#FF8500] border-[#FEAC56] border-2 rounded-3xl justify-between flex flex-col p-6">
@@ -184,8 +181,8 @@ const DashboardPage = () => {
                   <p className="text-white text-base">Respostas no mês</p>
                   <div className="flex items-baseline gap-2">
                     <span className="text-white text-3xl lg:text-4xl font-bold">
-                      {npsData.summary.monthlyTrend.length > 0 
-                        ? npsData.summary.monthlyTrend[npsData.summary.monthlyTrend.length - 1]?.responseCount || 0 
+                      {npsData.summary.monthlyTrend.length > 0
+                        ? npsData.summary.monthlyTrend[npsData.summary.monthlyTrend.length - 1]?.responseCount || 0
                         : 0}
                     </span>
                     <span className="text-purple-300 text-sm">+40%</span>
@@ -215,7 +212,7 @@ const DashboardPage = () => {
                 <div className="text-center py-12">
                   <div className="w-16 h-16 bg-[#310276] flex items-center justify-center mx-auto mb-4">
                     <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                      <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
                     </svg>
                   </div>
                   <h4 className="text-white text-lg font-medium mb-2">Nenhuma resposta encontrada</h4>
@@ -229,25 +226,25 @@ const DashboardPage = () => {
                     <div className="text-[#BABABA] text-sm font-medium flex items-center gap-1">
                       Nome da empresa
                       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M7 14l5-5 5 5z"/>
+                        <path d="M7 14l5-5 5 5z" />
                       </svg>
                     </div>
                     <div className="text-[#BABABA] text-sm font-medium flex items-center gap-1">
                       Nome do cliente
                       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M7 14l5-5 5 5z"/>
+                        <path d="M7 14l5-5 5 5z" />
                       </svg>
                     </div>
                     <div className="text-[#BABABA] text-sm font-medium flex items-center gap-1">
                       Pontuação média
                       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M7 14l5-5 5 5z"/>
+                        <path d="M7 14l5-5 5 5z" />
                       </svg>
                     </div>
                     <div className="text-[#BABABA] text-sm font-medium flex items-center gap-1">
                       Data de envio
                       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M7 14l5-5 5 5z"/>
+                        <path d="M7 14l5-5 5 5z" />
                       </svg>
                     </div>
                   </div>
@@ -256,7 +253,7 @@ const DashboardPage = () => {
                   <div className="divide-y divide-[#310276] space-y-4">
                     {npsData.data.slice(0, 10).map((response, index) => {
                       const category = getNPSCategory(response.score);
-                      
+
                       return (
                         <motion.div
                           key={response.id}
@@ -273,7 +270,7 @@ const DashboardPage = () => {
                             {response.name}
                           </div>
                           <div className="flex items-center gap-2">
-                            <span 
+                            <span
                               className="text-white font-bold text-lg"
                               style={{ color: category.color }}
                             >
@@ -286,7 +283,7 @@ const DashboardPage = () => {
                             </span>
                             <button className="opacity-0 group-hover:opacity-100 transition-opacity">
                               <svg className="w-4 h-4 text-[#BABABA] hover:text-white" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                                <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
                               </svg>
                             </button>
                           </div>

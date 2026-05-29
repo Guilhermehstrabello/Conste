@@ -10,6 +10,33 @@ function getSupabaseAdmin() {
   return createClient(url, key);
 }
 
+function inferLeadSource(req: Request, body: Record<string, unknown>) {
+  const explicitSource = typeof body.source === 'string' ? body.source.trim() : '';
+  if (explicitSource) return explicitSource;
+
+  const referer = req.headers.get('referer') || '';
+  const referrerUrl = referer ? new URL(referer) : null;
+  const utmSource = referrerUrl?.searchParams.get('utm_source') || '';
+
+  if (utmSource) {
+    return utmSource;
+  }
+
+  const referrer = referer.toLowerCase();
+  if (referrer.includes('google')) return 'Google';
+  if (referrer.includes('facebook') || referrer.includes('fbclid') || referrer.includes('meta')) return 'Facebook';
+  if (referrer.includes('instagram') || referrer.includes('ig')) return 'Instagram';
+
+  return 'Não identificado';
+}
+
+function isMissingSourceColumnError(error: unknown) {
+  if (typeof error !== 'object' || error === null) return false;
+
+  const errorObj = error as { code?: string; message?: string };
+  return errorObj.code === 'PGRST204' || (typeof errorObj.message === 'string' && errorObj.message.includes("Could not find the 'source' column"));
+}
+
 export async function POST(req: Request) {
   try {
     const body = await req.json();
@@ -19,6 +46,7 @@ export async function POST(req: Request) {
     const email = typeof body.email === 'string' ? body.email.trim() : null;
     const phone = typeof body.phone === 'string' ? body.phone.trim() : null;
     const company = typeof body.company === 'string' ? body.company.trim() : null;
+    const source = inferLeadSource(req, body);
 
     if (!email && !name) {
       return new Response(JSON.stringify({ error: 'name or email required' }), { status: 400 });
@@ -43,18 +71,28 @@ export async function POST(req: Request) {
       return new Response(JSON.stringify({ error: 'Supabase not configured' }), { status: 500 });
     }
 
+    const leadPayload = {
+      name,
+      email,
+      phone,
+      company,
+      source,
+    };
+
     console.time('supabase-insert');
-    const { error } = await supabaseAdmin.from('leads').insert([
-      {
-        name,
-        email,
-        phone,
-        company,
-      },
-    ]);
+    const { error } = await supabaseAdmin.from('leads').insert([leadPayload]);
     console.timeEnd('supabase-insert');
 
-    if (error) {
+    if (error && isMissingSourceColumnError(error)) {
+      console.warn('Source column not available yet; retrying insert without source metadata');
+      const fallbackPayload = { name, email, phone, company };
+      const { error: fallbackError } = await supabaseAdmin.from('leads').insert([fallbackPayload]);
+
+      if (fallbackError) {
+        console.error('Supabase insert error (admin fallback):', fallbackError);
+        return new Response(JSON.stringify({ error: fallbackError.message }), { status: 500 });
+      }
+    } else if (error) {
       console.error('Supabase insert error (admin):', error);
       return new Response(JSON.stringify({ error: error.message }), { status: 500 });
     }
