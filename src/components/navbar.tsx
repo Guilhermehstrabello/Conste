@@ -4,18 +4,31 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-const NAV_ITEMS = [
+interface NavSubItem {
+  label: string;
+  path: string;
+  disabled?: boolean;
+}
+
+interface NavItem {
+  label: string;
+  path?: string;
+  subitems?: NavSubItem[];
+  disabled?: boolean;
+}
+
+const NAV_ITEMS: NavItem[] = [
   { label: "Home", path: "/" },
   {
     label: "Serviços",
     subitems: [
       { label: "Performance", path: "/performance" },
-      { label: "Midias sociais", path: "/midias-sociais" },
-      { label: "Sites", path: "/sites" },
-      { label: "Audiovisual", path: "/audiovisual" },
+      { label: "Midias sociais", path: "/midias-sociais", disabled: true },
+      { label: "Sites", path: "/sites", disabled: true },
+      { label: "Audiovisual", path: "/audiovisual", disabled: true },
     ],
   },
-  { label: "Blog", path: "/blog" },
+  { label: "Blog", path: "/blog", disabled: true },
   { label: "Contato", path: "/contato" },
 ];
 
@@ -77,25 +90,45 @@ const Navbar = () => {
                   <div key={item.label} className="space-y-3">
                     <div className="text-xs uppercase tracking-[.3em] text-[#A99F9E]">{item.label}</div>
                     <div className="space-y-2 rounded-3xl bg-[#5413a9] p-4 border border-[#310276]/20">
-                      {item.subitems.map((sub) => (
-                        <Link
-                          key={sub.label}
-                          href={sub.path}
-                          onClick={() => setIsOpen(false)}
-                          className="block rounded-2xl px-4 py-3 text-lg font-medium text-white transition hover:bg-[#310276]/20"
-                        >
-                          {sub.label}
-                        </Link>
-                      ))}
+                      {item.subitems.map((sub) =>
+                        sub.disabled ? (
+                          <span
+                            key={sub.label}
+                            className="block rounded-2xl px-4 py-3 text-lg font-medium text-white/30 cursor-not-allowed select-none"
+                          >
+                            {sub.label}
+                          </span>
+                        ) : (
+                          <Link
+                            key={sub.label}
+                            href={sub.path}
+                            onClick={() => setIsOpen(false)}
+                            className="block rounded-2xl px-4 py-3 text-lg font-medium text-white transition hover:bg-[#310276]/20"
+                          >
+                            {sub.label}
+                          </Link>
+                        )
+                      )}
                     </div>
                   </div>
+                );
+              }
+
+              if (item.disabled) {
+                return (
+                  <span
+                    key={item.label}
+                    className="block rounded-3xl bg-[#1A0B2E]/40 px-5 py-4 text-lg font-medium text-white/30 cursor-not-allowed select-none"
+                  >
+                    {item.label}
+                  </span>
                 );
               }
 
               return (
                 <Link
                   key={item.label}
-                  href={item.path}
+                  href={item.path || "#"}
                   onClick={() => setIsOpen(false)}
                   className="block rounded-3xl bg-[#1A0B2E] px-5 py-4 text-lg font-medium text-white transition hover:bg-[#310276]/20"
                 >
@@ -120,7 +153,9 @@ const Navbar = () => {
                   >
                     <button
                       type="button"
-                      className="flex items-center gap-2 py-4 px-5 rounded-full text-sm font-semibold text-white transition-all duration-200 hover:bg-[#310276]/15"
+                      className={`flex items-center gap-2 py-2 px-4 rounded-full text-sm font-semibold text-white transition-all duration-200 ${
+                        openDropdown === item.label ? "bg-[#5413a9]" : "hover:bg-[#5413a9]"
+                      }`}
                     >
                       {item.label}
                       <svg
@@ -134,26 +169,47 @@ const Navbar = () => {
                       </svg>
                     </button>
 
-                    <div className={`absolute left-0 top-full mt-1 min-w-[260px] rounded-3xl border border-[#310276]/30 bg-[#200740] p-4 shadow-[0_20px_60px_rgba(49,2,118,0.25)] transition-opacity duration-200 ${openDropdown === item.label ? "opacity-100 visible" : "opacity-0 invisible"}`}>
-                      <div className="grid gap-2">
-                        {item.subitems.map((sub) => (
-                          <Link
-                            key={sub.label}
-                            href={sub.path}
-                            className="block rounded-2xl px-4 py-3 text-sm font-medium text-white transition hover:bg-[#5413a9]"
-                          >
-                            {sub.label}
-                          </Link>
-                        ))}
+                    <div className={`absolute left-0 top-full pt-2 min-w-[260px] transition-all duration-200 ${openDropdown === item.label ? "opacity-100 visible" : "opacity-0 invisible"}`}>
+                      <div className="rounded-3xl border border-[#310276]/30 bg-[#200740] p-4 shadow-[0_20px_60px_rgba(49,2,118,0.25)]">
+                        <div className="grid gap-2">
+                          {item.subitems.map((sub) =>
+                            sub.disabled ? (
+                              <span
+                                key={sub.label}
+                                className="block rounded-2xl px-4 py-3 text-sm font-medium text-white/30 cursor-not-allowed select-none"
+                              >
+                                {sub.label}
+                              </span>
+                            ) : (
+                              <Link
+                                key={sub.label}
+                                href={sub.path}
+                                className="block rounded-2xl px-4 py-3 text-sm font-medium text-white transition hover:bg-[#5413a9]"
+                              >
+                                {sub.label}
+                              </Link>
+                            )
+                          )}
+                        </div>
                       </div>
                     </div>
                   </li>
                 );
               }
 
+              if (item.disabled) {
+                return (
+                  <li key={item.label}>
+                    <span className="rounded-full py-2 px-4 text-sm font-semibold text-white/30 cursor-not-allowed select-none">
+                      {item.label}
+                    </span>
+                  </li>
+                );
+              }
+
               return (
                 <li key={item.label}>
-                  <Link href={item.path} className="rounded-full py-2 px-4 text-sm font-semibold text-white transition-all duration-200 hover:bg-[#5413a9]">
+                  <Link href={item.path || "#"} className="rounded-full py-2 px-4 text-sm font-semibold text-white transition-all duration-200 hover:bg-[#5413a9]">
                     {item.label}
                   </Link>
                 </li>
